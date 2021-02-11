@@ -1,6 +1,8 @@
-# Feed us Website
+# Feed us website
 
-The site that helps you and your family plan the dinner for the week
+The site that helps you and your family plan the dinner for the week including shopping list management.
+
+![Feed us layout](wireframes/feedus-site.png)
 
 ## UX
 
@@ -16,7 +18,19 @@ List user Stories:
 - As a user, I should be able to add items to the shoppinglist so I dont miss buying other items in the store.
 - ...
 
+### Wireframes
+
 This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
+
+### Navigation
+
+The website contains a clear navigation on every page.
+The site is based on a navigational hierarchical tree structure.
+Navigation bar is responsive and will fold down to a burger menu when it wont fit the size.
+
+- Planner page
+- Recipes page
+- Shopping page
 
 ## Features
 
@@ -47,6 +61,8 @@ In this section, all of the languages, frameworks, libraries, and any other tool
   - Used to layout the site.
 - [Javascript](#)
   - Used to handle site code logic and API integrations
+- [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+  - used to make site responsive
 - [themealdb](https://www.themealdb.com/api.php)
   - Used as recepie database
 - [JQuery](https://jquery.com)
@@ -103,3 +119,4 @@ In addition, if it is not obvious, you should also describe how to run your code
 ### Acknowledgements
 
 - I received inspiration for multilanguage from https://stackoverflow.com/questions/46008760/how-to-build-multiple-language-website-using-pure-html-js-jquery
+- I received inspiration for drag and drop from https://mdbootstrap.com/docs/standard/plugins/drag-and-drop/
