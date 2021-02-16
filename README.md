@@ -16,6 +16,8 @@ List user Stories:
 - As a user, I would like to find a recepie and add it to the week planning so that I can get an week overview of what is for dinner.
 - As a user, I would like to get an automated shopping list based on my weekly schedule, so I know what to buy in the store.
 - As a user, I should be able to add items to the shoppinglist so I dont miss buying other items in the store.
+- As a user, I should be able to tick off items when Im in the store so I know what I have left to find.
+- As a user, I would like to send my shopping list as an email to my fellow, so I dont have todo all shopping myself.
 - ...
 
 ### Wireframes
@@ -28,24 +30,20 @@ The website contains a clear navigation on every page.
 The site is based on a navigational hierarchical tree structure.
 Navigation bar is responsive and will fold down to a burger menu when it wont fit the size.
 
-- Planner page
-- Recipes page
-- Shopping page
-- email
+- Whats for dinner page
+- Browse meals page
+- Shoppinglist page, with email possabillity
 
 ## Features
 
 ### Existing Features
 
-- Recepie tool - allows user to to find a recepie by searching for a dish by using the query filed.
-- Dinner planning - allows user to get a dinner overview by draging dishes between days.
-- Shopping list - Allows user to establish a shopping list where additional item can be added.
+- [Browse meals](wireframes/browse-meals.png) - allows user to to find a recepie by searching for a dish by using the query filed.
+- [Dinner planning](wireframes/planning.png) - allows user to get a dinner overview by draging dishes between days.
+- [Shopping list](wireframes/shoppinglist.png) - Allows user to establish a shopping list where additional item can be added.
+- [Meals details page](wireframes/meal.png) - let the user see the recepie details for the meal.
 - Feature 1 - allows users X to achieve Y, by having them fill out Z
 - ...
-
-For some/all of your features, you may choose to reference the specific project files that implement them, although this is entirely optional.
-
-In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
 
 ### Features Left to Implement
 
@@ -124,3 +122,6 @@ In addition, if it is not obvious, you should also describe how to run your code
 
 - I received inspiration for multilanguage from https://stackoverflow.com/questions/46008760/how-to-build-multiple-language-website-using-pure-html-js-jquery
 - I received inspiration for drag and drop from https://mdbootstrap.com/docs/standard/plugins/drag-and-drop/
+- https://www.allrecipes.com/
+- https://www.simplyrecipes.com/
+- https://www.freepik.com/premium-vector/weekly-planner-template-with-floral-watercolor_5643584.htm
