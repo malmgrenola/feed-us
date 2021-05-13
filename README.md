@@ -71,6 +71,8 @@ In this section, all of the languages, frameworks, libraries, and any other tool
   - https://console.firebase.google.com/project/neon-research-304412/overview
 - [Google Cloud Translation](https://cloud.google.com/translate/docs/basic/quickstart)
   - Used to translate recepies
+- [Yarn](https://yarnpkg.com/)
+  - Used to start dev environment
 - ...
 
 ## Testing
@@ -105,7 +107,16 @@ In particular, you should provide all details of the differences between the dep
 - Different configuration files?
 - Separate git branch?
 
-In addition, if it is not obvious, you should also describe how to run your code locally.
+## Development
+
+This project uses `yarn` to start development server.
+
+In the terminal run:  
+`yarn` - to download all dependencies  
+`yarn dev` - to start dev environment.
+
+a http-server should start on port 3000 and site is now be available on `http://localhost:3000`.  
+To change default port please update in `package.json` under scripts section.
 
 ## Credits
 

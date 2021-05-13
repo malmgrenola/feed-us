@@ -1,0 +1,15 @@
+{
+  "name": "feed-us",
+  "version": "1.0.0",
+  "description": "Meal planning site",
+  "main": "index.js",
+  "repository": "https://github.com/malmgrenola/feed-us.git",
+  "author": "Ola Malmgren <malmgrenola@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "http-server static/ -p 3000"
+  },
+  "dependencies": {
+    "http-server": "^0.12.3"
+  }
+}
