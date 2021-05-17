@@ -5,8 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="Description" content="" />
     <title>Feed us - Plan dinners for the week</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/db672dfa3e.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="shortcut icon" href="/assets/images/birds-icon.png" />
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      function initFingerprintJS() {
+        // Initialize an agent at application startup.
+        const fpPromise = FingerprintJS.load();
+
+        // Get the visitor identifier when you need it.
+        fpPromise
+          .then(fp => fp.get())
+          .then(result => {
+            // This is the visitor identifier:
+            const visitorId = result.visitorId;
+            console.log(visitorId);
+          });
+      }
+    </script>
+    <script
+      async
+      src="//cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"
+      onload="initFingerprintJS()"
+    ></script>
   </head>
   <body>
     <header>
@@ -22,19 +53,80 @@
       <h1>Week planner</h1>
       <h2>What's for dinner?</h2>
       <ul>
-        <li>Monday</li>
-        <li>Tuesday</li>
-        <li>Wednesday</li>
-        <li>Thursday</li>
-        <li>Friday</li>
-        <li>Saturday</li>
-        <li>Sunday</li>
-        <li>Favorites</li>
+        <li>
+          <h3>Monday</h3>
+          <img
+            src="https://www.themealdb.com/images/media/meals/6ut2og1619790195.jpg"
+            alt="Dish image"
+          />
+          <h4>Dish name</h4>
+        </li>
+        <li>
+          <h3>Tuesday</h3>
+          <img
+            src="https://www.themealdb.com/images/media/meals/bc8v651619789840.jpg"
+            alt="Dish image"
+          />
+          <h4>Dish name</h4>
+        </li>
+        <li>
+          <h3>Wednesday</h3>
+          <img
+            src="https://www.themealdb.com/images/media/meals/hx335q1619789561.jpg"
+            alt="Dish image"
+          />
+          <h4>Dish name</h4>
+        </li>
+        <li>
+          <h3>Thursday</h3>
+          <img
+            src="https://www.themealdb.com/images/media/meals/wai9bw1619788844.jpg"
+            alt="Dish image"
+          />
+          <h4>Dish name</h4>
+        </li>
+        <li>
+          <h3>Friday</h3>
+          <img
+            src="https://www.themealdb.com/images/media/meals/jcr46d1614763831.jpg"
+            alt="Dish image"
+          />
+          <h4>Dish name</h4>
+        </li>
+        <li>
+          <h3>Saturday</h3>
+          <img
+            src="https://www.themealdb.com/images/media/meals/020z181619788503.jpg"
+            alt="Dish image"
+          />
+          <h4>Dish name</h4>
+        </li>
+        <li>
+          <h3>Sunday</h3>
+          <img
+            src="https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"
+            alt="Dish image"
+          />
+          <h4>Dish name</h4>
+        </li>
+        <li>
+          <h3>Favorites</h3>
+          <img
+            src="https://www.themealdb.com/images/media/meals/xquakq1619787532.jpg"
+            alt="Dish image"
+          />
+          <h4>Dish name</h4>
+        </li>
       </ul>
       <p>Weekdays</p>
     </section>
     <footer>
       <h2>Footer</h2>
     </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

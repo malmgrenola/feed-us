@@ -62,6 +62,8 @@ In this section, all of the languages, frameworks, libraries, and any other tool
   - Used to handle site code logic and API integrations
 - [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
   - used to make site responsive
+- [Fontawesome](https://fontawesome.com/)
+  - Used to display icons on website
 - [themealdb](https://www.themealdb.com/api.php)
   - Used as recepie database
 - [JQuery](https://jquery.com)
@@ -73,6 +75,8 @@ In this section, all of the languages, frameworks, libraries, and any other tool
   - Used to translate recepies
 - [Yarn](https://yarnpkg.com/)
   - Used to start dev environment
+- [fingerprintjs](https://github.com/fingerprintjs/fingerprintjs)
+  - is used to create a browser fingerprint without the user actually login.
 - ...
 
 ## Testing
