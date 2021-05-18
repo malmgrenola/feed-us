@@ -1,9 +1,5 @@
 let session = {};
 
-$(document).ready(function() {
-  console.log("document Ready");
-});
-
 function initData() {
   console.log("initUserData - Loading");
   fbInit();
@@ -50,10 +46,12 @@ function initData() {
 
 function setMealData(props) {
   // Toggle meal
-  const mealId =
-    session.data?.meals[props.weekday] != props.mealid ? props.mealid : null;
+  const meal =
+    session.data?.meals[props.weekday]?.idMeal != props.mealid
+      ? JSON.parse(decodeURIComponent(props.meal))
+      : null;
 
-  fbSetMealData(session.id, props.weekday, mealId, session.data?.meals)
+  fbSetMealData(session.id, props.weekday, meal, session.data?.meals)
     .then(docs => {
       fbGetUserDocument(session.id)
         .then(doc => {
