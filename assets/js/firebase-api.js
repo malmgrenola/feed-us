@@ -34,8 +34,6 @@ function fbSetMealData(id, date, meal, currentMeals) {
   const meals = currentMeals ? currentMeals : {};
   meals[date] = meal;
 
-  currentMeals = meals;
-
   return initDocRef(id).set({
     fp: id,
     meals: meals

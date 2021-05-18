@@ -1,6 +1,5 @@
 $(document).ready(function() {
   console.log("document Ready");
-  render();
 });
 
 function render() {
@@ -14,7 +13,7 @@ function render() {
     // Set states on page
     for (const date in userMeals) {
       $(
-        `ul.qWeek li[data-weekday='${date}'][data-mealid='${userMeals[date]}']`
+        `ul.qWeek li[data-weekday='${date}'][data-mealid='${userMeals[date]?.idMeal}']`
       ).css("font-weight", "bold");
     }
   }

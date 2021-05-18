@@ -29,9 +29,9 @@ function mealsResultHTML(meals) {
   if (meals == null) {
     return `No meals found`;
   }
-  console.log(meals);
   var mealItemsHTML = meals.map(function(meal, i) {
     //<a href="meal.html?id=${meal.idMeal}" >${meal.strMeal}</a>
+
     function ingString(ingredient) {
       const pm = meals.length - 1 !== i ? ", " : "";
       return ingredient !== "" ? ingredient + pm : "";
@@ -51,14 +51,30 @@ function mealsResultHTML(meals) {
       <h4>${meal.strMeal}</h4>
       <p>${ingridients.join(", ")}</p>
       <ul class="qWeek">
-        <li data-weekday="Mon" data-mealid="${meal.idMeal}">Mon</li>
-        <li data-weekday="Tue" data-mealid="${meal.idMeal}">Tue</li>
-        <li data-weekday="Wed" data-mealid="${meal.idMeal}">Wed</li>
-        <li data-weekday="Thu" data-mealid="${meal.idMeal}">Thu</li>
-        <li data-weekday="Fri" data-mealid="${meal.idMeal}">Fri</li>
-        <li data-weekday="Sat" data-mealid="${meal.idMeal}">Sat</li>
-        <li data-weekday="Sun" data-mealid="${meal.idMeal}">Sun</li>
-        <li data-weekday="Fav" data-mealid="${meal.idMeal}">Fav</li>
+        <li data-weekday="Mon" data-mealid="${
+          meal.idMeal
+        }" data-meal="${encodeURIComponent(JSON.stringify(meal))}">Mon</li>
+        <li data-weekday="Tue" data-mealid="${
+          meal.idMeal
+        }" data-meal="${encodeURIComponent(JSON.stringify(meal))}">Tue</li>
+        <li data-weekday="Wed" data-mealid="${
+          meal.idMeal
+        }" data-meal="${encodeURIComponent(JSON.stringify(meal))}">Wed</li>
+        <li data-weekday="Thu" data-mealid="${
+          meal.idMeal
+        }" data-meal="${encodeURIComponent(JSON.stringify(meal))}">Thu</li>
+        <li data-weekday="Fri" data-mealid="${
+          meal.idMeal
+        }" data-meal="${encodeURIComponent(JSON.stringify(meal))}">Fri</li>
+        <li data-weekday="Sat" data-mealid="${
+          meal.idMeal
+        }" data-meal="${encodeURIComponent(JSON.stringify(meal))}">Sat</li>
+        <li data-weekday="Sun" data-mealid="${
+          meal.idMeal
+        }" data-meal="${encodeURIComponent(JSON.stringify(meal))}">Sun</li>
+        <li data-weekday="Fav" data-mealid="${
+          meal.idMeal
+        }" data-meal="${encodeURIComponent(JSON.stringify(meal))}">Fav</li>
       </ul>
     </li>`;
   });
