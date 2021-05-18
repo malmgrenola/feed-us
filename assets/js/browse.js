@@ -2,7 +2,9 @@ $(document).ready(function() {
   initData();
   $("#meal-query").keyup(function(event) {
     if (event.which == 13) {
-      browseQuery();
+      $("#meal-data .qWeek").off();
+      $("#meal-data").empty();
+      browseQuery(event.target.value);
     }
   });
 });
@@ -24,12 +26,12 @@ function render() {
   }
 }
 
-function browseQuery() {
-  var query = $("#meal-query").val();
+function browseQuery(query) {
+  //var query = $("#meal-query").val();
   mealApiSearch(query)
     .then(response => {
       $("#meal-data").html(mealsResultHTML(response.meals));
-      $("#meal-data").on("click", ".qWeek", function(event) {
+      $("#meal-data .qWeek").click(function(event) {
         browseToggleMealData(event.target.dataset);
       });
       render();
