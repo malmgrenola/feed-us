@@ -41,7 +41,7 @@ function renderWeek(meals) {
       src="${meal.strMealThumb}"
       alt="${meal.strMeal} image"
     />
-    <h4><a href="/meal.html?m=${meal.idMeal}">${
+    <h4><a href="meal.html?m=${meal.idMeal}">${
           meal.strMeal
         }</a> <i class="far fa-times-circle" onclick="indexRemoveMealData({mealid: '${
           meal.idMeal

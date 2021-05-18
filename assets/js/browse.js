@@ -63,7 +63,7 @@ function browseQuery() {
           src="${meal.strMealThumb}"
           alt="${meal.strMeal} image"
         />
-        <h4><a href="/meal.html?m=${meal.idMeal}">${meal.strMeal}</a></h4>
+        <h4><a href="meal.html?m=${meal.idMeal}">${meal.strMeal}</a></h4>
         <p>${ingridients.join(", ")}</p>
         <ul>
           <li data-weekday="Mon" data-mealid="${

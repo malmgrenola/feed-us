@@ -36,7 +36,7 @@ function render() {
               }
             }
             return `
-          <li><a href="/meal.html?m=${meal.idMeal}">${meal.strMeal}</a>
+          <li><a href="meal.html?m=${meal.idMeal}">${meal.strMeal}</a>
             <ul>
                 ${ingridients.join("\n")}
             </ul>
