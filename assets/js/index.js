@@ -1,6 +1,5 @@
 $(document).ready(function() {
   console.log("document Ready", session);
-  render();
 });
 
 function render() {
@@ -25,15 +24,30 @@ function renderWeek(meals) {
   weekdays.map(o => {
     if (!session.data?.meals) return `Loading...`;
 
-    const mealData =
+    const meal =
       o.abbr in session.data?.meals ? session.data?.meals[o.abbr] : null;
 
-    const weekdayMeal = mealData
+    let ingridients = [];
+    if (meal) {
+      for (let i = 1; i <= 20; i++) {
+        if (meal[`strIngredient${i}`] !== "") {
+          ingridients.push(meal[`strIngredient${i}`]);
+        }
+      }
+    }
+
+    const weekdayMeal = meal
       ? `<img
-      src="${mealData.strMealThumb}"
-      alt="${mealData.strMeal} image"
+      src="${meal.strMealThumb}"
+      alt="${meal.strMeal} image"
     />
-    <h4>${mealData.strMeal}</h4>`
+    <h4><a href="/meal.html?m=${meal.idMeal}">${
+          meal.strMeal
+        }</a> <i class="far fa-times-circle" onclick="setMealData({mealid: '${
+          meal.idMeal
+        }', weekday: '${o.abbr}'})"></i></h4>
+<p>${ingridients.join(", ")}</p>
+    `
       : `<small>No dish selected</small>`;
 
     mealItemsHTML.push(`

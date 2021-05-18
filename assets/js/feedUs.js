@@ -61,7 +61,7 @@ function setMealData(props) {
           }
         })
         .catch(error => {
-          console.log("Error getting document:", error);
+          console.error("Error writing document: ", error);
         });
     })
     .catch(error => {
