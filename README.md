@@ -43,18 +43,21 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 ```
 {
   "fp": "ef01366f20631055bc363387e84fef22",
-  "meals": {
+  "data": {
+    "meals": {
       "monday": "52771",
       "tuesday": "123",
       "wednesday": "123"  ,
       "thursday": "123",
       "friday": null,
       "saturday": null,
-      "sunday": "123",
-      "fav": "123"
+      "sunday": "123"
      },
-  "shoppinglist": ["1 x Toiletpaper", "2 x lollipops"]
-}
+     "additionalItems": ["1 x Toiletpaper", "2 x lollipops"],
+     "favlist": [mealobject,mealobject],
+     "shoppingChecked": [itemObject,itemObject]
+   },
+ }
 ```
 
 ## Features
