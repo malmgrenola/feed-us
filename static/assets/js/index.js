@@ -1,15 +1,16 @@
 $(document).ready(function() {
   initData();
+  $("#meal-data").html("Loading...");
 });
 
 function render() {
   //console.log("render called");
-  $("#meal-data").html(renderWeek(session.data?.meals));
+  $("#meal-data").html(renderWeek(session.data.meals));
 }
 
 function renderWeek(meals) {
   var mealItemsHTML = [];
-  const userMeals = session.data?.meals;
+  const userMeals = session.data.meals;
 
   const weekdays = [
     { abbr: "Mon", name: "Monday" },
@@ -22,10 +23,10 @@ function renderWeek(meals) {
   ];
 
   weekdays.map(o => {
-    if (!session.data?.meals) return `Loading...`;
+    if (!session.data.meals) return `Loading...`;
 
     const meal =
-      o.abbr in session.data?.meals ? session.data?.meals[o.abbr] : null;
+      o.abbr in session.data.meals ? session.data.meals[o.abbr] : null;
 
     let ingridients = [];
     if (meal) {

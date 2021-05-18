@@ -1,5 +1,6 @@
 $(document).ready(function() {
   initData();
+  $("#shopping-data").html("Loading...");
 });
 
 function render() {
@@ -97,6 +98,8 @@ function listToggleIngridient(props) {
 }
 
 function listAddAdditionalItem(item) {
+  if (item === "") return;
+
   session.data.additionalItems.push(item);
 
   fbSetDoc(session.id, session.data).catch(error => {
