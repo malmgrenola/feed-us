@@ -34,6 +34,29 @@ Navigation bar is responsive and will fold down to a burger menu when it wont fi
 - Browse meals page
 - Shoppinglist page, with email possabillity
 
+### Data storage
+
+In order to track anonymous user we track users with a [fingerprint](https://github.com/fingerprintjs/fingerprintjs) and store the user data with [Google Firebase](https://firebase.google.com/docs/web/setup#from-the-cdn).
+
+Here is an example user record stored on [Google Firebase](https://firebase.google.com/docs/web/setup#from-the-cdn).
+
+```
+{
+  "fp": "ef01366f20631055bc363387e84fef22",
+  "meals": {
+      "monday": "52771",
+      "tuesday": "123",
+      "wednesday": "123"  ,
+      "thursday": "123",
+      "friday": null,
+      "saturday": null,
+      "sunday": "123",
+      "fav": "123"
+     },
+  "shoppinglist": ["1 x Toiletpaper", "2 x lollipops"]
+}
+```
+
 ## Features
 
 ### Existing Features
