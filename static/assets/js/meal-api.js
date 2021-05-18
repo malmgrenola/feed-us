@@ -48,7 +48,7 @@ function mealsResultHTML(meals) {
         src="${meal.strMealThumb}"
         alt="${meal.strMeal} image"
       />
-      <h4>${meal.strMeal}</h4>
+      <h4><a href="/meal.html?m=${meal.idMeal}">${meal.strMeal}</a></h4>
       <p>${ingridients.join(", ")}</p>
       <ul class="qWeek">
         <li data-weekday="Mon" data-mealid="${
@@ -94,3 +94,10 @@ $(document).ready(function() {
     }
   });
 });
+
+function getMeal(id) {
+  //www.themealdb.com/api/json/v1/1/lookup.php?i=52772
+  return $.getJSON(
+    `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+  );
+}
