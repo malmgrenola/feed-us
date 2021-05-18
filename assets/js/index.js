@@ -1,9 +1,9 @@
 $(document).ready(function() {
-  console.log("document Ready", session);
+  initData();
 });
 
 function render() {
-  console.log("render called", session);
+  //console.log("render called");
   $("#meal-data").html(renderWeek(session.data?.meals));
 }
 
@@ -43,7 +43,7 @@ function renderWeek(meals) {
     />
     <h4><a href="/meal.html?m=${meal.idMeal}">${
           meal.strMeal
-        }</a> <i class="far fa-times-circle" onclick="setMealData({mealid: '${
+        }</a> <i class="far fa-times-circle" onclick="indexRemoveMealData({mealid: '${
           meal.idMeal
         }', weekday: '${o.abbr}'})"></i></h4>
 <p>${ingridients.join(", ")}</p>
@@ -58,4 +58,11 @@ function renderWeek(meals) {
         `);
   });
   return `<ul>${mealItemsHTML.join("\n")}</ul>`;
+}
+function indexRemoveMealData(props) {
+  session.data.meals[props.weekday] = null;
+  fbSetDoc(session.id, session.data).catch(error => {
+    console.error("Error writing document: ", error);
+  });
+  render();
 }

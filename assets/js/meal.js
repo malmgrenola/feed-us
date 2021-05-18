@@ -1,19 +1,20 @@
 let mealData = {};
 
 $(document).ready(function() {
-  console.log("document Ready");
+  initData();
+
   let searchParams = new URLSearchParams(window.location.search);
   mealData.param = searchParams.has("m") ? searchParams.get("m") : null;
 
   if (mealData.param) {
-    getMeal(mealData.param).done(data => {
+    mealApiLookup(mealData.param).done(data => {
       mealData.meal = data.meals[0];
     });
   }
 });
 
 function render() {
-  console.log("render called");
+  //console.log("render called");
   const meal = mealData.meal;
 
   if (!meal) {
@@ -41,12 +42,6 @@ function render() {
         <p>${meal.strInstructions.replaceAll("\r\n", "<br />")}</p>
     </div>
     `);
-
-  console.log(1, {
-    fingerprint: session.id,
-    data: session.data,
-    user: session.user
-  });
 }
 
 function listIngridients(meal) {

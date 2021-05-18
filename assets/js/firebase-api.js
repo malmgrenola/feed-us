@@ -1,5 +1,3 @@
-console.log("fb api");
-
 function fbInit() {
   var firebaseConfig = {
     apiKey: "AIzaSyCH9W1CsOl3TtjwIkJXjwpdx4yMuRVJJdA",
@@ -29,13 +27,6 @@ function fbSignInAnonymously(id) {
 function fbGetUserDocument(id) {
   return initDocRef(id).get();
 }
-
-function fbSetMealData(id, date, meal, currentMeals) {
-  const meals = currentMeals ? currentMeals : {};
-  meals[date] = meal;
-
-  return initDocRef(id).set({
-    fp: id,
-    meals: meals
-  });
+function fbSetDoc(id, doc) {
+  return initDocRef(id).set(doc);
 }
