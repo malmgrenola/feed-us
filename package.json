@@ -7,7 +7,8 @@
   "author": "Ola Malmgren <malmgrenola@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "http-server static/ -p 3000"
+    "dev": "http-server static/ -p 3000",
+    "deploy": "git subtree push --prefix static origin gh-pages"
   },
   "dependencies": {
     "http-server": "^0.12.3"
