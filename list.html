@@ -25,12 +25,37 @@
   </head>
   <body>
     <header>
-      <nav>
-        <ul>
-          <li><a href="index.html">Week planner</a></li>
-          <li><a href="browse.html">Find Meals</a></li>
-          <li><a href="list.html">Shopping list</a></li>
-        </ul>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img
+              src="assets/images/birds.png"
+              alt="Bird logo"
+              width="100"
+              height="100"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="index.html">Week planner</a>
+              <a class="nav-link" href="browse.html">Find Meals</a>
+              <a class="nav-link active" aria-current="page" href="list.html"
+                >Shopping list</a
+              >
+            </div>
+          </div>
+        </div>
       </nav>
     </header>
     <section>
