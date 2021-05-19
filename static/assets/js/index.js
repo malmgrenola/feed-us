@@ -28,10 +28,10 @@ const Index = () => {
 
   return `
   <div class="row">
-    <div class="col">
+    <div class="col text-center">
       <h1>Week planner</h1>
     </col>
-    <div class="col">
+    <div class="col text-center">
       <h2>What's for dinner?</h2>
     </div>
   </div>
@@ -93,15 +93,18 @@ const IndexCard = ({ weekday }) => {
   <div class="card-header text-center">
     <h3>${weekday.name}</h3>
   </div>
+  <div class="card-image">
+  <i class="far fa-times-circle hidden_icon" onclick="indexRemoveMealData({mealid: '${
+    meal.idMeal
+  }', weekday: '${weekday.abbr}'})"></i>
   <img src="${meal.strMealThumb}" class="card-img-top" alt="${
     meal.strMeal
   } image">
+  </div>
   <div class="card-body">
-    <h5 class="card-title"><a href="#">${
-      meal.strMeal
-    }</a>  <i class="far fa-times-circle" onclick="indexRemoveMealData({mealid: '${
-    meal.idMeal
-  }', weekday: '${weekday.abbr}'})"></i></h5>
+    <h5 class="card-title"><a href="meal.html?m=${meal.idMeal}">${
+    meal.strMeal
+  }</a></h5>
     <p class="card-text text-muted">${ingridients.join(", ")}</p>
   </div>
 </div>
