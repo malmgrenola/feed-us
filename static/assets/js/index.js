@@ -1,16 +1,17 @@
 $(document).ready(function() {
   initData();
-  $("#meal-data").html("Loading...");
+  render();
 });
 
 function render() {
   //console.log("render called");
-  $("#meal-data").html(renderWeek(session.data.meals));
+  $("#meal-data").html(indexRenderWeek());
 }
 
-function renderWeek(meals) {
-  var mealItemsHTML = [];
-  const userMeals = session.data.meals;
+function indexRenderWeek(meals) {
+  let mealItemsHTML = [];
+
+  const userMeals = session.data ? session.data.meals : null;
 
   const weekdays = [
     { abbr: "Mon", name: "Monday" },
@@ -23,10 +24,17 @@ function renderWeek(meals) {
   ];
 
   weekdays.map(o => {
-    if (!session.data.meals) return `Loading...`;
+    if (!userMeals) {
+      mealItemsHTML.push(`
+        <li>
+          <h3>${o.name}</h3>
+          <small>Loading...</small>
+        </li>
+        `);
+      return;
+    }
 
-    const meal =
-      o.abbr in session.data.meals ? session.data.meals[o.abbr] : null;
+    const meal = o.abbr in userMeals ? userMeals[o.abbr] : null;
 
     let ingridients = [];
     if (meal) {
@@ -60,6 +68,7 @@ function renderWeek(meals) {
   });
   return `<ul>${mealItemsHTML.join("\n")}</ul>`;
 }
+
 function indexRemoveMealData(props) {
   session.data.meals[props.weekday] = null;
   fbSetDoc(session.id, session.data).catch(error => {
