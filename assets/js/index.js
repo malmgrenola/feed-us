@@ -27,7 +27,15 @@ const Index = () => {
   ];
 
   return `
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+  <div class="row">
+    <div class="col">
+      <h1>Week planner</h1>
+    </col>
+    <div class="col">
+      <h2>What's for dinner?</h2>
+    </div>
+  </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         ${weekdays
           .map(weekday => {
             return IndexCard({ weekday: weekday });
@@ -41,7 +49,7 @@ const IndexCard = ({ weekday }) => {
 
   if (!userMeals) {
     return `
-      <div class="col-12 col-md-3">
+      <div class="col-12 col-lg-3">
       <div class="card h-100">
       <div class="card-header text-center">
         <h3>${weekday.name}</h3>
@@ -58,7 +66,7 @@ const IndexCard = ({ weekday }) => {
 
   if (!meal) {
     return `
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-lg-3">
       <div class="card h-100">
       <div class="card-header text-center">
         <h3>${weekday.name}</h3>
@@ -80,7 +88,7 @@ const IndexCard = ({ weekday }) => {
     }
   }
 
-  return `<div class="col-12 col-md-3">
+  return `<div class="col-12 col-lg-3">
   <div class="card h-100" >
   <div class="card-header text-center">
     <h3>${weekday.name}</h3>
