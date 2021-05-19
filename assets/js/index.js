@@ -3,16 +3,19 @@ $(document).ready(function() {
   render();
 });
 
-function render() {
-  //console.log("render called");
-  $("#meal-data").html(indexRenderWeek());
-}
+const render = () => {
+  $("#meal-data").html(Index);
+};
 
-function indexRenderWeek(meals) {
-  let mealItemsHTML = [];
+const indexRemoveMealData = ({ weekday }) => {
+  session.data.meals[weekday] = null;
+  fbSetDoc(session.id, session.data).catch(error => {
+    console.error("Error writing document: ", error);
+  });
+  render();
+};
 
-  const userMeals = session.data ? session.data.meals : null;
-
+const Index = () => {
   const weekdays = [
     { abbr: "Mon", name: "Monday" },
     { abbr: "Tue", name: "Tuesday" },
@@ -23,56 +26,77 @@ function indexRenderWeek(meals) {
     { abbr: "Sun", name: "Sunday" }
   ];
 
-  weekdays.map(o => {
-    if (!userMeals) {
-      mealItemsHTML.push(`
-        <li>
-          <h3>${o.name}</h3>
-          <small>Loading...</small>
-        </li>
-        `);
-      return;
-    }
+  return `
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        ${weekdays
+          .map(weekday => {
+            return IndexCard({ weekday: weekday });
+          })
+          .join("\n")}
+    </div>`;
+};
 
-    const meal = o.abbr in userMeals ? userMeals[o.abbr] : null;
+const IndexCard = ({ weekday }) => {
+  const userMeals = session.data ? session.data.meals : null;
 
-    let ingridients = [];
-    if (meal) {
-      for (let i = 1; i <= 20; i++) {
-        if (meal[`strIngredient${i}`] !== "") {
-          ingridients.push(meal[`strIngredient${i}`]);
-        }
+  if (!userMeals) {
+    return `
+      <div class="col-12 col-md-3">
+      <div class="card h-100">
+      <div class="card-header text-center">
+        <h3>${weekday.name}</h3>
+      </div>
+      <div class="card-body">
+        <p class="card-text text-muted">Loading...</p>
+      </div>
+    </div>
+    </div>
+      `;
+  }
+
+  const meal = weekday.abbr in userMeals ? userMeals[weekday.abbr] : null;
+
+  if (!meal) {
+    return `
+    <div class="col-12 col-md-3">
+      <div class="card h-100">
+      <div class="card-header text-center">
+        <h3>${weekday.name}</h3>
+      </div>
+      <div class="card-body">
+        <p class="card-text text-muted">No dish selected</p>
+      </div>
+    </div>
+    </div>
+      `;
+  }
+
+  let ingridients = [];
+  if (meal) {
+    for (let i = 1; i <= 20; i++) {
+      if (meal[`strIngredient${i}`] !== "") {
+        ingridients.push(meal[`strIngredient${i}`]);
       }
     }
+  }
 
-    const weekdayMeal = meal
-      ? `<img
-      src="${meal.strMealThumb}"
-      alt="${meal.strMeal} image"
-    />
-    <h4><a href="meal.html?m=${meal.idMeal}">${
-          meal.strMeal
-        }</a> <i class="far fa-times-circle" onclick="indexRemoveMealData({mealid: '${
-          meal.idMeal
-        }', weekday: '${o.abbr}'})"></i></h4>
-<p>${ingridients.join(", ")}</p>
-    `
-      : `<small>No dish selected</small>`;
-
-    mealItemsHTML.push(`
-        <li>
-          <h3>${o.name}</h3>
-          ${weekdayMeal}
-        </li>
-        `);
-  });
-  return `<ul>${mealItemsHTML.join("\n")}</ul>`;
-}
-
-function indexRemoveMealData(props) {
-  session.data.meals[props.weekday] = null;
-  fbSetDoc(session.id, session.data).catch(error => {
-    console.error("Error writing document: ", error);
-  });
-  render();
-}
+  return `<div class="col-12 col-md-3">
+  <div class="card h-100" >
+  <div class="card-header text-center">
+    <h3>${weekday.name}</h3>
+  </div>
+  <img src="${meal.strMealThumb}" class="card-img-top" alt="${
+    meal.strMeal
+  } image">
+  <div class="card-body">
+    <h5 class="card-title"><a href="#">${
+      meal.strMeal
+    }</a>  <i class="far fa-times-circle" onclick="indexRemoveMealData({mealid: '${
+    meal.idMeal
+  }', weekday: '${weekday.abbr}'})"></i></h5>
+    <p class="card-text text-muted">${ingridients.join(", ")}</p>
+  </div>
+</div>
+</div>
+`;
+};
