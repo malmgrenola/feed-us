@@ -4,6 +4,7 @@ $(document).ready(function() {
 });
 
 const render = () => {
+  //console.log("Render", session);
   $("#meal-data").html(Index);
 };
 
@@ -16,7 +17,7 @@ const indexRemoveMealData = ({ weekday }) => {
 };
 
 const indexAddFav = props => {
-  //TODO: Fix error Uncaught SyntaxError: Unexpected identifier when adding Recheado Masala Fish
+  //TODO: Fix error Uncaught SyntaxError: Unexpected identifier when adding f.ex. Recheado Masala Fish
   const meal = JSON.parse(decodeURIComponent(props.meal));
 
   if (!indexInUserFav(meal.idMeal)) {
@@ -51,6 +52,44 @@ const indexIndexOfUserFav = idMeal => {
     .indexOf(typeof idMeal !== "string" ? idMeal.toString() : idMeal);
 };
 
+const indexSetMeal = props => {
+  const meal = JSON.parse(decodeURIComponent(props.meal));
+  const weekday = props.weekday;
+
+  session.data.meals[weekday] = meal;
+  fbSetDoc(session.id, session.data).catch(error => {
+    console.error("Error writing document: ", error);
+  });
+  render();
+};
+
+function drag(ev) {
+  var ghost = document.createElement("canvas");
+  ghost.id = "drag-ghost";
+  document.body.append(ghost);
+  var context = ghost.getContext("2d");
+
+  ghost.width = 200;
+  ghost.height = 100;
+
+  context.fillStyle = "white";
+  context.fillRect(0, 0, ghost.width, ghost.height);
+
+  context.fillStyle = "black";
+  //context.font = "bold 13px Arial";
+  context.fillText("DRAGGING...", 0, 15);
+
+  event.dataTransfer.setData("text", "lorem ipsum");
+  event.dataTransfer.effectAllowed = "copy";
+  event.dataTransfer.setDragImage(ghost, 100, 50);
+}
+function dragEnd(ev) {
+  var ghost = document.getElementById("drag-ghost");
+  if (ghost.parentNode) {
+    ghost.parentNode.removeChild(ghost);
+  }
+}
+
 const Index = () => {
   const weekdays = [
     { abbr: "Mon", name: "Monday" },
@@ -65,10 +104,10 @@ const Index = () => {
   return `
   <div class="row">
     <div class="col text-center">
-      <h1>Week planner</h1>
+      <h1>Feed Us!</h1>
     </col>
     <div class="col text-center">
-      <h2>What's for dinner?</h2>
+      <h2>What's for dinner this week?</h2>
     </div>
   </div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
@@ -152,12 +191,16 @@ const IndexCard = ({ weekday }) => {
     meal.strArea
   } area </p>
 
-  <p class="card-text">${meal.strTags
-    .split(",")
-    .map(tag => {
-      return `<span class="badge bg-primary m-1">${tag}</span>`;
-    })
-    .join("")}</p>
+  ${
+    meal.strTags
+      ? `<p class="card-text">${meal.strTags
+          .split(",")
+          .map(tag => {
+            return `<span class="badge bg-primary m-1">${tag}</span>`;
+          })
+          .join("")}</p>`
+      : ""
+  }
   </div>
 </div>
 </div>
@@ -197,7 +240,47 @@ const IndexFavCard = () => {
       return 0;
     })
     .map(meal => {
-      return `<p><a href="meal.html?m=${meal.idMeal}">${meal.strMeal}</a> <i class="far fa-times-circle hidden_icon" onclick="indexRemoveFav(${meal.idMeal})"></i></p>`;
+      return `<div class="d-flex flex-row" id="fav${
+        meal.idMeal
+      }" draggable="true" ondragstart="drag(event)" ondragend="dragEnd(event)">
+
+      <p class="p-2 w-100 bd-highlight"><a href="meal.html?m=${meal.idMeal}">${
+        meal.strMeal
+      }</a></p>
+      <div class="dropdown p-2 flex-shrink-1 bd-highlight">
+  <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fas fa-bars"></i>
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Mon', meal: '${encodeURIComponent(
+      JSON.stringify(meal)
+    )}'})">Have this on Monday</span></li>
+    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Tue', meal: '${encodeURIComponent(
+      JSON.stringify(meal)
+    )}'})">Have this on Tuesday</span></li>
+    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Wed', meal: '${encodeURIComponent(
+      JSON.stringify(meal)
+    )}'})">Have this on Wednesday</span></li>
+    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Thu', meal: '${encodeURIComponent(
+      JSON.stringify(meal)
+    )}'})">Have this on Thursday</span></li>
+    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Fri', meal: '${encodeURIComponent(
+      JSON.stringify(meal)
+    )}'})">Have this on Friday</span></li>
+    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Sat', meal: '${encodeURIComponent(
+      JSON.stringify(meal)
+    )}'})">Have this on Saturday</span></li>
+    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Sun', meal: '${encodeURIComponent(
+      JSON.stringify(meal)
+    )}'})">Have this on Sunday</span></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><span class="dropdown-item" onclick="indexRemoveFav(${
+      meal.idMeal
+    })"><i class="fas fa-trash-alt"></i> Remove From Favourites</a></li>
+  </ul>
+</div>
+
+      </div>`;
     })
     .join("\n")}
   </div>
