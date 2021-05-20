@@ -15,6 +15,42 @@ const indexRemoveMealData = ({ weekday }) => {
   render();
 };
 
+const indexAddFav = props => {
+  //TODO: Fix error Uncaught SyntaxError: Unexpected identifier when adding Recheado Masala Fish
+  const meal = JSON.parse(decodeURIComponent(props.meal));
+
+  if (!indexInUserFav(meal.idMeal)) {
+    session.data.favlist.push(meal);
+    fbSetDoc(session.id, session.data).catch(error => {
+      console.error("Error writing document: ", error);
+    });
+    render();
+  }
+};
+
+const indexRemoveFav = idMeal => {
+  const elem = indexIndexOfUserFav(idMeal);
+  if (elem >= 0) {
+    session.data.favlist.splice(elem, 1);
+    fbSetDoc(session.id, session.data).catch(error => {
+      console.error("Error writing document: ", error);
+    });
+    render();
+  }
+};
+
+const indexInUserFav = idMeal => {
+  return session.data.favlist
+    .map(meal => meal.idMeal)
+    .includes(typeof idMeal !== "string" ? idMeal.toString() : idMeal);
+};
+
+const indexIndexOfUserFav = idMeal => {
+  return session.data.favlist
+    .map(meal => meal.idMeal)
+    .indexOf(typeof idMeal !== "string" ? idMeal.toString() : idMeal);
+};
+
 const Index = () => {
   const weekdays = [
     { abbr: "Mon", name: "Monday" },
@@ -41,13 +77,14 @@ const Index = () => {
             return IndexCard({ weekday: weekday });
           })
           .join("\n")}
+          ${IndexFavCard()}
     </div>`;
 };
 
 const IndexCard = ({ weekday }) => {
   const userMeals = session.data ? session.data.meals : null;
 
-  if (!userMeals) {
+  if (!userMeals)
     return `
       <div class="col-12 col-lg-3">
       <div class="card h-100">
@@ -55,12 +92,11 @@ const IndexCard = ({ weekday }) => {
         <h3>${weekday.name}</h3>
       </div>
       <div class="card-body">
-        <p class="card-text text-muted">Loading...</p>
+        <p class="card-text text-muted">Loading awsome dishes...</p>
       </div>
     </div>
     </div>
       `;
-  }
 
   const meal = weekday.abbr in userMeals ? userMeals[weekday.abbr] : null;
 
@@ -102,12 +138,69 @@ const IndexCard = ({ weekday }) => {
   } image">
   </div>
   <div class="card-body">
+
     <h5 class="card-title"><a href="meal.html?m=${meal.idMeal}">${
     meal.strMeal
-  }</a></h5>
-    <p class="card-text text-muted">${ingridients.join(", ")}</p>
+  }</a>${
+    !indexInUserFav(meal.idMeal)
+      ? `<i class="far fa-heart fav" onclick="indexAddFav({meal: '${encodeURIComponent(
+          JSON.stringify(meal)
+        )}'})"></i>`
+      : `<i class="fas fa-heart fav" onclick="indexRemoveFav(${meal.idMeal})"></i>`
+  }</h5>
+    <p class="card-text text-muted">This ${meal.strCategory} dish is from the ${
+    meal.strArea
+  } area </p>
+
+  <p class="card-text">${meal.strTags
+    .split(",")
+    .map(tag => {
+      return `<span class="badge bg-primary m-1">${tag}</span>`;
+    })
+    .join("")}</p>
   </div>
 </div>
+</div>
+`;
+};
+
+const IndexFavCard = () => {
+  const favourites = session.data ? session.data.favlist : null;
+
+  if (!favourites)
+    return `
+      <div class="col-12 col-lg-3">
+      <div class="card h-100">
+      <div class="card-header text-center">
+        <h3>Favourites <i class="fas fa-heart fav"></i></h3>
+      </div>
+      <div class="card-body">
+        <p class="card-text text-muted">No favs yet</p>
+      </div>
+    </div>
+    </div>
+      `;
+
+  return `
+  <div class="col-12 col-lg-3">
+  <div class="card h-100" >
+  <div class="card-header text-center">
+    <h3>Favourites <i class="fas fa-heart fav"></i></h3>
+  </div>
+  <div class="card-body">
+  ${favourites
+    .sort((a, b) => {
+      const sA = a.strMeal.toUpperCase(),
+        sB = b.strMeal.toUpperCase(); // ignore upper and lowercase
+      if (sA < sB) return -1;
+      if (sA > sB) return 1;
+      return 0;
+    })
+    .map(meal => {
+      return `<p><a href="meal.html?m=${meal.idMeal}">${meal.strMeal}</a> <i class="far fa-times-circle hidden_icon" onclick="indexRemoveFav(${meal.idMeal})"></i></p>`;
+    })
+    .join("\n")}
+  </div>
 </div>
 `;
 };
