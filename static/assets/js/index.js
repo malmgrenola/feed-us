@@ -63,6 +63,27 @@ const indexSetMeal = props => {
   render();
 };
 
+const indexSetRandomMeal = weekday => {
+  mealApiRandom()
+    .then(response => {
+      const meal = response.meals[0];
+
+      session.data.meals[weekday] = meal;
+      fbSetDoc(session.id, session.data).catch(error => {
+        console.error("Error writing document: ", error);
+      });
+      render();
+    })
+    .catch(errorResponse => {
+      console.error(errorResponse);
+    });
+  // session.data.meals[weekday] = meal;
+  // fbSetDoc(session.id, session.data).catch(error => {
+  //   console.error("Error writing document: ", error);
+  // });
+  // render();
+};
+
 function drag(ev) {
   var ghost = document.createElement("canvas");
   ghost.id = "drag-ghost";
@@ -148,6 +169,8 @@ const IndexCard = ({ weekday }) => {
       </div>
       <div class="card-body">
         <p class="card-text text-muted">No dish selected</p>
+        <p class="card-text text-muted">Set a random dish </p>
+        <p><span class="btn btn-primary" onclick="indexSetRandomMeal('${weekday.abbr}')"><i class="fas fa-random"></i></span></p>
       </div>
     </div>
     </div>
@@ -169,24 +192,34 @@ const IndexCard = ({ weekday }) => {
     <h3>${weekday.name}</h3>
   </div>
   <div class="card-image">
-  <i class="far fa-times-circle hidden_icon" onclick="indexRemoveMealData({mealid: '${
-    meal.idMeal
-  }', weekday: '${weekday.abbr}'})"></i>
+  <div class="hidden_icon d-flex flex-row">
+    <span onclick="indexSetRandomMeal('${
+      weekday.abbr
+    }')"><i class="fas fa-random"></i></span>
+    <span onclick="indexRemoveMealData({mealid: '${meal.idMeal}', weekday: '${
+    weekday.abbr
+  }'})"><i class="far fa-times-circle"></i></span>
+  </div>
+
+
   <img src="${meal.strMealThumb}" class="card-img-top" alt="${
     meal.strMeal
   } image">
   </div>
   <div class="card-body">
-
+    <div class="d-flex flex-row">
     <h5 class="card-title"><a href="meal.html?m=${meal.idMeal}">${
     meal.strMeal
-  }</a>${
+  }</a></h5>
+  <span style="font-size: 1.25rem;">${
     !indexInUserFav(meal.idMeal)
       ? `<i class="far fa-heart fav" onclick="indexAddFav({meal: '${encodeURIComponent(
           JSON.stringify(meal)
         )}'})"></i>`
       : `<i class="fas fa-heart fav" onclick="indexRemoveFav(${meal.idMeal})"></i>`
-  }</h5>
+  }
+  </span>
+  </div>
     <p class="card-text text-muted">This ${meal.strCategory} dish is from the ${
     meal.strArea
   } area </p>
@@ -230,7 +263,7 @@ const IndexFavCard = () => {
   <div class="card-header text-center">
     <h3>Favourites <i class="fas fa-heart fav"></i></h3>
   </div>
-  <div class="card-body">
+  <div class="card-body favs">
   ${favourites
     .sort((a, b) => {
       const sA = a.strMeal.toUpperCase(),
