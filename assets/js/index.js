@@ -16,53 +16,6 @@ const indexRemoveMealData = ({ weekday }) => {
   render();
 };
 
-const indexAddFav = props => {
-  //TODO: Fix error Uncaught SyntaxError: Unexpected identifier when adding f.ex. Recheado Masala Fish
-  const meal = JSON.parse(decodeURIComponent(props.meal));
-
-  if (!indexInUserFav(meal.idMeal)) {
-    session.data.favlist.push(meal);
-    fbSetDoc(session.id, session.data).catch(error => {
-      console.error("Error writing document: ", error);
-    });
-    render();
-  }
-};
-
-const indexRemoveFav = idMeal => {
-  const elem = indexIndexOfUserFav(idMeal);
-  if (elem >= 0) {
-    session.data.favlist.splice(elem, 1);
-    fbSetDoc(session.id, session.data).catch(error => {
-      console.error("Error writing document: ", error);
-    });
-    render();
-  }
-};
-
-const indexInUserFav = idMeal => {
-  return session.data.favlist
-    .map(meal => meal.idMeal)
-    .includes(typeof idMeal !== "string" ? idMeal.toString() : idMeal);
-};
-
-const indexIndexOfUserFav = idMeal => {
-  return session.data.favlist
-    .map(meal => meal.idMeal)
-    .indexOf(typeof idMeal !== "string" ? idMeal.toString() : idMeal);
-};
-
-const indexSetMeal = props => {
-  const meal = JSON.parse(decodeURIComponent(props.meal));
-  const weekday = props.weekday;
-
-  session.data.meals[weekday] = meal;
-  fbSetDoc(session.id, session.data).catch(error => {
-    console.error("Error writing document: ", error);
-  });
-  render();
-};
-
 const indexSetRandomMeal = weekday => {
   mealApiRandom()
     .then(response => {
@@ -77,11 +30,6 @@ const indexSetRandomMeal = weekday => {
     .catch(errorResponse => {
       console.error(errorResponse);
     });
-  // session.data.meals[weekday] = meal;
-  // fbSetDoc(session.id, session.data).catch(error => {
-  //   console.error("Error writing document: ", error);
-  // });
-  // render();
 };
 
 function drag(ev) {
@@ -212,11 +160,11 @@ const IndexCard = ({ weekday }) => {
     meal.strMeal
   }</a></h5>
   <span style="font-size: 1.25rem;">${
-    !indexInUserFav(meal.idMeal)
-      ? `<i class="far fa-heart fav" onclick="indexAddFav({meal: '${encodeURIComponent(
+    !globalInUserFav(meal.idMeal)
+      ? `<i class="far fa-heart fav" onclick="globalAddFav({meal: '${encodeURIComponent(
           JSON.stringify(meal)
         )}'})"></i>`
-      : `<i class="fas fa-heart fav" onclick="indexRemoveFav(${meal.idMeal})"></i>`
+      : `<i class="fas fa-heart fav" onclick="globalRemoveFav(${meal.idMeal})"></i>`
   }
   </span>
   </div>
@@ -285,29 +233,29 @@ const IndexFavCard = () => {
     <i class="fas fa-bars"></i>
   </a>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Mon', meal: '${encodeURIComponent(
+    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Mon', meal: '${encodeURIComponent(
       JSON.stringify(meal)
     )}'})">Have this on Monday</span></li>
-    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Tue', meal: '${encodeURIComponent(
+    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Tue', meal: '${encodeURIComponent(
       JSON.stringify(meal)
     )}'})">Have this on Tuesday</span></li>
-    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Wed', meal: '${encodeURIComponent(
+    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Wed', meal: '${encodeURIComponent(
       JSON.stringify(meal)
     )}'})">Have this on Wednesday</span></li>
-    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Thu', meal: '${encodeURIComponent(
+    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Thu', meal: '${encodeURIComponent(
       JSON.stringify(meal)
     )}'})">Have this on Thursday</span></li>
-    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Fri', meal: '${encodeURIComponent(
+    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Fri', meal: '${encodeURIComponent(
       JSON.stringify(meal)
     )}'})">Have this on Friday</span></li>
-    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Sat', meal: '${encodeURIComponent(
+    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Sat', meal: '${encodeURIComponent(
       JSON.stringify(meal)
     )}'})">Have this on Saturday</span></li>
-    <li><span class="dropdown-item" onclick="indexSetMeal({weekday: 'Sun', meal: '${encodeURIComponent(
+    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Sun', meal: '${encodeURIComponent(
       JSON.stringify(meal)
     )}'})">Have this on Sunday</span></li>
     <li><hr class="dropdown-divider"></li>
-    <li><span class="dropdown-item" onclick="indexRemoveFav(${
+    <li><span class="dropdown-item" onclick="globalRemoveFav(${
       meal.idMeal
     })"><i class="fas fa-trash-alt"></i> Remove From Favourites</a></li>
   </ul>

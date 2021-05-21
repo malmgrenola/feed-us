@@ -56,3 +56,51 @@ function initData() {
         });
     });
 }
+const globalInUserFav = idMeal => {
+  if (!session.data) return null;
+
+  return session.data.favlist
+    .map(meal => meal.idMeal)
+    .includes(typeof idMeal !== "string" ? idMeal.toString() : idMeal);
+};
+
+const globalIndexOfUserFav = idMeal => {
+  if (!session.data) return null;
+  return session.data.favlist
+    .map(meal => meal.idMeal)
+    .indexOf(typeof idMeal !== "string" ? idMeal.toString() : idMeal);
+};
+
+const globalAddFav = props => {
+  //TODO: Fix error Uncaught SyntaxError: Unexpected identifier when adding f.ex. Recheado Masala Fish
+  const meal = JSON.parse(decodeURIComponent(props.meal));
+
+  if (!globalInUserFav(meal.idMeal)) {
+    session.data.favlist.push(meal);
+    fbSetDoc(session.id, session.data).catch(error => {
+      console.error("Error writing document: ", error);
+    });
+    render();
+  }
+};
+
+const globalRemoveFav = idMeal => {
+  const elem = globalIndexOfUserFav(idMeal);
+  if (elem >= 0) {
+    session.data.favlist.splice(elem, 1);
+    fbSetDoc(session.id, session.data).catch(error => {
+      console.error("Error writing document: ", error);
+    });
+    render();
+  }
+};
+const globalSetMeal = props => {
+  const meal = JSON.parse(decodeURIComponent(props.meal));
+  const weekday = props.weekday;
+
+  session.data.meals[weekday] = meal;
+  fbSetDoc(session.id, session.data).catch(error => {
+    console.error("Error writing document: ", error);
+  });
+  render();
+};
