@@ -18,7 +18,7 @@
     <link rel="shortcut icon" href="assets/images/birds-icon.png" />
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="assets/js/browse.js"></script>
+    <script src="assets/js/search.js"></script>
     <script src="assets/js/global.js"></script>
     <script src="assets/js/firebase-api.js"></script>
     <script src="assets/js/meal-api.js"></script>
@@ -49,7 +49,7 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-link" href="index.html">Week planner</a>
-              <a class="nav-link active" aria-current="page" href="browse.html"
+              <a class="nav-link active" aria-current="page" href="search.html"
                 >Find Meals</a
               >
               <a class="nav-link" href="list.html">Shopping list</a>
@@ -58,12 +58,8 @@
         </div>
       </nav>
     </header>
-    <section>
-      <h1>Find meal</h1>
-      <div>
-        <input type="text" id="meal-query" />
-        <div id="meal-data"></div>
-      </div>
+    <section id="search">
+      <div id="search-content" class="container"></div>
     </section>
     <footer>
       <h2>Footer</h2>
