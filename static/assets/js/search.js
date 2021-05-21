@@ -2,7 +2,7 @@ let searchResults = [];
 
 $(document).ready(function() {
   initData();
-  const q = searchGetUrlQuery();
+  const q = globalGetUrlParam("q");
   if (q !== "") searchDo(q);
   render();
 });
@@ -19,7 +19,7 @@ const searchOnEnter = e => {
 };
 
 const searchDo = query => {
-  searchSetUrlQuery(query);
+  globalSetUrlParam("q", query);
 
   mealApiSearch(query)
     .then(response => {
@@ -37,20 +37,8 @@ const searchDo = query => {
     });
 };
 
-const searchGetUrlQuery = () => {
-  // use history as state provider
-  return new URL(window.location).searchParams.get("q") ?? "";
-};
-
-const searchSetUrlQuery = query => {
-  // use history as state provider
-  const url = new URL(window.location);
-  url.searchParams.set("q", query);
-  window.history.pushState({}, "", url);
-};
-
 const Browse = () => {
-  const q = searchGetUrlQuery();
+  const q = globalGetUrlParam();
 
   return `
   <div class="row">

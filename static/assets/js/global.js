@@ -104,3 +104,15 @@ const globalSetMeal = props => {
   });
   render();
 };
+
+const globalGetUrlParam = param => {
+  // use history as state provider
+  return new URL(window.location).searchParams.get(param) ?? "";
+};
+
+const globalSetUrlParam = (key, value) => {
+  // use history as state provider
+  const url = new URL(window.location);
+  url.searchParams.set(key, value);
+  window.history.pushState({}, "", url);
+};
