@@ -61,3 +61,7 @@
   overflow-x: hidden;
   max-height: 400px;
 }
+.search-row img {
+  width: 100px;
+  height: 100px;
+}
