@@ -38,7 +38,7 @@ const searchDo = query => {
 };
 
 const Browse = () => {
-  const q = globalGetUrlParam();
+  const q = globalGetUrlParam("q");
 
   return `
   <div class="row">
@@ -149,7 +149,7 @@ const BrowseResults = () => {
       return `
         <div class="row">
           <div class="col">
-              <div class=" d-flex flex-row flex-nowrap flex-grow-1 bd-highlight justify-content-start align-items-center background-grey search-row">
+              <div class="d-flex flex-row flex-nowrap flex-grow-1 bd-highlight justify-content-start align-items-center background-grey search-row">
                 <div class="flex-shrink-0">${Image()}</div>
                 <div class="flex-grow-1">
                   <div>${Title()}</div>

@@ -94,3 +94,21 @@
 #search .dropdown {
   font-size: 1.5em;
 }
+
+/* --------------------------------- meal.html */
+#meal {
+  margin-top: 20px;
+}
+
+#meal img {
+  margin-top: -100px;
+  border: 5px solid rgba(255, 255, 255, 1);
+  width: 200px;
+  height: 200px;
+  padding: 0;
+}
+
+#meal .meal-border {
+  border: 2px solid lightgrey;
+  border-radius: 20px 20px;
+}
