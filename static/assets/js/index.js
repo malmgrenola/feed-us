@@ -1,11 +1,23 @@
 $(document).ready(function() {
   initData();
+  const q = gs.getUrlParam("q");
+  //if (q !== "") gs.find(q);
+  gs.find(q);
   render();
 });
 
+let indexRequestedRandom = false;
+
 const render = () => {
   //console.log("Render", session);
-  $("#meal-data").html(Index);
+  $("#index").html(`<div class="container">${Index()}</div>`);
+  $("#search-input").focus();
+};
+
+const searchOnEnter = e => {
+  if (event.which == 13) {
+    gs.find(event.target.value);
+  }
 };
 
 const indexRemoveMealData = ({ weekday }) => {
@@ -17,6 +29,8 @@ const indexRemoveMealData = ({ weekday }) => {
 };
 
 const indexSetRandomMeal = weekday => {
+  indexRequestedRandom = true;
+  console.log("indexRequestedRandom");
   mealApiRandom()
     .then(response => {
       const meal = response.meals[0];
@@ -32,239 +46,203 @@ const indexSetRandomMeal = weekday => {
     });
 };
 
-function drag(ev) {
-  var ghost = document.createElement("canvas");
-  ghost.id = "drag-ghost";
-  document.body.append(ghost);
-  var context = ghost.getContext("2d");
-
-  ghost.width = 200;
-  ghost.height = 100;
-
-  context.fillStyle = "white";
-  context.fillRect(0, 0, ghost.width, ghost.height);
-
-  context.fillStyle = "black";
-  //context.font = "bold 13px Arial";
-  context.fillText("DRAGGING...", 0, 15);
-
-  event.dataTransfer.setData("text", "lorem ipsum");
-  event.dataTransfer.effectAllowed = "copy";
-  event.dataTransfer.setDragImage(ghost, 100, 50);
-}
-function dragEnd(ev) {
-  var ghost = document.getElementById("drag-ghost");
-  if (ghost.parentNode) {
-    ghost.parentNode.removeChild(ghost);
-  }
-}
-
 const Index = () => {
-  const weekdays = [
-    { abbr: "Mon", name: "Monday" },
-    { abbr: "Tue", name: "Tuesday" },
-    { abbr: "Wed", name: "Wednesday" },
-    { abbr: "Thu", name: "Thursday" },
-    { abbr: "Fri", name: "Friday" },
-    { abbr: "Sat", name: "Saturday" },
-    { abbr: "Sun", name: "Sunday" }
-  ];
+  const q = gs.getUrlParam("q");
+  console.log("index", gs);
 
+  // Todo: Fix HTMLFormElement: submit event
   return `
   <div class="row">
     <div class="col text-center">
       <h1>Feed Us!</h1>
-    </col>
+    </div>
+  </div>
+  <div class="row">
     <div class="col text-center">
       <h2>What's for dinner this week?</h2>
     </div>
   </div>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-        ${weekdays
-          .map(weekday => {
-            return IndexCard({ weekday: weekday });
-          })
-          .join("\n")}
-          ${IndexFavCard()}
-    </div>`;
+  <div class="row">
+    <div class="col text-center">
+        <input type="text" id="search-input" value="${q}" onkeyup="searchOnEnter()"/>
+    </div>
+  </div>
+  <div class="row">
+        <div class="col-12 col-md-10 m-0 p-0">${
+          gs.results.length > 0
+            ? globalHits({ meals: gs.results })
+            : Suggestion()
+        }</div>
+        <div class="col-12 col-md-2 m-0 p-0">${IndexWidget()}</div>
+  </div>
+  `;
 };
 
-const IndexCard = ({ weekday }) => {
-  const userMeals = session.data ? session.data.meals : null;
+const IndexSearchResults = () => {
+  return Suggestion();
+};
 
-  if (!userMeals)
+const Suggestion = () => {
+  const randomDish = () => {
+    console.log("call random");
+    indexRequestedRandom = true;
+    mealApiRandom()
+      .then(data => {
+        session.data.suggestion = data.meals[0];
+        render();
+      })
+      .catch(error => {
+        console.error("Error getting meal: ", error);
+      });
+  };
+
+  const Loading = () => {
     return `
-      <div class="col-12 col-lg-3">
-      <div class="card h-100">
-      <div class="card-header text-center">
-        <h3>${weekday.name}</h3>
+      <div class="container">
+        <div class="row">
+            <div class="col">dinner Suggestion</div>
+        </div>
+        <div class="row">
+            <div class="col">Loading...</div>
+        </div>
       </div>
-      <div class="card-body">
-        <p class="card-text text-muted">Loading awsome dishes...</p>
-      </div>
-    </div>
-    </div>
-      `;
+    `;
+  };
 
-  const meal = weekday.abbr in userMeals ? userMeals[weekday.abbr] : null;
+  if (!session.data) return Loading();
 
-  if (!meal) {
-    return `
-    <div class="col-12 col-lg-3">
-      <div class="card h-100">
-      <div class="card-header text-center">
-        <h3>${weekday.name}</h3>
-      </div>
-      <div class="card-body">
-        <p class="card-text text-muted">No dish selected</p>
-        <p class="card-text text-muted">Set a random dish </p>
-        <p><span class="btn btn-primary" onclick="indexSetRandomMeal('${weekday.abbr}')"><i class="fas fa-random"></i></span></p>
-      </div>
-    </div>
-    </div>
-      `;
-  }
+  if (!indexRequestedRandom) randomDish();
 
-  let ingridients = [];
-  if (meal) {
-    for (let i = 1; i <= 20; i++) {
-      if (meal[`strIngredient${i}`] !== "") {
-        ingridients.push(meal[`strIngredient${i}`]);
-      }
-    }
-  }
+  const meal = session.data ? session.data.suggestion : null;
 
-  return `<div class="col-12 col-lg-3">
-  <div class="card h-100" >
-  <div class="card-header text-center">
-    <h3>${weekday.name}</h3>
-  </div>
-  <div class="card-image">
-  <div class="hidden_icon d-flex flex-row">
-    <span onclick="indexSetRandomMeal('${
-      weekday.abbr
-    }')"><i class="fas fa-random"></i></span>
-    <span onclick="indexRemoveMealData({mealid: '${meal.idMeal}', weekday: '${
-    weekday.abbr
-  }'})"><i class="far fa-times-circle"></i></span>
-  </div>
+  if (!meal) return Loading();
 
+  console.log(meal);
 
-  <img src="${meal.strMealThumb}" class="card-img-top" alt="${
+  return `
+  <div class="container">
+    <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+      <img class="card-img-top" src="${meal.strMealThumb}" alt="${
     meal.strMeal
   } image">
-  </div>
-  <div class="card-body">
-    <div class="d-flex flex-row">
-    <h5 class="card-title"><a href="meal.html?m=${meal.idMeal}">${
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><a href="meal.html?m=${meal.idMeal}">${
     meal.strMeal
-  }</a></h5>
-  <span style="font-size: 1.25rem;">${
+  }</a> <span>${
     !globalInUserFav(meal.idMeal)
       ? `<i class="far fa-heart fav" onclick="globalAddFav({meal: '${encodeURIComponent(
           JSON.stringify(meal)
         )}'})"></i>`
       : `<i class="fas fa-heart fav" onclick="globalRemoveFav(${meal.idMeal})"></i>`
   }
-  </span>
-  </div>
-    <p class="card-text text-muted">This ${meal.strCategory} dish is from the ${
+          </span></h5>
+          <p class="card-text">This ${meal.strCategory} dish is from the ${
     meal.strArea
   } area </p>
-
-  ${
-    meal.strTags
-      ? `<p class="card-text">${meal.strTags
-          .split(",")
-          .map(tag => {
-            return `<span class="badge bg-primary m-1">${tag}</span>`;
-          })
-          .join("")}</p>`
-      : ""
-  }
+          <p class="card-text">${
+            meal.strTags
+              ? `<p class="card-text">${meal.strTags
+                  .split(",")
+                  .map(tag => {
+                    return `<span class="badge bg-primary m-1">${tag}</span>`;
+                  })
+                  .join("")}</p>`
+              : ""
+          }</p>
+          <p class="card-text my-1">
+          <span class="btn btn-primary btn-sm" onclick="globalSetMeal({weekday: 'Mon', meal: '${encodeURIComponent(
+            JSON.stringify(meal)
+          )}'})">Monday</span>
+          <span class="btn btn-primary btn-sm" onclick="globalSetMeal({weekday: 'Tue', meal: '${encodeURIComponent(
+            JSON.stringify(meal)
+          )}'})">Tuesday</span>
+          <span class="btn btn-primary btn-sm" onclick="globalSetMeal({weekday: 'Wed', meal: '${encodeURIComponent(
+            JSON.stringify(meal)
+          )}'})">Wednesday</span>
+          <span class="btn btn-primary btn-sm" onclick="globalSetMeal({weekday: 'Thu', meal: '${encodeURIComponent(
+            JSON.stringify(meal)
+          )}'})">Thursday</span>
+          <span class="btn btn-primary btn-sm" onclick="globalSetMeal({weekday: 'Fri', meal: '${encodeURIComponent(
+            JSON.stringify(meal)
+          )}'})">Friday</span>
+          <span class="btn btn-primary btn-sm" onclick="globalSetMeal({weekday: 'Sat', meal: '${encodeURIComponent(
+            JSON.stringify(meal)
+          )}'})">Saturday</span>
+          <span class="btn btn-primary btn-sm" onclick="globalSetMeal({weekday: 'Sun', meal: '${encodeURIComponent(
+            JSON.stringify(meal)
+          )}'})">Sunday</span>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-`;
+  </div>
+    `;
 };
 
-const IndexFavCard = () => {
-  const favourites = session.data ? session.data.favlist : null;
-
-  if (!favourites)
-    return `
-      <div class="col-12 col-lg-3">
-      <div class="card h-100">
-      <div class="card-header text-center">
-        <h3>Favourites <i class="fas fa-heart fav"></i></h3>
+const IndexWidget = () => {
+  const IndexWidgetDay = ({ weekday }) => {
+    const Loading = () => {
+      return `
+    <div>
+      <div class="header"><h3>${weekday.name}</h3></div>
+      <div class="d-flex flex-row align-items-center w-card loading">
+        <div class="image"></div>
+        <div class="content text"></div>
+        <div class="content icon"></div>
       </div>
-      <div class="card-body">
-        <p class="card-text text-muted">No favs yet</p>
-      </div>
-    </div>
     </div>
       `;
+    };
+
+    const userMeals = session.data ? session.data.meals : null;
+    if (!userMeals) return Loading();
+    const meal = weekday.abbr in userMeals ? userMeals[weekday.abbr] : null;
+    if (!meal) return "EmptyCard();";
+
+    return `
+        <div>
+          <div class="header"><h3>${weekday.name}</h3></div>
+          <div class="d-flex flex-row align-items-center w-card">
+            <div class="image"><img src="${meal.strMealThumb}" class="" alt="${
+      meal.strMeal
+    } image" /></div>
+            <div class="content text"><h5 class=""><a href="meal.html?m=${
+              meal.idMeal
+            }">${meal.strMeal}</a></h5></div>
+            <div class="content icon">
+            <span>${
+              !globalInUserFav(meal.idMeal)
+                ? `<i class="far fa-heart fav" onclick="globalAddFav({meal: '${encodeURIComponent(
+                    JSON.stringify(meal)
+                  )}'})"></i>`
+                : `<i class="fas fa-heart fav" onclick="globalRemoveFav(${meal.idMeal})"></i>`
+            }
+            </span>
+            </div>
+          </div>
+        </div>
+          `;
+  };
 
   return `
-  <div class="col-12 col-lg-3">
-  <div class="card h-100" >
-  <div class="card-header text-center">
-    <h3>Favourites <i class="fas fa-heart fav"></i></h3>
-  </div>
-  <div class="card-body favs">
-  ${favourites
-    .sort((a, b) => {
-      const sA = a.strMeal.toUpperCase(),
-        sB = b.strMeal.toUpperCase(); // ignore upper and lowercase
-      if (sA < sB) return -1;
-      if (sA > sB) return 1;
-      return 0;
-    })
-    .map(meal => {
-      return `<div class="d-flex flex-row" id="fav${
-        meal.idMeal
-      }" draggable="true" ondragstart="drag(event)" ondragend="dragEnd(event)">
-
-      <p class="p-2 w-100 bd-highlight"><a href="meal.html?m=${meal.idMeal}">${
-        meal.strMeal
-      }</a></p>
-      <div class="dropdown p-2 flex-shrink-1 bd-highlight">
-  <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="fas fa-bars"></i>
-  </a>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Mon', meal: '${encodeURIComponent(
-      JSON.stringify(meal)
-    )}'})">Have this on Monday</span></li>
-    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Tue', meal: '${encodeURIComponent(
-      JSON.stringify(meal)
-    )}'})">Have this on Tuesday</span></li>
-    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Wed', meal: '${encodeURIComponent(
-      JSON.stringify(meal)
-    )}'})">Have this on Wednesday</span></li>
-    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Thu', meal: '${encodeURIComponent(
-      JSON.stringify(meal)
-    )}'})">Have this on Thursday</span></li>
-    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Fri', meal: '${encodeURIComponent(
-      JSON.stringify(meal)
-    )}'})">Have this on Friday</span></li>
-    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Sat', meal: '${encodeURIComponent(
-      JSON.stringify(meal)
-    )}'})">Have this on Saturday</span></li>
-    <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Sun', meal: '${encodeURIComponent(
-      JSON.stringify(meal)
-    )}'})">Have this on Sunday</span></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><span class="dropdown-item" onclick="globalRemoveFav(${
-      meal.idMeal
-    })"><i class="fas fa-trash-alt"></i> Remove From Favourites</a></li>
-  </ul>
-</div>
-
-      </div>`;
-    })
-    .join("\n")}
-  </div>
-</div>
-`;
+  <div class="container widget">
+    <div class="row">
+      <div class="col"><h2>Dishes</h2></div>
+    </div>
+    <div class="row">${globalWeekdays
+      .map(weekday => {
+        return `
+        <div class="col-12 day">
+          ${IndexWidgetDay({ weekday: weekday })}
+        </div>`;
+      })
+      .join("\n")}
+      </div>
+    </div>
+    `;
 };

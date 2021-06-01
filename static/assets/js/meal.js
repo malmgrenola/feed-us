@@ -2,19 +2,19 @@ let meal;
 
 $(document).ready(function() {
   initData();
-  const m = globalGetUrlParam("m");
+  const m = gs.getUrlParam("m");
   if (m !== "") mealGet(m);
   render();
 });
 
 const mealGet = id => {
-  globalSetUrlParam("m", id);
+  gs.setUrlParam("m", id);
 
   mealApiLookup(id)
     .then(data => {
       if (data.meals) {
         meal = data.meals[0];
-        console.log(meal);
+        console.log("meal api lookup", meal);
       }
       render();
     })
@@ -30,7 +30,7 @@ const render = () => {
 };
 
 const Meal = () => {
-  const m = globalGetUrlParam("m");
+  const m = gs.getUrlParam("m");
 
   const Title = () => {
     return `<h3><span class="me-4">${
@@ -115,6 +115,7 @@ const Meal = () => {
   };
 
   if (!meal) return "";
+
   return `
   <div class="row">
     <div class="col">${Title()}</div>

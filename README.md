@@ -6,9 +6,7 @@ The site that helps you and your family plan the dinner for the week including s
 
 ## UX
 
-This section provides the insight into the UX processes, focusing on who this website is for, what it is that they want to achieve and how this project is the best way to help them achieve these things.
-
-The typical website user is an adult ready to take the responsabillity to plan the dinner weekly
+The typical website user is an adult ready to take the responsabillity to plan the dinner for the whole week.
 
 List user Stories:
 
@@ -20,19 +18,16 @@ List user Stories:
 - As a user, I would like to send my shopping list as an email to my fellow, so I dont have todo all shopping myself.
 - ...
 
-### Wireframes
-
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
-
-### Navigation
+### Navigation & Wireframes
 
 The website contains a clear navigation on every page.
 The site is based on a navigational hierarchical tree structure.
 Navigation bar is responsive and will fold down to a burger menu when it wont fit the size.
 
-- Whats for dinner page
-- Browse meals page
-- Shoppinglist page, with email possabillity
+- [Entry page](wireframes/index.png) that suggests dish and is also the [search dish result page](wireframes/search-results.png)
+- [Weekly schedule Page](wireframes/week.png) showing the dishes selected for each day.
+- [Favourites Page](wireframes/favourites.png) showing the current favourite dishes.
+- [Shopping list Page](wireframes/list.png) showing the current shopping list with email possabillity
 
 ### Data storage
 
@@ -174,3 +169,4 @@ To change default port please update in `package.json` under scripts section. Pl
 - https://www.allrecipes.com/
 - https://www.simplyrecipes.com/
 - https://www.freepik.com/premium-vector/weekly-planner-template-with-floral-watercolor_5643584.htm
+- I received inspiration for loading images from [Creating a CSS Animated Loading Card](https://dev.to/chris__sev/creating-a-css-animated-loading-card-5187)
