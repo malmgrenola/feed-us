@@ -11,8 +11,84 @@
   position: absolute;
   top: -1000px;
 }
+section {
+  margin-top: 20px;
+}
 
+.widget {
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+.widget .thumb {
+}
+.widget .day {
+  padding-bottom: 10px;
+}
+.widget h3 {
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.03);
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+}
+.widget h2 {
+  font-size: 1.2em;
+
+  text-align: center;
+  padding: 0.2rem 0.5rem;
+}
+.widget h5 {
+  font-size: 1em;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 0.3rem;
+}
+
+.widget .w-card .image,
+.widget .w-card .image img {
+  width: 3em;
+  height: 3em;
+}
+.widget .w-card.loading .content {
+  height: 3em;
+}
+.widget .w-card .content {
+  margin-left: 5px;
+}
+.widget .w-card .content.text {
+  width: 100%;
+}
+.widget .w-card .content.icon {
+  text-align: right;
+  margin-right: 0.3rem;
+}
+
+.widget .w-card.loading .image,
+.widget .w-card.loading .content {
+  background: #eee;
+  border-radius: 5px;
+  background: linear-gradient(140deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
 /* --------------------------------- Index.html */
+#index h1 {
+  margin-bottom: 0;
+}
+#index h2 {
+  color: grey;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
 
 #index .card-image {
   position: relative;
@@ -57,9 +133,9 @@
 }
 
 #index .favs {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-height: 400px;
+}
+#index .favs p {
+  margin-bottom: 0.8em;
 }
 
 /* --------------------------------- search.html */
@@ -96,9 +172,6 @@
 }
 
 /* --------------------------------- meal.html */
-#meal {
-  margin-top: 20px;
-}
 
 #meal img {
   margin-top: -100px;
