@@ -170,3 +170,4 @@ To change default port please update in `package.json` under scripts section. Pl
 - https://www.simplyrecipes.com/
 - https://www.freepik.com/premium-vector/weekly-planner-template-with-floral-watercolor_5643584.htm
 - I received inspiration for loading images from [Creating a CSS Animated Loading Card](https://dev.to/chris__sev/creating-a-css-animated-loading-card-5187)
+- I received inspiration for [Styling a Search Bar from mikedane website](https://www.mikedane.com/web-development/css/styling-search-bar/)
