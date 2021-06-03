@@ -7,12 +7,23 @@
   cursor: pointer;
   color: red;
 }
-#drag-ghost {
-  position: absolute;
-  top: -1000px;
+
+h1 {
+  margin-bottom: 0;
 }
+h2 {
+  color: grey;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
 section {
   margin-top: 20px;
+}
+
+.btn-group-sm > .btn,
+.btn-sm {
+  margin: 10px;
 }
 
 .widget {
@@ -80,63 +91,8 @@ section {
     background-position-x: -200%;
   }
 }
+
 /* --------------------------------- Index.html */
-#index h1 {
-  margin-bottom: 0;
-}
-#index h2 {
-  color: grey;
-  font-size: 1.5em;
-  margin-bottom: 10px;
-}
-
-#index .card-image {
-  position: relative;
-  float: left;
-}
-
-#index .card-image .hidden_icon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: block;
-  font-size: 1.5em;
-  margin: 10px;
-  transition: 0.5s ease;
-  transition-delay: 0.1s;
-  opacity: 0;
-  cursor: pointer;
-  z-index: 1;
-}
-
-#index .card-image img {
-  opacity: 1;
-  transition: 0.5s ease;
-  backface-visibility: hidden;
-}
-
-#index .card-image:hover img {
-  opacity: 0.3;
-}
-
-#index .card-image:hover .hidden_icon {
-  opacity: 1;
-}
-
-#index .card-body .fav {
-  float: right;
-  margin-left: 10px;
-}
-#index .card-body h5 {
-  display: inline-block;
-  width: 100%;
-}
-
-#index .favs {
-}
-#index .favs p {
-  margin-bottom: 0.8em;
-}
 
 #index .search-row img {
   margin-left: -50px;
@@ -239,6 +195,64 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .btn-group-week i {
   font-size: 2em;
+}
+
+/* --------------------------------- week.html */
+#week .card-image {
+  position: relative;
+  float: left;
+}
+
+#week .card-image .hidden_icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  font-size: 1.5em;
+  margin: 10px;
+  transition: 0.5s ease;
+  transition-delay: 0.1s;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+#week .card-image img {
+  opacity: 1;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
+
+#week .card-image:hover img {
+  opacity: 0.3;
+}
+
+#week .card-image:hover .hidden_icon {
+  opacity: 1;
+}
+
+#week .card-body .fav {
+  float: right;
+  margin-left: 10px;
+}
+
+#week .card-header h3 {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+#week .card-body h5 {
+  display: inline-block;
+
+  width: 100%;
+}
+
+#week .favs .fav-toggle {
+  padding-right: 0px;
+}
+#week .favs .fav-item {
+  margin-bottom: 0.8em;
 }
 /* --------------------------------- meal.html */
 

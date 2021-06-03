@@ -4,8 +4,7 @@ $(document).ready(function() {
 });
 
 const render = () => {
-  //console.log("Render", session);
-  $("#week").html(Index);
+  $("#week").html(`<div class="container-fluid">${Page()}</div>`);
 };
 
 const indexRemoveMealData = ({ weekday }) => {
@@ -16,7 +15,7 @@ const indexRemoveMealData = ({ weekday }) => {
   render();
 };
 
-const indexSetRandomMeal = weekday => {
+const weekSetRandomMeal = weekday => {
   mealApiRandom()
     .then(response => {
       const meal = response.meals[0];
@@ -32,37 +31,36 @@ const indexSetRandomMeal = weekday => {
     });
 };
 
-const Index = () => {
+const Page = () => {
   return `
   <div class="row">
     <div class="col text-center">
-      <h1>My Dinner Week</h1>
+      <h1>Feed Us!</h1>
     </div>
   </div>
   <div class="row">
-    <div class="col text-center">
-      <h2>What's for dinner this week?</h2>
+    <div class="col text-center pb-3">
+      <h2>My Dinner Week</h2>
     </div>
   </div>
-  </div>
   <div class="row">
-        <div class="col-12 col-md-10 m-0 p-0">${Week()}</div>
+        <div class="col px-0">${Week()}</div>
   </div>
   `;
 };
 
-const Week = isWidget => {
+const Week = () => {
   return `
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">${globalWeekdays
       .map(weekday => {
         return `
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-lg-3 p-2">
           ${IndexCard({ weekday: weekday })}
         </div>`;
       })
       .join("\n")}
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-lg-3 p-2">
           ${IndexFavCard()}
         </div>
       </div>
@@ -71,6 +69,7 @@ const Week = isWidget => {
 };
 
 const IndexCard = ({ weekday }) => {
+  // Content used while loading data for the current weekday
   const LoadingCard = () => {
     return `
     <div class="card h-100">
@@ -78,49 +77,61 @@ const IndexCard = ({ weekday }) => {
         <h3>${weekday.name}</h3>
       </div>
       <div class="card-body">
-        <p class="card-text text-muted">Loading awsome dishes...</p>
+        <p class="card-text text-muted">Loading awesome dishes...</p>
       </div>
     </div>
     `;
   };
 
+  // Content used when nothing is selected for the current weekday
   const EmptyCard = () => {
     return `
       <div class="card h-100">
         <div class="card-header text-center">
         <h3>${weekday.name}</h3>
         </div>
-        <div class="card-body text-center text-muted">
-        <p>No dish selected yet.</p>
-        <p>Set a random dish!</p>
-        <p><span class="" onclick="indexSetRandomMeal('${weekday.abbr}')"><i class="fas fa-random"></i></span></p>
+        <div class="card-body">
+          <div class="d-flex flex-column justify-content-center align-items-center h-100">
+            <p>No dish selected yet.</p>
+            <button
+            type="button"
+            class="btn btn-secondary btn-sm"
+            onclick="weekSetRandomMeal('${weekday.abbr}')"
+            >Set a random dish! <i class="fas fa-random"></i></button>
+          </div>
         </div>
       </div>
     `;
   };
   const userMeals = session.data ? session.data.meals : null;
-
   if (!userMeals) return LoadingCard();
-
   const meal = weekday.abbr in userMeals ? userMeals[weekday.abbr] : null;
-
   if (!meal) return EmptyCard();
 
+  // Content used when dish is selected for the current weekday
   return `
   <div class="card h-100" >
     <div class="card-header text-center">
       <h3>${weekday.name}</h3>
     </div>
     <div class="card-image">
-      <div class="hidden_icon d-flex flex-row">
-        <span onclick="indexSetRandomMeal('${
-          weekday.abbr
-        }')"><i class="fas fa-random"></i></span>
-        <span onclick="indexRemoveMealData({mealid: '${
-          meal.idMeal
-        }', weekday: '${
-    weekday.abbr
-  }'})"><i class="far fa-times-circle"></i></span>
+      <div class="hidden_icon d-flex flex-column justify-content-center align-items-center text-center h-100 w-100">
+
+      <button
+      type="button"
+      class="btn btn-secondary btn-sm"
+      onclick="indexRemoveMealData({
+        mealid: '${meal.idMeal}',
+        weekday: '${weekday.abbr}'
+      })"
+      >Clear dish! <i class="far fa-times-circle"></i></button>
+
+      <button
+      type="button"
+      class="btn btn-secondary btn-sm"
+      onclick="weekSetRandomMeal('${weekday.abbr}')"
+      >Set a new random dish! <i class="fas fa-random"></i></button>
+
       </div>
     <img src="${meal.strMealThumb}" class="card-img-top" alt="${
     meal.strMeal
@@ -165,6 +176,7 @@ const indexToggleFavListAll = () => {
   indexFavListAll = !indexFavListAll;
   render();
 };
+
 const IndexFavCard = () => {
   const favourites = session.data ? session.data.favlist : [];
 
@@ -187,9 +199,9 @@ const IndexFavCard = () => {
   const FavItem = meal => {
     return `
     <div class="d-flex flex-row">
-      <p class="w-100 bd-highlight"><a href="meal.html?m=${meal.idMeal}">${
-      meal.strMeal
-    }</a></p>
+      <p class="w-100 bd-highlight fav-item"><a href="meal.html?m=${
+        meal.idMeal
+      }">${meal.strMeal}</a></p>
       <div class="dropdown flex-shrink-1 bd-highlight">
         <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fas fa-bars"></i>
@@ -242,82 +254,29 @@ const IndexFavCard = () => {
   return `
     <div class="card h-100" >
       <div class="card-header text-center">
-        <h3>Favourites <i class="fas fa-heart fav"></i></h3>
+        <h3>My Favourites <a href="favourites.html" target="_self"><i class="fas fa-heart fav"></i></a></h3>
       </div>
       <div class="card-body favs">
-        <div class="d-flex flex-row text-muted">
-          <p class="w-100 bd-highlight">You have ${
+        <div class="d-flex bd-highlight">
+          <div class="flex-grow-1 bd-highlight align-self-center text-muted">You have ${
             favourites.length
-          } favourites</p>
-          <div class="flex-shrink-1 bd-highlight" onclick="indexToggleFavListAll()"><i class="fas ${
-            !indexFavListAll ? "fa-expand-alt" : "fa-compress-alt"
-          }"></i></div>
+          } favourites</div>
+
+          <div class="bd-highlight align-self-center">
+            <button
+            type="button"
+            class="btn text-muted fav-toggle"
+            onclick="indexToggleFavListAll()"
+            >${
+              !indexFavListAll
+                ? 'See all <i class="fas fa-expand-alt"></i>'
+                : 'See less <i class="fas fa-compress-alt"></i>'
+            }</button>
+
+          </div>
         </div>
       ${FavList()}
       </div>
     </div>
 `;
-};
-
-const IndexWidget = () => {
-  const IndexWidgetDay = ({ weekday }) => {
-    const Loading = () => {
-      return `
-    <div>
-      <div class="header"><h3>${weekday.name}</h3></div>
-      <div class="d-flex flex-row align-items-center w-card loading">
-        <div class="image"></div>
-        <div class="content text"></div>
-        <div class="content icon"></div>
-      </div>
-    </div>
-      `;
-    };
-
-    const userMeals = session.data ? session.data.meals : null;
-    if (!userMeals) return Loading();
-    const meal = weekday.abbr in userMeals ? userMeals[weekday.abbr] : null;
-    if (!meal) return "EmptyCard();";
-
-    return `
-        <div>
-          <div class="header"><h3>${weekday.name}</h3></div>
-          <div class="d-flex flex-row align-items-center w-card">
-            <div class="image"><img src="${meal.strMealThumb}" class="" alt="${
-      meal.strMeal
-    } image"></div>
-            <div class="content text"><h5 class=""><a href="meal.html?m=${
-              meal.idMeal
-            }">${meal.strMeal}</a></h5></div>
-            <div class="content icon">
-            <span>${
-              !globalInUserFav(meal.idMeal)
-                ? `<i class="far fa-heart fav" onclick="globalAddFav({meal: '${encodeURIComponent(
-                    JSON.stringify(meal)
-                  )}'})"></i>`
-                : `<i class="fas fa-heart fav" onclick="globalRemoveFav(${meal.idMeal})"></i>`
-            }
-            </span>
-            </div>
-          </div>
-        </div>
-          `;
-  };
-
-  return `
-  <div class="container widget">
-    <div class="row">
-      <div class="col"><h2>Dishes</h2></div>
-    </div>
-    <div class="row">${globalWeekdays
-      .map(weekday => {
-        return `
-        <div class="col-12 day">
-          ${IndexWidgetDay({ weekday: weekday })}
-        </div>`;
-      })
-      .join("\n")}
-      </div>
-    </div>
-    `;
 };
