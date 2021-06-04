@@ -254,6 +254,33 @@ input[type="search"]::-webkit-search-results-decoration {
 #week .favs .fav-item {
   margin-bottom: 0.8em;
 }
+
+/* --------------------------------- list.html */
+
+#list .card ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+#list .card input {
+  width: 100%;
+}
+
+#list .card h3 {
+  font-size: calc(1rem + 0.6vw);
+}
+
+#list .btnRemove {
+  visibility: hidden;
+}
+#list .liCheck:hover .btnRemove {
+  visibility: visible;
+}
+#list .btnCheck,
+#list #btnAdd,
+#list .btnRemove {
+  padding: 0;
+}
+
 /* --------------------------------- meal.html */
 
 #meal img {
