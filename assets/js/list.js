@@ -95,7 +95,6 @@ const List = () => {
   const shoppingChecked = session.data.shoppingChecked;
 
   let ingridients = [];
-
   userMeals.map(([key, meal]) => {
     if (meal) {
       // Note: Api has a fixed list of items (20)
@@ -181,12 +180,13 @@ const List = () => {
                 shoppingChecked.findIndex(item => item === value) >= 0
                   ? true
                   : false;
+
               return `
               <li class="liCheck d-flex bd-highlight">
                 <button
                 type="button"
                 class="btn btnCheck bd-highlight"
-                onclick="listToggleIngridient({idMeal: 'add', ingredient: '${item}',event: event})"
+                onclick="listToggleIngridient({idMeal: 'add', ingredient: '${value}',event: event})"
                 >${
                   selected
                     ? `<i class="far fa-check-circle"></i>`
@@ -196,7 +196,7 @@ const List = () => {
                   <button
                   type="button"
                   class="btn btnCheck"
-                  onclick="listToggleIngridient({idMeal: 'add', ingredient: '${item}',event: event})"
+                  onclick="listToggleIngridient({idMeal: 'add', ingredient: '${value}',event: event})"
                   >${item}</button>
                 </div>
                 <div class="bd-highlight">
