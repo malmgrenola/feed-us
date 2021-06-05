@@ -117,19 +117,17 @@ section {
 
 /* --------------------------------- Index.html */
 
-#index .search-row img {
+.meal-row.background-grey {
+  background-color: #f8f9fa;
+}
+.meal-row img {
   margin-left: -50px;
   border: 5px solid rgba(255, 255, 255, 1);
   width: 100px;
   height: 100px;
   padding: 0;
 }
-
-#index .background-grey {
-  background-color: #f8f9fa;
-}
-
-#index .search-row {
+.meal-row {
   height: 100px;
   margin-left: 50px;
   border-bottom-right-radius: 10px;
@@ -137,24 +135,50 @@ section {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-#index .search-row h3 {
+.meal-row h3 {
   font-size: 1.2em;
 }
-#index .search-row .search-tags {
+.meal-row .search-tags {
   /* margin-left: 45px; */
 }
 
-#index .search-row small {
+.meal-row small {
   /* margin-left: 45px; */
   color: rgba(0, 0, 0, 0.55);
 }
 
-#index .dropdown {
+.meal-row .dropdown {
   font-size: 1.5em;
 }
+.meal-row .btn-group-week {
+  font-size: 1.2em;
+}
+.meal-row .btn-week {
+  border: 3px solid grey;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  padding: 0;
+  margin: 5px 0;
+}
+.meal-row .btn-week p {
+  font-weight: bold;
+  margin-bottom: 0;
+  transform: translateY(15%);
+  color: grey;
+}
+.meal-row .btn-week.active {
+  border: 0;
+  background-color: grey;
+}
+.meal-row .btn-week.active p {
+  margin-bottom: 0;
+  transform: translateY(30%);
+  color: white;
+}
 
-#index .dropdown {
-  font-size: 1.5em;
+.meal-row .btn-group-week i {
+  font-size: 2em;
 }
 
 #index .searchbar {
@@ -190,37 +214,6 @@ input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance: none;
-}
-
-.btn-group-week {
-  font-size: 1.2em;
-}
-.btn-week {
-  border: 3px solid grey;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  padding: 0;
-  margin: 5px 0;
-}
-.btn-week p {
-  font-weight: bold;
-  margin-bottom: 0;
-  transform: translateY(15%);
-  color: grey;
-}
-.btn-week.active {
-  border: 0;
-  background-color: grey;
-}
-.btn-week.active p {
-  margin-bottom: 0;
-  transform: translateY(30%);
-  color: white;
-}
-
-.btn-group-week i {
-  font-size: 2em;
 }
 
 /* --------------------------------- week.html */
