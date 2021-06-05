@@ -15,22 +15,6 @@ const indexRemoveMealData = ({ weekday }) => {
   render();
 };
 
-const weekSetRandomMeal = weekday => {
-  mealApiRandom()
-    .then(response => {
-      const meal = response.meals[0];
-
-      session.data.meals[weekday] = meal;
-      fbSetDoc(session.id, session.data).catch(error => {
-        console.error("Error writing document: ", error);
-      });
-      render();
-    })
-    .catch(errorResponse => {
-      console.error(errorResponse);
-    });
-};
-
 const Page = () => {
   return `
   <div class="row">
@@ -96,7 +80,7 @@ const IndexCard = ({ weekday }) => {
             <button
             type="button"
             class="btn btn-secondary btn-sm"
-            onclick="weekSetRandomMeal('${weekday.abbr}')"
+            onclick="globalSetRandomMeal('${weekday.abbr}')"
             >Set a random dish! <i class="fas fa-random"></i></button>
           </div>
         </div>
@@ -129,7 +113,7 @@ const IndexCard = ({ weekday }) => {
       <button
       type="button"
       class="btn btn-secondary btn-sm"
-      onclick="weekSetRandomMeal('${weekday.abbr}')"
+      onclick="globalSetRandomMeal('${weekday.abbr}')"
       >Set a new random dish! <i class="fas fa-random"></i></button>
 
       </div>

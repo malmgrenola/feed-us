@@ -8,7 +8,6 @@ $(document).ready(function() {
 const render = () => {
   $("#index").html(`<div class="container-fluid">${Index()}</div>`);
   searchSetClear();
-  $("#search-input").focus();
 };
 
 const searchKeyUp = e => {
@@ -46,6 +45,8 @@ const indexRemoveMealData = ({ weekday }) => {
 const Index = () => {
   const q = gs.getUrlParam("q");
 
+  const isMeals = globalMealInUserWeek();
+
   return `
   <div class="row">
     <div class="col text-center">
@@ -74,10 +75,14 @@ const Index = () => {
     </div>
   </div>
   <div class="row">
-        <div class="col-12 col-md-9 m-0 p-2">${Hits({
-          meals: gs.results
-        })}</div>
-        <div class="col-12 col-md-3 m-0 p-2">${IndexWidget()}</div>
+        <div class="col-12 ${isMeals ? "col-md-9" : ""} m-0 p-2">${Hits({
+    meals: gs.results
+  })}</div>
+        ${
+          isMeals
+            ? `<div class="col-12 col-md-3 m-0 p-2">${IndexWidget()}</div>`
+            : ""
+        }
   </div>
   `;
 };
@@ -97,8 +102,7 @@ const Hits = ({ meals }) => {
     return `
       <div class="container m-0 p-0">
         <div class="row">
-          <div class="col">
-          </div>
+          <div class="col"></div>
         </div>
       </div>
         `;
@@ -147,38 +151,33 @@ const Hits = ({ meals }) => {
       };
 
       const Hamburger = () => {
-        // const idx = Math.floor(
-        //   Math.random() * (Number.MAX_SAFE_INTEGER - 1) + 1
-        // );
-
-        // return `
-        // <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        //
-        //     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup-${idx}" aria-controls="navbarNavAltMarkup-${idx}" aria-expanded="false" aria-label="Toggle assignment">
-        //       <span class="navbar-toggler-icon"></span>
-        //     </button>
-        //     <div class="collapse navbar-collapse" id="navbarNavAltMarkup-${idx}">
-        //       <div class="navbar-nav">
-        //         <a class="nav-link active" aria-current="page" href="#">Home</a>
-        //         <a class="nav-link" href="#">Features</a>
-        //         <a class="nav-link" href="#">Pricing</a>
-        //         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        //       </div>
-        //     </div>
-        //
-        // </nav>`;
         const WeekButton = ({ meal, weekday }) => {
+          const active = globalInUserWeek({
+            weekday: weekday.abbr,
+            idMeal: meal.idMeal
+          });
           return `
           <span class="btn btn-week${
-            globalInUserWeek({
-              weekday: weekday,
-              idMeal: meal.idMeal
-            })
-              ? " active"
-              : ""
-          }" onclick="globalSetMeal({weekday: '${weekday}', meal: '${encodeURIComponent(
+            active ? " active" : ""
+          }" onclick="globalSetMeal({weekday: '${
+            weekday.abbr
+          }', meal: '${encodeURIComponent(
             JSON.stringify(meal)
-          )}'})"><p>${weekday.slice(0, 2)}</p></span>`;
+          )}'})"><p>${weekday.abbr.slice(0, 2)}</p></span>`;
+        };
+
+        const WeekListItem = ({ meal, weekday }) => {
+          const active = globalInUserWeek({
+            weekday: weekday.abbr,
+            idMeal: meal.idMeal
+          });
+          return `<li><span class="dropdown-item" onclick="globalSetMeal({weekday: '${
+            weekday.abbr
+          }', meal: '${encodeURIComponent(JSON.stringify(meal))}'})">${
+            active
+              ? "<i class='far fa-trash-alt'></i> Remove this from"
+              : "<i class='fas fa-plus'></i> Have this on"
+          } ${weekday.name}</span></li>`;
         };
 
         return `<div class="dropdown d-md-none">
@@ -186,27 +185,34 @@ const Hits = ({ meals }) => {
                       <i class="fas fa-bars"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Mon', meal: '${encodeURIComponent(
-                        JSON.stringify(meal)
-                      )}'})">Have this on Monday</span></li>
-                      <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Tue', meal: '${encodeURIComponent(
-                        JSON.stringify(meal)
-                      )}'})">Have this on Tuesday</span></li>
-                      <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Wed', meal: '${encodeURIComponent(
-                        JSON.stringify(meal)
-                      )}'})">Have this on Wednesday</span></li>
-                      <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Thu', meal: '${encodeURIComponent(
-                        JSON.stringify(meal)
-                      )}'})">Have this on Thursday</span></li>
-                      <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Fri', meal: '${encodeURIComponent(
-                        JSON.stringify(meal)
-                      )}'})">Have this on Friday</span></li>
-                      <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Sat', meal: '${encodeURIComponent(
-                        JSON.stringify(meal)
-                      )}'})">Have this on Saturday</span></li>
-                      <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Sun', meal: '${encodeURIComponent(
-                        JSON.stringify(meal)
-                      )}'})">Have this on Sunday</span></li>
+                      ${WeekListItem({
+                        meal: meal,
+                        weekday: { abbr: "Mon", name: "Monday" }
+                      })}
+                      ${WeekListItem({
+                        meal: meal,
+                        weekday: { abbr: "Tue", name: "Tuesday" }
+                      })}
+                      ${WeekListItem({
+                        meal: meal,
+                        weekday: { abbr: "Wed", name: "Wednesday" }
+                      })}
+                      ${WeekListItem({
+                        meal: meal,
+                        weekday: { abbr: "Thu", name: "Thursday" }
+                      })}
+                      ${WeekListItem({
+                        meal: meal,
+                        weekday: { abbr: "Fri", name: "Friday" }
+                      })}
+                      ${WeekListItem({
+                        meal: meal,
+                        weekday: { abbr: "Sat", name: "Saturday" }
+                      })}
+                      ${WeekListItem({
+                        meal: meal,
+                        weekday: { abbr: "Sun", name: "Sunday" }
+                      })}
                       <li><hr class="dropdown-divider"></li>
                       <li>${
                         !globalInUserFav(meal.idMeal)
@@ -222,31 +228,31 @@ const Hits = ({ meals }) => {
                     <div class="row">
                       <div class="col-3 p-0 text-center">${WeekButton({
                         meal: meal,
-                        weekday: "Mon"
+                        weekday: { abbr: "Mon", name: "Monday" }
                       })}</div>
                       <div class="col-3 p-0 text-center">${WeekButton({
                         meal: meal,
-                        weekday: "Tue"
+                        weekday: { abbr: "Tue", name: "Tuesday" }
                       })}</div>
                       <div class="col-3 p-0 text-center">${WeekButton({
                         meal: meal,
-                        weekday: "Wed"
+                        weekday: { abbr: "Wed", name: "Wednesday" }
                       })}</div>
                       <div class="col-3 p-0 text-center">${WeekButton({
                         meal: meal,
-                        weekday: "Thu"
+                        weekday: { abbr: "Thu", name: "Thursday" }
                       })}</div>
                       <div class="col-3 p-0 text-center">${WeekButton({
                         meal: meal,
-                        weekday: "Fri"
+                        weekday: { abbr: "Fri", name: "Friday" }
                       })}</div>
                       <div class="col-3 p-0 text-center">${WeekButton({
                         meal: meal,
-                        weekday: "Sat"
+                        weekday: { abbr: "Sat", name: "Saturday" }
                       })}</div>
                       <div class="col-3 p-0 text-center">${WeekButton({
                         meal: meal,
-                        weekday: "Sun"
+                        weekday: { abbr: "Sun", name: "Sunday" }
                       })}</div>
                       <div class="col-3 p-0 text-center"><span class="btn">${
                         !globalInUserFav(meal.idMeal)
@@ -260,9 +266,9 @@ const Hits = ({ meals }) => {
       };
 
       return `
-        <div class="container-fluid">
+        <div class="container-fluid p-0 p-md-3">
           <div class="row">
-            <div class="col">
+            <div class="col p-0">
                 <div class="d-flex flex-row flex-nowrap flex-grow-1 bd-highlight justify-content-start align-items-center background-grey search-row">
                   <div class="flex-shrink-0">${Image()}</div>
                   <div class="flex-grow-1">
@@ -302,11 +308,27 @@ const IndexWidget = () => {
     </div>
       `;
     };
-
+    const Empty = () => {
+      return `
+    <div>
+      <div class="header"><h3>${weekday.name}</h3></div>
+      <div class="d-flex flex-row align-items-center w-card">
+        <div class="image"></div>
+        <div class="content text text-muted">
+        <p>No dish selected yet.</p>
+        <p><span
+        class="a"
+        onclick="globalSetRandomMeal('${weekday.abbr}')"
+        >I'm lucky! <i class="fas fa-random"></i></span></p></div>
+        <div class="content icon"></div>
+      </div>
+    </div>
+      `;
+    };
     const userMeals = session.data ? session.data.meals : null;
     if (!userMeals) return Loading();
     const meal = weekday.abbr in userMeals ? userMeals[weekday.abbr] : null;
-    if (!meal) return "EmptyCard();";
+    if (!meal) return Empty();
 
     return `
         <div>
@@ -336,7 +358,7 @@ const IndexWidget = () => {
   return `
   <div class="container widget">
     <div class="row">
-      <div class="col"><h2>My Dinner Week</h2></div>
+      <div class="col"><h2><a href="week.html" target="_self">My Dinner Week</a></h2></div>
     </div>
     <div class="row">${globalWeekdays
       .map(weekday => {
