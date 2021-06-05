@@ -269,7 +269,7 @@ const Hits = ({ meals }) => {
         <div class="container-fluid p-0 p-md-3">
           <div class="row">
             <div class="col p-0">
-                <div class="d-flex flex-row flex-nowrap flex-grow-1 bd-highlight justify-content-start align-items-center background-grey search-row">
+                <div class="d-flex flex-row flex-nowrap flex-grow-1 bd-highlight justify-content-start align-items-center background-grey meal-row">
                   <div class="flex-shrink-0">${Image()}</div>
                   <div class="flex-grow-1">
                     <div>${Title()}</div>
