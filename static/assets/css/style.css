@@ -41,6 +41,7 @@ section {
   font-size: 1em;
   font-weight: bold;
   text-align: center;
+  text-transform: uppercase;
   background-color: rgba(0, 0, 0, 0.03);
   margin: 0;
   padding: 0.2rem 0.5rem;
@@ -57,7 +58,18 @@ section {
   text-align: left;
   padding-left: 0.3rem;
 }
-
+.widget p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.widget .a {
+  color: #0d6efd;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.widget .a:hover {
+  color: #0a58ca;
+}
 .widget .w-card .image,
 .widget .w-card .image img {
   width: 3em;
@@ -182,6 +194,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 .btn-week p {
   font-weight: bold;
+  margin-bottom: 0;
   transform: translateY(15%);
   color: grey;
 }
@@ -190,6 +203,8 @@ input[type="search"]::-webkit-search-results-decoration {
   background-color: grey;
 }
 .btn-week.active p {
+  margin-bottom: 0;
+  transform: translateY(30%);
   color: white;
 }
 

@@ -72,11 +72,21 @@ const globalIndexOfUserFav = idMeal => {
 };
 
 const globalInUserWeek = ({ weekday, idMeal }) => {
-  if (!session.data) return null;
+  if (!session.data) return false;
+  if (!session.data.meals[weekday]) return false;
   if (idMeal === session.data.meals[weekday].idMeal) return true;
   return false;
 };
+const globalMealInUserWeek = () => {
+  if (!session.data) return false;
 
+  for (const weekday in session.data.meals) {
+    if (session.data.meals[weekday] !== null) {
+      return true;
+    }
+  }
+  return false;
+};
 const globalAddFav = props => {
   //TODO: Fix error Uncaught SyntaxError: Unexpected identifier when adding f.ex. Recheado Masala Fish
   const meal = JSON.parse(decodeURIComponent(props.meal));
@@ -104,11 +114,36 @@ const globalSetMeal = props => {
   const meal = JSON.parse(decodeURIComponent(props.meal));
   const weekday = props.weekday;
 
-  session.data.meals[weekday] = meal;
+  // Toggle meal on/off or set meal if it is another
+  if (!session.data.meals[weekday]) {
+    session.data.meals[weekday] = meal;
+  } else {
+    if (session.data.meals[weekday].idMeal === meal.idMeal) {
+      session.data.meals[weekday] = null;
+    } else {
+      session.data.meals[weekday] = meal;
+    }
+  }
   fbSetDoc(session.id, session.data).catch(error => {
     console.error("Error writing document: ", error);
   });
   render();
+};
+
+const globalSetRandomMeal = weekday => {
+  mealApiRandom()
+    .then(response => {
+      const meal = response.meals[0];
+
+      session.data.meals[weekday] = meal;
+      fbSetDoc(session.id, session.data).catch(error => {
+        console.error("Error writing document: ", error);
+      });
+      render();
+    })
+    .catch(errorResponse => {
+      console.error(errorResponse);
+    });
 };
 
 const globalWeekdays = [
