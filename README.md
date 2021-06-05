@@ -37,16 +37,15 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 
 ```
 {
-  "fp": "ef01366f20631055bc363387e84fef22",
   "data": {
     "meals": {
-      "monday": "52771",
-      "tuesday": "123",
-      "wednesday": "123"  ,
-      "thursday": "123",
-      "friday": null,
-      "saturday": null,
-      "sunday": "123"
+      "Mon": "52771",
+      "Tue": "123",
+      "Wed": "123"  ,
+      "Thu": "123",
+      "Fri": null,
+      "Sat": null,
+      "Sun": "123"
      },
      "additionalItems": ["1 x Toiletpaper", "2 x lollipops"],
      "favlist": [mealobject,mealobject],
@@ -121,6 +120,11 @@ In addition, you should mention in this section how your project looks and works
 You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
 
 If this section grows too long, you may want to split it off into a separate file and link to it from here.
+
+### Known Bugs
+
+1. [themealdb](https://www.themealdb.com/api.php) is case sensetive in ingredients that means that "eggs" and "Eggs" will show up twice in the shopping list.
+2. ...
 
 ## Deployment
 

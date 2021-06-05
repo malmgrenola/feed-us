@@ -16,7 +16,14 @@ h2 {
   font-size: 1.5em;
   margin-bottom: 10px;
 }
-
+.a {
+  color: #0d6efd;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.a:hover {
+  color: #0a58ca;
+}
 section {
   margin-top: 20px;
 }
@@ -102,6 +109,10 @@ section {
   to {
     background-position-x: -200%;
   }
+}
+
+.btn.text-left {
+  text-align: left !important;
 }
 
 /* --------------------------------- Index.html */
@@ -272,15 +283,16 @@ input[type="search"]::-webkit-search-results-decoration {
 
 /* --------------------------------- list.html */
 
-#list .card ul {
+#list ul {
   list-style-type: none;
   padding-left: 0;
 }
-#list .card input {
+#list ul input {
   width: 100%;
+  /* display: inline-block; */
 }
 
-#list .card h3 {
+#list ul h3 {
   font-size: calc(1rem + 0.6vw);
 }
 
@@ -294,6 +306,9 @@ input[type="search"]::-webkit-search-results-decoration {
 #list #btnAdd,
 #list .btnRemove {
   padding: 0;
+}
+#list li {
+  border-bottom: 1px solid #f5f5f5;
 }
 
 /* --------------------------------- meal.html */
