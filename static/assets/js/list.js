@@ -73,17 +73,21 @@ const listDeleteAdditionalItem = index => {
 const Page = () => {
   return `
   <div class="container-fluid py-2 grid">
-    <div class="row">
-      <div class="col text-center">
-        <h1>Feed Us!</h1>
+    <header>
+      <div class="row">
+        <div class="col text-center">
+          <h1>Feed Us!</h1>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col text-center pb-1">
-        <h2>My Shopping list</h2>
+      <div class="row">
+        <div class="col text-center pb-1">
+          <h2>My Shopping list</h2>
+        </div>
       </div>
-    </div>
-    <div class="row">${List()}</div>
+    </header>
+    <article>
+      <div class="row">${List()}</div>
+    </article>
   </div>`;
 };
 

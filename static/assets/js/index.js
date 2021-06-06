@@ -48,16 +48,18 @@ const Index = () => {
   const isMeals = globalMealInUserWeek();
 
   return `
-  <div class="row">
-    <div class="col text-center">
-      <h1>Feed Us!</h1>
+  <header>
+    <div class="row">
+      <div class="col text-center">
+        <h1>Feed Us!</h1>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col text-center">
-      <h2>What's for dinner this week?</h2>
+    <div class="row">
+      <div class="col text-center">
+        <h2>What's for dinner this week?</h2>
+      </div>
     </div>
-  </div>
+  </header>
   <div class="row">
     <div class="col text-center">
     <div class="searchbar d-inline-flex ">
@@ -266,6 +268,7 @@ const Hits = ({ meals }) => {
       };
 
       return `
+      <article>
         <div class="container-fluid p-0 p-md-3">
           <div class="row">
             <div class="col p-0">
@@ -288,6 +291,7 @@ const Hits = ({ meals }) => {
             </div>
           </div>
         </div>
+      </article>
           `;
     })
     .join("\n")}
@@ -356,19 +360,21 @@ const IndexWidget = () => {
   };
 
   return `
-  <div class="container widget">
-    <div class="row">
-      <div class="col"><h2><a href="week.html" target="_self">My Dinner Week</a></h2></div>
-    </div>
-    <div class="row">${globalWeekdays
-      .map(weekday => {
-        return `
-        <div class="col-12 day">
-          ${IndexWidgetDay({ weekday: weekday })}
-        </div>`;
-      })
-      .join("\n")}
+  <aside>
+    <div class="container widget">
+      <div class="row">
+        <div class="col"><h2><a href="week.html" target="_self">My Dinner Week</a></h2></div>
+      </div>
+      <div class="row">${globalWeekdays
+        .map(weekday => {
+          return `
+          <div class="col-12 day">
+            ${IndexWidgetDay({ weekday: weekday })}
+          </div>`;
+        })
+        .join("\n")}
       </div>
     </div>
+  </aside>
     `;
 };
