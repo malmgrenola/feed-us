@@ -17,16 +17,18 @@ const indexRemoveMealData = ({ weekday }) => {
 
 const Page = () => {
   return `
-  <div class="row">
-    <div class="col text-center">
-      <h1>Feed Us!</h1>
+  <header>
+    <div class="row">
+      <div class="col text-center">
+        <h1>Feed Us!</h1>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col text-center pb-3">
-      <h2>My Dinner Week</h2>
+    <div class="row">
+      <div class="col text-center pb-3">
+        <h2>My Dinner Week</h2>
+      </div>
     </div>
-  </div>
+  </header>
   <div class="row">
         <div class="col px-0">${Week()}</div>
   </div>
@@ -40,12 +42,16 @@ const Week = () => {
       .map(weekday => {
         return `
         <div class="col-12 col-lg-3 p-2">
-          ${IndexCard({ weekday: weekday })}
+          <article>
+            ${IndexCard({ weekday: weekday })}
+          </article>
         </div>`;
       })
       .join("\n")}
         <div class="col-12 col-lg-3 p-2">
-          ${IndexFavCard()}
+          <article>
+            ${IndexFavCard()}
+          </article>
         </div>
       </div>
     </div>

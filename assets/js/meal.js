@@ -72,6 +72,7 @@ const Page = () => {
         </div>
       </div>
     </div>
+
       `;
   };
 
@@ -130,19 +131,23 @@ const Page = () => {
 
   return `
   <div class="container-fluid">
-    <div class="row">
-      <div class="col">${Title()}</div>
-    </div>
-    <div class="row">
-      <div class="col">${Category()}</div>
-    </div>
-    <div class="row">
-      <div class="col">${Tags()}</div>
-    </div>
-    <div class="row">
-      <div class="col-12 col-md-4 p-2">${Ingridients()}</div>
-      <div class="col-12 col-md-8 p-2">${Instructions()}</div>
-    </div>
+    <header>
+      <div class="row">
+        <div class="col">${Title()}</div>
+      </div>
+      <div class="row">
+        <div class="col">${Category()}</div>
+      </div>
+      <div class="row">
+        <div class="col">${Tags()}</div>
+      </div>
+    </header>
+    <article>
+      <div class="row">
+          <div class="col-12 col-md-4 p-2">${Ingridients()}</div>
+          <div class="col-12 col-md-8 p-2">${Instructions()}</div>
+      </div>
+    </article>
   </div>
   `;
 };

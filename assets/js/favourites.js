@@ -24,21 +24,23 @@ const Page = () => {
       })
     : [];
   return `
-      <div class="row">
-        <div class="col text-center">
-          <h1>Feed Us!</h1>
-        </div>
+  <header>
+    <div class="row">
+      <div class="col text-center">
+        <h1>Feed Us!</h1>
       </div>
-      <div class="row">
-        <div class="col text-center">
-          <h2>All your favourites</h2>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <h2>All your favourites</h2>
       </div>
-      <div class="row">
-            <div class="col-12 m-0 p-2">${Favourites({
-              meals: favourites
-            })}</div>
-      </div>
+    </div>
+  </header>
+    <div class="row">
+          <div class="col-12 m-0 p-2">${Favourites({
+            meals: favourites
+          })}</div>
+    </div>
       `;
 };
 
@@ -222,6 +224,7 @@ const Favourites = ({ meals }) => {
       };
 
       return `
+      <article>
         <div class="container-fluid p-0 p-md-3">
           <div class="row">
             <div class="col p-0">
@@ -244,84 +247,9 @@ const Favourites = ({ meals }) => {
             </div>
           </div>
         </div>
+      </article>
           `;
     })
     .join("\n")}
   `;
 };
-
-// const FavList = () => {
-//   const FavItem = meal => {
-//     return `
-//     <div class="d-flex flex-row">
-//       <p class="w-100 bd-highlight"><a href="meal.html?m=${meal.idMeal}">${
-//       meal.strMeal
-//     }</a></p>
-//       <div class="dropdown flex-shrink-1 bd-highlight">
-//         <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-//           <i class="fas fa-bars"></i>
-//         </a>
-//         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-//           <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Mon', meal: '${encodeURIComponent(
-//             JSON.stringify(meal)
-//           )}'})">Have this on Monday</span></li>
-//           <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Tue', meal: '${encodeURIComponent(
-//             JSON.stringify(meal)
-//           )}'})">Have this on Tuesday</span></li>
-//           <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Wed', meal: '${encodeURIComponent(
-//             JSON.stringify(meal)
-//           )}'})">Have this on Wednesday</span></li>
-//           <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Thu', meal: '${encodeURIComponent(
-//             JSON.stringify(meal)
-//           )}'})">Have this on Thursday</span></li>
-//           <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Fri', meal: '${encodeURIComponent(
-//             JSON.stringify(meal)
-//           )}'})">Have this on Friday</span></li>
-//           <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Sat', meal: '${encodeURIComponent(
-//             JSON.stringify(meal)
-//           )}'})">Have this on Saturday</span></li>
-//           <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Sun', meal: '${encodeURIComponent(
-//             JSON.stringify(meal)
-//           )}'})">Have this on Sunday</span></li>
-//           <li><hr class="dropdown-divider"></li>
-//           <li><span class="dropdown-item" onclick="globalRemoveFav(${
-//             meal.idMeal
-//           })"><i class="fas fa-trash-alt"></i> Remove From Favourites</a></li>
-//         </ul>
-//       </div>
-//   </div>`;
-//   };
-//
-//   if (!favourites)
-//     return `
-//       <div class="col-12 col-lg-3">
-//       <div class="card h-100">
-//       <div class="card-header text-center">
-//         <h3>Favourites <i class="fas fa-heart fav"></i></h3>
-//       </div>
-//       <div class="card-body">
-//         <p class="card-text text-muted">No favs yet</p>
-//       </div>
-//     </div>
-//     </div>
-//       `;
-//
-//   return `
-//     <div class="card h-100" >
-//       <div class="card-header text-center">
-//         <h3>Favourites <i class="fas fa-heart fav"></i></h3>
-//       </div>
-//       <div class="card-body favs">
-//         <div class="d-flex flex-row text-muted">
-//           <p class="w-100 bd-highlight">You have ${
-//             favourites.length
-//           } favourites</p>
-//           <div class="flex-shrink-1 bd-highlight" onclick="indexToggleFavListAll()"><i class="fas ${
-//             !indexFavListAll ? "fa-expand-alt" : "fa-compress-alt"
-//           }"></i></div>
-//         </div>
-//       ${FavList()}
-//       </div>
-//     </div>
-// `;
-// };
