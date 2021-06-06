@@ -363,7 +363,7 @@ const IndexWidget = () => {
   <aside>
     <div class="container widget">
       <div class="row">
-        <div class="col"><h2><a href="week.html" target="_self">My Dinner Week</a></h2></div>
+        <div class="col"><h2><a href="week.html" target="_self">Week Schedule</a></h2></div>
       </div>
       <div class="row">${globalWeekdays
         .map(weekday => {
