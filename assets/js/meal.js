@@ -14,7 +14,6 @@ const mealGet = id => {
     .then(data => {
       if (data.meals) {
         meal = data.meals[0];
-        console.log("meal api lookup", meal);
       }
       render();
     })
@@ -26,10 +25,10 @@ const mealGet = id => {
 };
 
 const render = () => {
-  $("#meal-data").html(Meal);
+  $("#meal").html(Page);
 };
 
-const Meal = () => {
+const Page = () => {
   const m = gs.getUrlParam("m");
 
   const Title = () => {
@@ -57,17 +56,28 @@ const Meal = () => {
       }
     }
     return `
-    <h4>Ingridients</h4>
-    <ul>${ingridients
-      .map(({ ingridient, messure }) => {
-        return `<li><strong>${ingridient}</strong> - ${messure}</li>`;
-      })
-      .join("\n")} </ul>`;
+    <div class="container-fluid meal-border">
+      <div class="row">
+        <div class="col my-3">
+          <h4>Ingridients</h4>
+          <ul>${ingridients
+            .map(({ ingridient, messure }) => {
+              return `
+                <li class="d-flex align-items-center bd-highlight">
+                  <div class="w-50 bd-highlight"><strong>${ingridient}</strong></div>
+                  <div class="bd-highlight w-50 text-end">${messure}</div>
+                </li>`;
+            })
+            .join("\n")} </ul>
+        </div>
+      </div>
+    </div>
+      `;
   };
 
   const Image = () => {
     return `<img
-                class="rounded-circle"
+                class="rounded-circle img-responsive"
                 src="${meal.strMealThumb}"
                 alt="${meal.strMeal} image"
               />`;
@@ -75,19 +85,21 @@ const Meal = () => {
 
   const Instructions = () => {
     return `
-    <div class="container">
+    <div class="container-fluid meal-border">
       <div class="row">
-        <div class="col-9">
-          <div class=""><h4>Instructions</h4></div>
-          <div class="">
-            ${
-              meal.strYoutube != ""
-                ? `<p><a href="${meal.strYoutube}" target="_blank">Watch video</a></p>`
-                : "<p>&nbsp;<p>"
-            }
+        <div class="col d-flex align-items-center">
+          <div class="flex-grow-1">
+            <div class=""><h4>Instructions</h4></div>
+              <div class="">
+                ${
+                  meal.strYoutube != ""
+                    ? `<p><a href="${meal.strYoutube}" target="_blank">Watch video</a></p>`
+                    : "<p>&nbsp;<p>"
+                }
+              </div>
+            </div>
+            <div class="flex-shrink-0">${Image()}</div>
           </div>
-        </div>
-        <div class="col-3">${Image()}</div>
       </div>
       <div class="row">
         <div class="col-12">
@@ -117,18 +129,20 @@ const Meal = () => {
   if (!meal) return "";
 
   return `
-  <div class="row">
-    <div class="col">${Title()}</div>
-  </div>
-  <div class="row">
-    <div class="col">${Category()}</div>
-  </div>
-  <div class="row">
-    <div class="col">${Tags()}</div>
-  </div>
-  <div class="row">
-    <div class="col-3 meal-border mx-2 py-4">${Ingridients()}</div>
-    <div class="col-8 meal-border mx-2 py-4">${Instructions()}</div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">${Title()}</div>
+    </div>
+    <div class="row">
+      <div class="col">${Category()}</div>
+    </div>
+    <div class="row">
+      <div class="col">${Tags()}</div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-4 p-2">${Ingridients()}</div>
+      <div class="col-12 col-md-8 p-2">${Instructions()}</div>
+    </div>
   </div>
   `;
 };
