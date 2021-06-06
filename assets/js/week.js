@@ -25,7 +25,7 @@ const Page = () => {
     </div>
     <div class="row">
       <div class="col text-center pb-3">
-        <h2>My Dinner Week</h2>
+        <h2>Week Schedule</h2>
       </div>
     </div>
   </header>
