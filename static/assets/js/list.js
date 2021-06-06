@@ -72,7 +72,7 @@ const listDeleteAdditionalItem = index => {
 
 const Page = () => {
   return `
-  <div class="container-fluid py-2 grid">
+  <div class="container-fluid">
     <header>
       <div class="row">
         <div class="col text-center">
