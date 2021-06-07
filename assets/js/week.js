@@ -154,10 +154,10 @@ const IndexCard = ({ weekday }) => {
 `;
 };
 
-let indexFavListAll;
+let weekFavListAll; // Page state
 
-const indexToggleFavListAll = () => {
-  indexFavListAll = !indexFavListAll;
+const weekToggleFavListAll = () => {
+  weekFavListAll = !weekFavListAll;
   render();
 };
 
@@ -173,7 +173,7 @@ const IndexFavCard = () => {
         if (sA > sB) return 1;
         return 0;
       })
-      .slice(0, indexFavListAll ? favourites.length : 8)
+      .slice(0, weekFavListAll ? favourites.length : 8)
       .map(meal => {
         return FavItem(meal);
       })
@@ -252,9 +252,9 @@ const IndexFavCard = () => {
             <button
             type="button"
             class="btn text-muted fav-toggle"
-            onclick="indexToggleFavListAll()"
+            onclick="weekToggleFavListAll()"
             >${
-              !indexFavListAll
+              !weekFavListAll
                 ? 'See all <i class="fas fa-expand-alt a-icon"></i>'
                 : 'See less <i class="fas fa-compress-alt a-icon"></i>'
             }</button>

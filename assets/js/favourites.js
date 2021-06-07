@@ -7,12 +7,6 @@ const render = () => {
   $("#favourites").html(Page());
 };
 
-let indexFavListAll;
-
-const indexToggleFavListAll = () => {
-  indexFavListAll = !indexFavListAll;
-  render();
-};
 const Page = () => {
   const favourites = session.data
     ? session.data.favlist.sort((a, b) => {
