@@ -34,14 +34,6 @@ const searchClearDo = () => {
   $(".clear-icon").css("visibility", "hidden");
 };
 
-const indexRemoveMealData = ({ weekday }) => {
-  session.data.meals[weekday] = null;
-  fbSetDoc(session.id, session.data).catch(error => {
-    console.error("Error writing document: ", error);
-  });
-  render();
-};
-
 const Index = () => {
   const q = gs.getUrlParam("q");
 
@@ -161,7 +153,7 @@ const Hits = ({ meals }) => {
           return `
           <span class="btn btn-week${
             active ? " active" : ""
-          }" onclick="globalSetMeal({weekday: '${
+          }" onclick="globalToggleMeal({weekday: '${
             weekday.abbr
           }', meal: '${encodeURIComponent(
             JSON.stringify(meal)
@@ -173,7 +165,7 @@ const Hits = ({ meals }) => {
             weekday: weekday.abbr,
             idMeal: meal.idMeal
           });
-          return `<li><span class="dropdown-item" onclick="globalSetMeal({weekday: '${
+          return `<li><span class="dropdown-item" onclick="globalToggleMeal({weekday: '${
             weekday.abbr
           }', meal: '${encodeURIComponent(JSON.stringify(meal))}'})">${
             active
@@ -258,10 +250,10 @@ const Hits = ({ meals }) => {
                       })}</div>
                       <div class="col-3 p-0 text-center"><span class="btn">${
                         !globalInUserFav(meal.idMeal)
-                          ? `<i class="far fa-heart fav" onclick="globalAddFav({meal: '${encodeURIComponent(
+                          ? `<i class="far fa-heart fav a-icon" onclick="globalAddFav({meal: '${encodeURIComponent(
                               JSON.stringify(meal)
                             )}'})"></i>`
-                          : `<i class="fas fa-heart fav" onclick="globalRemoveFav(${meal.idMeal})"></i>`
+                          : `<i class="fas fa-heart fav a-icon" onclick="globalRemoveFav(${meal.idMeal})"></i>`
                       }</span></div>
                     </div>
                   </div>`;
@@ -334,25 +326,31 @@ const IndexWidget = () => {
     const meal = weekday.abbr in userMeals ? userMeals[weekday.abbr] : null;
     if (!meal) return Empty();
 
+    const Favicon = () => {
+      return !globalInUserFav(meal.idMeal)
+        ? `<i class="far fa-heart fav a-icon" onclick="globalAddFav({meal: '${encodeURIComponent(
+            JSON.stringify(meal)
+          )}'})"></i>`
+        : `<i class="fas fa-heart fav a-icon" onclick="globalRemoveFav(${meal.idMeal})"></i>`;
+    };
+
     return `
         <div>
-          <div class="header"><h3>${weekday.name}</h3></div>
+          <div class="header align-items-center">
+            <h3 class="">${weekday.name}</h3>
+          </div>
           <div class="d-flex flex-row align-items-center w-card">
             <div class="image"><img src="${meal.strMealThumb}" class="" alt="${
       meal.strMeal
     } image" /></div>
-            <div class="content text"><h5 class=""><a href="meal.html?m=${
-              meal.idMeal
-            }">${meal.strMeal}</a></h5></div>
+          <div class ="content icon"> ${Favicon()}</div>
+            <div class="content text">
+              <h5><a href="meal.html?m=${meal.idMeal}">${meal.strMeal}</a></h5>
+            </div>
             <div class="content icon">
-            <span>${
-              !globalInUserFav(meal.idMeal)
-                ? `<i class="far fa-heart fav" onclick="globalAddFav({meal: '${encodeURIComponent(
-                    JSON.stringify(meal)
-                  )}'})"></i>`
-                : `<i class="fas fa-heart fav" onclick="globalRemoveFav(${meal.idMeal})"></i>`
-            }
-            </span>
+              <i class="far fa-trash-alt a-icon" onclick="globalRemoveMealData({ weekday: '${
+                weekday.abbr
+              }' });"></i>
             </div>
           </div>
         </div>
@@ -363,7 +361,7 @@ const IndexWidget = () => {
   <aside>
     <div class="container widget">
       <div class="row">
-        <div class="col"><h2><a href="week.html" target="_self">Week Schedule</a></h2></div>
+        <div class="col"><h2>Week Schedule <a href="week.html" target="_self"><i class="fas fa-expand-alt a-icon"></i></a></h2></div>
       </div>
       <div class="row">${globalWeekdays
         .map(weekday => {
