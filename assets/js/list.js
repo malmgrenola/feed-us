@@ -156,12 +156,13 @@ const List = () => {
       .map(({ name, selected, messure }, i) => {
         const value = name;
 
+        const active = `${selected ? "active" : ""}`;
+
         return `
-        <li class="liCheck d-flex align-items-center bd-highlight">
+        <li class="liCheck d-flex align-items-center bd-highlight a-icon-revers ${active}" onclick="listToggleIngridient({idMeal: 'add', ingredient: '${name}',event: event})">
           <button
           type="button"
           class="btn btnCheck bd-highlight"
-          onclick="listToggleIngridient({idMeal: 'add', ingredient: '${name}',event: event})"
           >${
             selected
               ? `<i class="far fa-check-circle"></i>`
@@ -171,7 +172,6 @@ const List = () => {
             <button
             type="button"
             class="btn btnCheck text-left"
-            onclick="listToggleIngridient({idMeal: 'add', ingredient: '${name}',event: event})"
             >${name}</button>
           </div>
           <div class="bd-highlight w-50 text-end">
@@ -207,8 +207,10 @@ const List = () => {
               ? true
               : false;
 
+          const active = `${selected ? "active" : ""}`;
+
           return `
-          <li class="liCheck d-flex align-items-center bd-highlight">
+          <li class="liCheck d-flex align-items-center bd-highlight a-icon-revers ${active}">
             <button
             type="button"
             class="btn btnCheck bd-highlight"
@@ -228,7 +230,7 @@ const List = () => {
             <div class="bd-highlight">
               <button
               type="button"
-              class="btn text-muted btnRemove"
+              class="btn btnRemove text-muted"
               onclick="listDeleteAdditionalItem(${i})"
               >Remove <i class="far fa-times-circle"></i></button>
             </div>
