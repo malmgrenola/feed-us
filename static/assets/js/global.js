@@ -85,7 +85,6 @@ const globalMealInUserWeek = () => {
 };
 
 const globalRemoveMealData = ({ weekday }) => {
-  console.log(weekday);
   session.data.meals[weekday] = null;
   fbSetDoc(session.id, session.data).catch(error => {
     console.error("Error writing document: ", error);
