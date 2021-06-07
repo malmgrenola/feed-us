@@ -7,14 +7,6 @@ const render = () => {
   $("#week").html(`<div class="container-fluid">${Page()}</div>`);
 };
 
-const indexRemoveMealData = ({ weekday }) => {
-  session.data.meals[weekday] = null;
-  fbSetDoc(session.id, session.data).catch(error => {
-    console.error("Error writing document: ", error);
-  });
-  render();
-};
-
 const Page = () => {
   return `
   <header>
@@ -98,6 +90,14 @@ const IndexCard = ({ weekday }) => {
   const meal = weekday.abbr in userMeals ? userMeals[weekday.abbr] : null;
   if (!meal) return EmptyCard();
 
+  const Favicon = () => {
+    return !globalInUserFav(meal.idMeal)
+      ? `<i class="far fa-heart fav a-icon" onclick="globalAddFav({meal: '${encodeURIComponent(
+          JSON.stringify(meal)
+        )}'})"></i>`
+      : `<i class="fas fa-heart fav a-icon" onclick="globalRemoveFav(${meal.idMeal})"></i>`;
+  };
+
   // Content used when dish is selected for the current weekday
   return `
   <div class="card h-100" >
@@ -110,7 +110,7 @@ const IndexCard = ({ weekday }) => {
       <button
       type="button"
       class="btn btn-secondary btn-sm"
-      onclick="indexRemoveMealData({
+      onclick="globalRemoveMealData({
         mealid: '${meal.idMeal}',
         weekday: '${weekday.abbr}'
       })"
@@ -132,13 +132,7 @@ const IndexCard = ({ weekday }) => {
       <h5 class="card-title"><a href="meal.html?m=${meal.idMeal}">${
     meal.strMeal
   }</a></h5>
-      <span style="font-size: 1.25rem;">${
-        !globalInUserFav(meal.idMeal)
-          ? `<i class="far fa-heart fav" onclick="globalAddFav({meal: '${encodeURIComponent(
-              JSON.stringify(meal)
-            )}'})"></i>`
-          : `<i class="fas fa-heart fav" onclick="globalRemoveFav(${meal.idMeal})"></i>`
-      }
+      <span style="font-size: 1.25rem;">${Favicon()}
       </span>
       </div>
       <p class="card-text text-muted">This ${
@@ -197,25 +191,25 @@ const IndexFavCard = () => {
           <i class="fas fa-bars"></i>
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Mon', meal: '${encodeURIComponent(
+          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Mon', meal: '${encodeURIComponent(
             JSON.stringify(meal)
           )}'})">Have this on Monday</span></li>
-          <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Tue', meal: '${encodeURIComponent(
+          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Tue', meal: '${encodeURIComponent(
             JSON.stringify(meal)
           )}'})">Have this on Tuesday</span></li>
-          <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Wed', meal: '${encodeURIComponent(
+          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Wed', meal: '${encodeURIComponent(
             JSON.stringify(meal)
           )}'})">Have this on Wednesday</span></li>
-          <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Thu', meal: '${encodeURIComponent(
+          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Thu', meal: '${encodeURIComponent(
             JSON.stringify(meal)
           )}'})">Have this on Thursday</span></li>
-          <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Fri', meal: '${encodeURIComponent(
+          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Fri', meal: '${encodeURIComponent(
             JSON.stringify(meal)
           )}'})">Have this on Friday</span></li>
-          <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Sat', meal: '${encodeURIComponent(
+          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Sat', meal: '${encodeURIComponent(
             JSON.stringify(meal)
           )}'})">Have this on Saturday</span></li>
-          <li><span class="dropdown-item" onclick="globalSetMeal({weekday: 'Sun', meal: '${encodeURIComponent(
+          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Sun', meal: '${encodeURIComponent(
             JSON.stringify(meal)
           )}'})">Have this on Sunday</span></li>
           <li><hr class="dropdown-divider"></li>
@@ -244,7 +238,7 @@ const IndexFavCard = () => {
   return `
     <div class="card h-100" >
       <div class="card-header text-center">
-        <h3>My Favourites <a href="favourites.html" target="_self"><i class="fas fa-heart fav"></i></a></h3>
+        <h3>My Favourites <a href="favourites.html" target="_self"><i class="fas fa-expand-alt a-icon"></i></a></h3>
       </div>
       <div class="card-body favs">
         <div class="d-flex bd-highlight">
@@ -252,18 +246,22 @@ const IndexFavCard = () => {
             favourites.length
           } favourites</div>
 
-          <div class="bd-highlight align-self-center">
+          ${
+            favourites.length > 8
+              ? `<div class="bd-highlight align-self-center">
             <button
             type="button"
             class="btn text-muted fav-toggle"
             onclick="indexToggleFavListAll()"
             >${
               !indexFavListAll
-                ? 'See all <i class="fas fa-expand-alt"></i>'
-                : 'See less <i class="fas fa-compress-alt"></i>'
+                ? 'See all <i class="fas fa-expand-alt a-icon"></i>'
+                : 'See less <i class="fas fa-compress-alt a-icon"></i>'
             }</button>
 
-          </div>
+          </div>`
+              : ""
+          }
         </div>
       ${FavList()}
       </div>

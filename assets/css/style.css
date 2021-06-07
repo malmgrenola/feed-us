@@ -20,12 +20,14 @@ h2 {
   color: #0a58ca;
 }
 
-.far.fav {
+.a-icon {
   cursor: pointer;
-  color: grey;
+  color: #21252980;
+}
+.a-icon:hover {
+  color: rgba(0, 0, 0, 0.7);
 }
 .fas.fav {
-  cursor: pointer;
   color: red;
 }
 
@@ -44,14 +46,17 @@ h2 {
 .widget .thumb {
 }
 
+.widget .header {
+  background-color: rgba(0, 0, 0, 0.03);
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+}
+
 .widget h3 {
   font-size: 1em;
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
-  background-color: rgba(0, 0, 0, 0.03);
-  margin: 0;
-  padding: 0.2rem 0.5rem;
 }
 
 .widget h2 {
@@ -66,6 +71,7 @@ h2 {
   font-weight: bold;
   text-align: left;
   padding-left: 0.3rem;
+  margin: 0;
 }
 
 .widget p {
@@ -102,8 +108,8 @@ h2 {
 }
 
 .widget .w-card .content.icon {
-  text-align: right;
   margin-right: 0.3rem;
+  margin-left: 0.3rem;
 }
 
 .widget .w-card.loading .image,
@@ -166,7 +172,7 @@ h2 {
   font-size: 1.2em;
 }
 .meal-row .btn-week {
-  border: 3px solid grey;
+  border: 3px solid #21252980;
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -177,11 +183,18 @@ h2 {
   font-weight: bold;
   margin-bottom: 0;
   transform: translateY(15%);
-  color: grey;
+  color: #21252980;
+}
+.meal-row .btn-week p:hover {
+  color: rgb(0, 0, 0, 0.7);
+}
+
+.meal-row .btn-week:hover {
+  border: 3px solid rgb(0, 0, 0, 0.7);
 }
 .meal-row .btn-week.active {
   border: 0;
-  background-color: grey;
+  background-color: rgb(0, 0, 0, 0.7);
 }
 .meal-row .btn-week.active p {
   margin-bottom: 0;

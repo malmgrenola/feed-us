@@ -8,11 +8,9 @@ function initData() {
   fpPromise
     .then(fp => fp.get())
     .then(result => {
-      //console.log("initUserData - Fingerprint Sucess");
       session.id = result.visitorId;
       fbSignInAnonymously(session.id)
         .then(args => {
-          //console.log("initUserData - Signed In");
           const user = {
             isAnonymous: args.user.isAnonymous,
             displayName: args.user.displayName,
@@ -23,10 +21,8 @@ function initData() {
           fbGetUserDocument(session.id)
             .then(doc => {
               if (doc.exists) {
-                //console.log("initUserData - Stored Data Found");
                 session.data = doc.data();
               } else {
-                //console.log("initUserData - Stored Data Not Found");
                 session.data = {
                   meals: {
                     Mon: null,
@@ -42,7 +38,7 @@ function initData() {
                   additionalItems: []
                 };
               }
-              //console.log("initUserData - Done Loading");
+
               render();
             })
             .catch(error => {
@@ -87,6 +83,16 @@ const globalMealInUserWeek = () => {
   }
   return false;
 };
+
+const globalRemoveMealData = ({ weekday }) => {
+  console.log(weekday);
+  session.data.meals[weekday] = null;
+  fbSetDoc(session.id, session.data).catch(error => {
+    console.error("Error writing document: ", error);
+  });
+  render();
+};
+
 const globalAddFav = props => {
   //TODO: Fix error Uncaught SyntaxError: Unexpected identifier when adding f.ex. Recheado Masala Fish
   const meal = JSON.parse(decodeURIComponent(props.meal));
@@ -110,7 +116,8 @@ const globalRemoveFav = idMeal => {
     render();
   }
 };
-const globalSetMeal = props => {
+
+const globalToggleMeal = props => {
   const meal = JSON.parse(decodeURIComponent(props.meal));
   const weekday = props.weekday;
 
@@ -190,7 +197,7 @@ GlobalSearch.prototype.setUrlParam = (key, value) => {
   window.history.pushState({}, "", url);
 };
 
-let gs = new GlobalSearch();
+let gs = new GlobalSearch(); // Global search on all pages
 
 // const globalGetUrlParam = param => {
 //   // use history as state provider

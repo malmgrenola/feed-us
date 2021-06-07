@@ -117,7 +117,7 @@ const Favourites = ({ meals }) => {
           return `
           <span class="btn btn-week${
             active ? " active" : ""
-          }" onclick="globalSetMeal({weekday: '${
+          }" onclick="globalToggleMeal({weekday: '${
             weekday.abbr
           }', meal: '${encodeURIComponent(
             JSON.stringify(meal)
@@ -129,7 +129,7 @@ const Favourites = ({ meals }) => {
             weekday: weekday.abbr,
             idMeal: meal.idMeal
           });
-          return `<li><span class="dropdown-item" onclick="globalSetMeal({weekday: '${
+          return `<li><span class="dropdown-item" onclick="globalToggleMeal({weekday: '${
             weekday.abbr
           }', meal: '${encodeURIComponent(JSON.stringify(meal))}'})">${
             active
