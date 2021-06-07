@@ -40,11 +40,10 @@ h2 {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
 }
+
 .widget .thumb {
 }
-.widget .day {
-  padding-bottom: 10px;
-}
+
 .widget h3 {
   font-size: 1em;
   font-weight: bold;
@@ -54,44 +53,54 @@ h2 {
   margin: 0;
   padding: 0.2rem 0.5rem;
 }
+
 .widget h2 {
   font-size: 1.2em;
 
   text-align: center;
   padding: 0.2rem 0.5rem;
 }
+
 .widget h5 {
   font-size: 1em;
   font-weight: bold;
   text-align: left;
   padding-left: 0.3rem;
 }
+
 .widget p {
   margin-top: 0;
   margin-bottom: 0;
 }
+
 .widget .a {
   color: #0d6efd;
   text-decoration: underline;
   cursor: pointer;
 }
+
 .widget .a:hover {
   color: #0a58ca;
 }
+
 .widget .w-card .image,
 .widget .w-card .image img {
   width: 3em;
   height: 3em;
 }
+
 .widget .w-card.loading .content {
   height: 3em;
 }
+
 .widget .w-card .content {
   margin-left: 5px;
 }
+
 .widget .w-card .content.text {
   width: 100%;
 }
+
 .widget .w-card .content.icon {
   text-align: right;
   margin-right: 0.3rem;
