@@ -1,11 +1,6 @@
 /* --------------------------------- Global */
-.far.fav {
-  cursor: pointer;
-  color: grey;
-}
-.fas.fav {
-  cursor: pointer;
-  color: red;
+section {
+  margin-top: 20px;
 }
 
 h1 {
@@ -24,8 +19,14 @@ h2 {
 .a:hover {
   color: #0a58ca;
 }
-section {
-  margin-top: 20px;
+
+.far.fav {
+  cursor: pointer;
+  color: grey;
+}
+.fas.fav {
+  cursor: pointer;
+  color: red;
 }
 
 .btn-group-sm > .btn,
@@ -115,11 +116,10 @@ section {
   text-align: left !important;
 }
 
-/* --------------------------------- Index.html */
-
 .meal-row.background-grey {
   background-color: #f8f9fa;
 }
+
 .meal-row img {
   margin-left: -50px;
   border: 5px solid rgba(255, 255, 255, 1);
@@ -127,6 +127,7 @@ section {
   height: 100px;
   padding: 0;
 }
+
 .meal-row {
   height: 100px;
   margin-left: 50px;
@@ -135,6 +136,7 @@ section {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
 .meal-row h3 {
   font-size: 1.2em;
 }
@@ -150,6 +152,7 @@ section {
 .meal-row .dropdown {
   font-size: 1.5em;
 }
+
 .meal-row .btn-group-week {
   font-size: 1.2em;
 }
@@ -180,6 +183,7 @@ section {
 .meal-row .btn-group-week i {
   font-size: 2em;
 }
+/* --------------------------------- Index.html */
 
 #index .searchbar {
   position: relative;
@@ -302,8 +306,19 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 #list li {
   border-bottom: 1px solid #f5f5f5;
+  background: #fff;
+}
+#list li:nth-child(odd) {
+  background: #f8f9fa;
+}
+#list li:last-child {
+  background: #fff;
 }
 
+#list li,
+#list button {
+  font-size: 2rem;
+}
 /* --------------------------------- meal.html */
 
 #meal img {
