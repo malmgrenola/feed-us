@@ -6,16 +6,16 @@ The site that helps you and your family plan the dinner for the week including s
 
 ## UX
 
-The typical website user is an adult ready to take the responsabillity to plan the dinner for the whole week.
+The typical website user is an adult ready to take the responsibility to plan the dinner for the whole week.
 
 List user Stories:
 
-- As a user, I would like to see my weekly dinner planning so I can get a dinner overview of whats up for dinner.
-- As a user, I would like to find a recepie and add it to the week planning so that I can get an week overview of what is for dinner.
+- As a user, I would like to see my weekly dinner planning so I can get a dinner overview of what's up for dinner.
+- As a user, I would like to find a recipe and add it to the week's planning so that I can get an overview of what is for dinner.
 - As a user, I would like to get an automated shopping list based on my weekly schedule, so I know what to buy in the store.
-- As a user, I should be able to add items to the shoppinglist so I dont miss buying other items in the store.
-- As a user, I should be able to tick off items when Im in the store so I know what I have left to find.
-- As a user, I would like to send my shopping list as an email to my fellow, so I dont have todo all shopping myself.
+- As a user, I should be able to add items to the shopping list so I don't miss buying other items in the store.
+- As a user, I should be able to tick off items when I'm in the store so I know what I have left to find.
+- As a user, I would like to send my shopping list as an email to my fellow users, so I don't have to do all the shopping myself.
 - ...
 
 ### Navigation & Wireframes
@@ -27,7 +27,7 @@ Navigation bar is responsive and will fold down to a burger menu when it wont fi
 - [Entry page](wireframes/index.png) that suggests dish and is also the [search dish result page](wireframes/search-results.png)
 - [Weekly schedule Page](wireframes/week.png) showing the dishes selected for each day.
 - [Favourites Page](wireframes/favourites.png) showing the current favourite dishes.
-- [Shopping list Page](wireframes/list.png) showing the current shopping list with email possabillity
+- [Shopping list Page](wireframes/list.png) showing the current shopping list with email possibility
 
 ### Data storage
 
@@ -58,10 +58,11 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 
 ### Existing Features
 
-- [Browse meals](wireframes/browse-meals.png) - allows user to to find a recepie by searching for a dish by using the query filed.
-- [Dinner planning](wireframes/planning.png) - allows user to get a dinner overview by draging dishes between days.
-- [Shopping list](wireframes/shoppinglist.png) - Allows user to establish a shopping list where additional item can be added.
-- [Meals details page](wireframes/meal.png) - let the user see the recepie details for the meal.
+- [Find meals](wireframes/browse-meals.png) - allows users to find a recipe by searching for a dish by using the query field.
+- [Week Schedule](wireframes/planning.png) - allows users to get a weekly dinner overview.
+- [Shopping list](wireframes/shoppinglist.png) - Allows users to establish a shopping list where additional items can be added.
+- [Favourite meals](wireframes/favourites.png) - Allows users to see all meals set as users favourites.
+- [Meals details page](wireframes/meal.png) - let the user see the recipe details for the meal.
 - Feature 1 - allows users X to achieve Y, by having them fill out Z
 - ...
 
@@ -72,7 +73,7 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 
 ## Technologies Used
 
-In this section, all of the languages, frameworks, libraries, and any other tools that is used to construct this project is listed with its name, a link to its official site and a short sentence of why it was used.
+In this section, all of the languages, frameworks, libraries, and any other tools that is used to construct this project are listed with its name, a link to its official site and a short sentence of why it was used.
 
 - [HTML](#)
   - Used to render the DOM
@@ -85,14 +86,12 @@ In this section, all of the languages, frameworks, libraries, and any other tool
 - [Fontawesome](https://fontawesome.com/)
   - Used to display icons on website
 - [themealdb](https://www.themealdb.com/api.php)
-  - Used as recepie database
+  - Used as recipe database
 - [JQuery](https://jquery.com)
   - The project uses **JQuery** to simplify DOM manipulation.
 - [Google Firebase](https://firebase.google.com/docs/web/setup#from-the-cdn)
   - Used to store and recall user data
   - https://console.firebase.google.com/project/neon-research-304412/overview
-- [Google Cloud Translation](https://cloud.google.com/translate/docs/basic/quickstart)
-  - Used to translate recepies
 - [Yarn](https://yarnpkg.com/)
   - Used to start dev environment
 - [fingerprintjs](https://github.com/fingerprintjs/fingerprintjs)
@@ -123,7 +122,7 @@ If this section grows too long, you may want to split it off into a separate fil
 
 ### Known Bugs
 
-1. [themealdb](https://www.themealdb.com/api.php) is case sensetive in ingredients that means that "eggs" and "Eggs" will show up twice in the shopping list.
+1. [themealdb](https://www.themealdb.com/api.php) is case sensitive in ingredients that means that "eggs" and "Eggs" will show up twice in the shopping list.
 2. ...
 
 ## Deployment
@@ -143,17 +142,17 @@ If deployed to anything other than [malmgrenola.github.com/feed-us](https://malm
 
 ## Development
 
-This project uses `yarn` to start development server.
+This project uses `yarn` to start a development server.
 
 1. Fork the [feed-us repo](https://github.com/malmgrenola/feed-us)
 2. In the terminal run `git clone https://github.com/{your-own-gituser-here}/feed-us.git` - to fetch code
 3. In the terminal run `cd feed-us` - to place yourself in the root of the project.
 4. In the terminal run `yarn` - to download all dependencies
-5. `yarn dev` - to start dev environment.
+5. `yarn dev` - to start a dev environment.
 
-a http-server should start on port 3000 and site is now be available on `http://localhost:3000`.  
+a http-server should start on port 3000 and the site is now available on `http://localhost:3000`.  
 Google API's used is locked to `localhost:3000` & deploy url `malmgrenola.github.com/feed-us`.  
-To change default port please update in `package.json` under scripts section. Please note that changing port will disable the usage of google api key provided in the project.
+To change the default port please update in `package.json` under the scripts section. Please note that changing port will disable the usage of google api key provided in the project.
 
 ## Credits
 
