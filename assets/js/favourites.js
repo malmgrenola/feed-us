@@ -4,7 +4,7 @@ $(document).ready(function() {
 });
 
 const render = () => {
-  $("#favourites").html(Page());
+  $("#favourites").html(`<div class="container-fluid">${Page()}</div>`);
 };
 
 const Page = () => {
@@ -17,6 +17,9 @@ const Page = () => {
         return 0;
       })
     : [];
+
+  const isMeals = globalMealInUserWeek();
+
   return `
   <header>
     <div class="row">
@@ -31,9 +34,16 @@ const Page = () => {
     </div>
   </header>
     <div class="row">
-          <div class="col-12 m-0 p-2">${Favourites({
-            meals: favourites
-          })}</div>
+          <div class="col-12 ${isMeals ? "col-md-9" : ""} m-0 p-2">${Favourites(
+    {
+      meals: favourites
+    }
+  )}</div>
+          ${
+            isMeals
+              ? `<div class="col-12 col-md-3 m-0 p-2">${GlobalWidget()}</div>`
+              : ""
+          }
     </div>
       `;
 };
