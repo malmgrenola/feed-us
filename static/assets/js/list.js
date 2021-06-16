@@ -4,6 +4,9 @@ $(document).ready(function() {
 });
 
 function intiEmailjs() {
+  const { additionalItems, ingridients } = listShoppinglists();
+  const isEmpty = additionalItems.length === 0 && ingridients.length === 0;
+
   $('#mylist-form :button[type="submit"]').prop("disabled", true);
   $('#mylist-form input[type="email"]').keyup(function() {
     if ($(this).val() != "") {
@@ -13,6 +16,10 @@ function intiEmailjs() {
     }
   });
 
+  if (isEmpty) {
+    $('#mylist-form :button[type="submit"]').prop("disabled", true);
+    $('#mylist-form input[type="email"]').prop("disabled", true);
+  }
   $("#mylist-form").submit(function(event) {
     const listSetMessage = ({ isSuccess, email, msg }) => {
       $("#mylist-form").empty();
