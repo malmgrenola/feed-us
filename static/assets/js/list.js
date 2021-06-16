@@ -3,8 +3,51 @@ $(document).ready(function() {
   render();
 });
 
+function intiEmailjs() {
+  $('#mylist-form :button[type="submit"]').prop("disabled", true);
+  $('#mylist-form input[type="email"]').keyup(function() {
+    if ($(this).val() != "") {
+      $('#mylist-form :button[type="submit"]').prop("disabled", false);
+    } else {
+      $('#mylist-form :button[type="submit"]').prop("disabled", true);
+    }
+  });
+
+  $("#mylist-form").submit(function(event) {
+    const listSetMessage = ({ isSuccess, email, msg }) => {
+      $("#mylist-form").empty();
+      $("#mylist-form").append(
+        isSuccess
+          ? `<p>Shopping list sent to: <b>${email}</b>  <span class="a" onclick="render();">Send to another</span></p>`
+          : `<p>Failed to send with message: (<b>${msg.status}</b>) <b>${msg.text}</b> <span class="a" onclick="render();">Try again</span></p>`
+      );
+    };
+
+    const { additionalItems, ingridients } = listShoppinglists();
+    const email = $('#mylist-form input[type="email"]').val();
+    const columnLength = 30;
+    let table = `<table><tr><th>Ingridients</th><th>Messure</th></tr>${ingridients
+      .map(
+        ({ name, messure }) =>
+          `<tr><td>${name}</td><td>${messure.join(" + ")}</td></tr>`
+      )
+      .join("\n")}<tr><td>${additionalItems.join(
+      "</td></tr>"
+    )}</td></tr></table>`;
+
+    var templateParams = {
+      to_email: email,
+      table: table
+    };
+
+    emailjsSend({ templateParams: templateParams }, listSetMessage);
+    event.preventDefault();
+  });
+}
+
 function render() {
   $("#list").html(Page());
+  intiEmailjs();
 }
 
 const listOnAddClick = () => {
@@ -70,6 +113,68 @@ const listDeleteAdditionalItem = index => {
   render();
 };
 
+const listShoppinglists = () => {
+  const userMeals = session.data ? Object.entries(session.data.meals) : null;
+
+  let ingridients = [];
+  let additionalItems = [];
+  let shoppingChecked = [];
+
+  if (userMeals) {
+    additionalItems = session.data.additionalItems;
+    shoppingChecked = session.data.shoppingChecked;
+
+    userMeals.map(([key, meal]) => {
+      if (meal) {
+        // Note: Api has a fixed list of items (20)
+        for (let i = 1; i <= 20; i++) {
+          const id = meal.idMeal;
+          const name = meal.strMeal;
+          const ingridient = meal[`strIngredient${i}`];
+          const messure = meal[`strMeasure${i}`];
+
+          if (ingridient !== "" && ingridient) {
+            //console.log(ingridient);
+
+            const selected =
+              shoppingChecked.findIndex(item => item === ingridient) >= 0
+                ? true
+                : false;
+
+            const result = ingridients.find(({ name }) => name === ingridient);
+
+            if (result) {
+              //console.log(1, result);
+              result.messure.push(messure);
+            } else {
+              //console.log(2, "add new ");
+              ingridients.push({
+                name: ingridient,
+                messure: [messure],
+                selected: selected
+              });
+            }
+          }
+        }
+      }
+    });
+    ingridients.sort((a, b) => {
+      const sA = a.name.toUpperCase(),
+        sB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (sA < sB) return -1;
+      if (sA > sB) return 1;
+      return 0;
+    });
+  }
+
+  return {
+    additionalItems: additionalItems,
+    ingridients: ingridients,
+    shoppingChecked: shoppingChecked,
+    isLoading: !userMeals
+  };
+};
+
 const Page = () => {
   return `
   <div class="container-fluid">
@@ -82,6 +187,15 @@ const Page = () => {
       <div class="row">
         <div class="col text-center pb-1">
           <h2>My Shopping list</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center pb-1">
+          <h3>Send my shopping list</h3>
+          <form id="mylist-form" action="list.html">
+            <input type="email">
+            <button class="btn btn-primary" type="submit" value="Go">Send</button>
+          </form>
         </div>
       </div>
     </header>
@@ -101,55 +215,14 @@ const List = () => {
       `;
   };
 
-  const userMeals = session.data ? Object.entries(session.data.meals) : null;
-  if (!userMeals) return Loading();
+  const {
+    additionalItems,
+    ingridients,
+    shoppingChecked,
+    isLoading
+  } = listShoppinglists();
 
-  const additionalItems = session.data.additionalItems;
-  const shoppingChecked = session.data.shoppingChecked;
-
-  let ingridients = [];
-  userMeals.map(([key, meal]) => {
-    if (meal) {
-      // Note: Api has a fixed list of items (20)
-      for (let i = 1; i <= 20; i++) {
-        const id = meal.idMeal;
-        const name = meal.strMeal;
-        const ingridient = meal[`strIngredient${i}`];
-        const messure = meal[`strMeasure${i}`];
-
-        if (ingridient !== "" && ingridient) {
-          //console.log(ingridient);
-
-          const selected =
-            shoppingChecked.findIndex(item => item === ingridient) >= 0
-              ? true
-              : false;
-
-          const result = ingridients.find(({ name }) => name === ingridient);
-
-          if (result) {
-            //console.log(1, result);
-            result.messure.push(messure);
-          } else {
-            //console.log(2, "add new ");
-            ingridients.push({
-              name: ingridient,
-              messure: [messure],
-              selected: selected
-            });
-          }
-        }
-      }
-    }
-  });
-
-  ingridients.sort((a, b) => {
-    const sA = a.name.toUpperCase(),
-      sB = b.name.toUpperCase(); // ignore upper and lowercase
-    if (sA < sB) return -1;
-    if (sA > sB) return 1;
-    return 0;
-  });
+  if (isLoading) return Loading();
 
   const Ingridients = () => {
     return ingridients

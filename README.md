@@ -96,6 +96,8 @@ In this section, all of the languages, frameworks, libraries, and any other tool
   - Used to start dev environment
 - [fingerprintjs](https://github.com/fingerprintjs/fingerprintjs)
   - is used to create a browser fingerprint without the user actually login.
+- [emailjs](https://www.emailjs.com/)
+  - Used to send email from site
 - ...
 
 ## Testing
