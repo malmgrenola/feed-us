@@ -217,3 +217,90 @@ const footer = () => {
 </div>
     `);
 };
+
+const GlobalWidget = () => {
+  const WidgetDay = ({ weekday }) => {
+    const Loading = () => {
+      return `
+    <div>
+      <div class="header"><h3>${weekday.name}</h3></div>
+      <div class="d-flex flex-row align-items-center w-card loading">
+        <div class="image"></div>
+        <div class="content text"></div>
+        <div class="content icon"></div>
+      </div>
+    </div>
+      `;
+    };
+    const Empty = () => {
+      return `
+    <div>
+      <div class="header"><h3>${weekday.name}</h3></div>
+      <div class="d-flex flex-row align-items-center w-card">
+        <div class="image"></div>
+        <div class="content text text-muted">
+        <p>No dish selected yet.</p>
+        <p><span
+        class="a"
+        onclick="globalSetRandomMeal('${weekday.abbr}')"
+        >I'm lucky! <i class="fas fa-random"></i></span></p></div>
+        <div class="content icon"></div>
+      </div>
+    </div>
+      `;
+    };
+    const userMeals = session.data ? session.data.meals : null;
+    if (!userMeals) return Loading();
+    const meal = weekday.abbr in userMeals ? userMeals[weekday.abbr] : null;
+    if (!meal) return Empty();
+
+    const Favicon = () => {
+      return !globalInUserFav(meal.idMeal)
+        ? `<i class="far fa-heart fav a-icon" onclick="globalAddFav({meal: '${encodeURIComponent(
+            JSON.stringify(meal)
+          )}'})"></i>`
+        : `<i class="fas fa-heart fav a-icon" onclick="globalRemoveFav(${meal.idMeal})"></i>`;
+    };
+
+    return `
+        <div>
+          <div class="header align-items-center">
+            <h3 class="">${weekday.name}</h3>
+          </div>
+          <div class="d-flex flex-row align-items-center w-card">
+            <div class="image"><img src="${meal.strMealThumb}" class="" alt="${
+      meal.strMeal
+    } image" /></div>
+          <div class ="content icon"> ${Favicon()}</div>
+            <div class="content text">
+              <h5><a href="meal.html?m=${meal.idMeal}">${meal.strMeal}</a></h5>
+            </div>
+            <div class="content icon">
+              <i class="far fa-trash-alt a-icon" onclick="globalRemoveMealData({ weekday: '${
+                weekday.abbr
+              }' });"></i>
+            </div>
+          </div>
+        </div>
+          `;
+  };
+
+  return `
+  <aside>
+    <div class="container widget">
+      <div class="row">
+        <div class="col"><h2>Week Schedule <a href="week.html" target="_self"><i class="fas fa-expand-alt a-icon"></i></a></h2></div>
+      </div>
+      <div class="row">${globalWeekdays
+        .map(weekday => {
+          return `
+          <div class="col-12 day">
+            ${WidgetDay({ weekday: weekday })}
+          </div>`;
+        })
+        .join("\n")}
+      </div>
+    </div>
+  </aside>
+    `;
+};
