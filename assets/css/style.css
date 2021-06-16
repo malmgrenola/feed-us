@@ -352,7 +352,8 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 #list li,
-#list button {
+#list #btnAdd,
+#list .btnCheck {
   font-size: 2rem;
 }
 /* --------------------------------- meal.html */
