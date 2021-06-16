@@ -59,7 +59,7 @@ const Page = () => {
     <div class="container-fluid meal-border">
       <div class="row">
         <div class="col my-3">
-          <h4>Ingridients</h4>
+          <h4>Ingredients</h4>
           <ul>${ingridients
             .map(({ ingridient, messure }) => {
               return `

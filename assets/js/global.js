@@ -209,7 +209,7 @@ const footer = () => {
   <div class="row">
     <div class="col text-center mt-4">
       <h2>Feed Us!</h2>
-      <p>On this site you can manage the family weekly meals.<br />
+      <p>On this site you can manage the family's weekly meals.<br />
       Find the favourite meals and assign them to any weekday.</p>
       <p>Use the <a href="/list.html">shopping list</a> to tick off the items already in place and add the favourite extra items.</p>
       <p>We love to hear from you</p>
