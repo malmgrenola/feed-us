@@ -35,7 +35,7 @@ const Page = () => {
     return `<h3><span class="me-4">${
       !globalInUserFav(meal.idMeal)
         ? `<i class="far fa-heart fav" onclick="globalAddFav({meal: '${encodeURIComponent(
-            JSON.stringify(meal)
+            JSON.stringify({ ...meal, strInstructions: "" })
           )}'})"></i>`
         : `<i class="fas fa-heart fav" onclick="globalRemoveFav(${meal.idMeal})"></i>`
     }

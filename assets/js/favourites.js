@@ -124,7 +124,7 @@ const Favourites = ({ meals }) => {
           }" onclick="globalToggleMeal({weekday: '${
             weekday.abbr
           }', meal: '${encodeURIComponent(
-            JSON.stringify(meal)
+            JSON.stringify({ ...meal, strInstructions: "" })
           )}'})"><p>${weekday.abbr.slice(0, 2)}</p></span>`;
         };
 
@@ -135,7 +135,9 @@ const Favourites = ({ meals }) => {
           });
           return `<li><span class="dropdown-item" onclick="globalToggleMeal({weekday: '${
             weekday.abbr
-          }', meal: '${encodeURIComponent(JSON.stringify(meal))}'})">${
+          }', meal: '${encodeURIComponent(
+            JSON.stringify({ ...meal, strInstructions: "" })
+          )}'})">${
             active
               ? "<i class='far fa-trash-alt'></i> Remove this from"
               : "<i class='fas fa-plus'></i> Have this on"
@@ -179,7 +181,7 @@ const Favourites = ({ meals }) => {
                       <li>${
                         !globalInUserFav(meal.idMeal)
                           ? `<span class="dropdown-item" onclick="globalAddFav({meal: '${encodeURIComponent(
-                              JSON.stringify(meal)
+                              JSON.stringify({ ...meal, strInstructions: "" })
                             )}'})">Add to Favourites</<span>`
                           : `<span class="dropdown-item" onclick="globalRemoveFav(${meal.idMeal})">Remove from Favourites</span>`
                       }</li>
@@ -219,7 +221,7 @@ const Favourites = ({ meals }) => {
                       <div class="col-3 p-0 text-center"><span class="btn">${
                         !globalInUserFav(meal.idMeal)
                           ? `<i class="far fa-heart fav" onclick="globalAddFav({meal: '${encodeURIComponent(
-                              JSON.stringify(meal)
+                              JSON.stringify({ ...meal, strInstructions: "" })
                             )}'})"></i>`
                           : `<i class="fas fa-heart fav" onclick="globalRemoveFav(${meal.idMeal})"></i>`
                       }</span></div>
