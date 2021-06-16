@@ -93,7 +93,7 @@ const IndexCard = ({ weekday }) => {
   const Favicon = () => {
     return !globalInUserFav(meal.idMeal)
       ? `<i class="far fa-heart fav a-icon" onclick="globalAddFav({meal: '${encodeURIComponent(
-          JSON.stringify(meal)
+          JSON.stringify({ ...meal, strInstructions: "" })
         )}'})"></i>`
       : `<i class="fas fa-heart fav a-icon" onclick="globalRemoveFav(${meal.idMeal})"></i>`;
   };
@@ -192,25 +192,25 @@ const IndexFavCard = () => {
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Mon', meal: '${encodeURIComponent(
-            JSON.stringify(meal)
+            JSON.stringify({ ...meal, strInstructions: "" })
           )}'})">Have this on Monday</span></li>
           <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Tue', meal: '${encodeURIComponent(
-            JSON.stringify(meal)
+            JSON.stringify({ ...meal, strInstructions: "" })
           )}'})">Have this on Tuesday</span></li>
           <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Wed', meal: '${encodeURIComponent(
-            JSON.stringify(meal)
+            JSON.stringify({ ...meal, strInstructions: "" })
           )}'})">Have this on Wednesday</span></li>
           <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Thu', meal: '${encodeURIComponent(
-            JSON.stringify(meal)
+            JSON.stringify({ ...meal, strInstructions: "" })
           )}'})">Have this on Thursday</span></li>
           <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Fri', meal: '${encodeURIComponent(
-            JSON.stringify(meal)
+            JSON.stringify({ ...meal, strInstructions: "" })
           )}'})">Have this on Friday</span></li>
           <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Sat', meal: '${encodeURIComponent(
-            JSON.stringify(meal)
+            JSON.stringify({ ...meal, strInstructions: "" })
           )}'})">Have this on Saturday</span></li>
           <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Sun', meal: '${encodeURIComponent(
-            JSON.stringify(meal)
+            JSON.stringify({ ...meal, strInstructions: "" })
           )}'})">Have this on Sunday</span></li>
           <li><hr class="dropdown-divider"></li>
           <li><span class="dropdown-item" onclick="globalRemoveFav(${

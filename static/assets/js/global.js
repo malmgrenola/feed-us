@@ -93,7 +93,6 @@ const globalRemoveMealData = ({ weekday }) => {
 };
 
 const globalAddFav = props => {
-  //TODO: Fix error Uncaught SyntaxError: Unexpected identifier when adding f.ex. Recheado Masala Fish
   const meal = JSON.parse(decodeURIComponent(props.meal));
 
   if (!globalInUserFav(meal.idMeal)) {
@@ -259,7 +258,7 @@ const GlobalWidget = () => {
     const Favicon = () => {
       return !globalInUserFav(meal.idMeal)
         ? `<i class="far fa-heart fav a-icon" onclick="globalAddFav({meal: '${encodeURIComponent(
-            JSON.stringify(meal)
+            JSON.stringify({ ...meal, strInstructions: "" })
           )}'})"></i>`
         : `<i class="fas fa-heart fav a-icon" onclick="globalRemoveFav(${meal.idMeal})"></i>`;
     };
