@@ -63,8 +63,6 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 - [Shopping list](wireframes/shoppinglist.png) - Allows users to establish a shopping list where additional items can be added.
 - [Favourite meals](wireframes/favourites.png) - Allows users to see all meals set as users favourites.
 - [Meals details page](wireframes/meal.png) - let the user see the recipe details for the meal.
-- Feature 1 - allows users X to achieve Y, by having them fill out Z
-- ...
 
 ### Features Left to Implement
 
@@ -98,11 +96,8 @@ In this section, all of the languages, frameworks, libraries, and any other tool
   - is used to create a browser fingerprint without the user actually login.
 - [emailjs](https://www.emailjs.com/)
   - Used to send email from site
-- ...
 
 ## Testing
-
-[Testing with Jasmine](https://jasmine.github.io/pages/getting_started.html)
 
 In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
 
@@ -125,7 +120,8 @@ If this section grows too long, you may want to split it off into a separate fil
 ### Known Bugs
 
 1. [themealdb](https://www.themealdb.com/api.php) is case sensitive in ingredients that means that "eggs" and "Eggs" will show up twice in the shopping list.
-2. ...
+2. emailjs has a limitation on 200 emails per month on the free plan.
+3. Since this site re renders all content in the sections using JQuery on each pages HTML validators yells a warning that h1-h6 is missing. Each page section has a `h1` and `h2` on order for the validators to accept the html without warnings. this has no impact on site functionallity.
 
 ## Deployment
 
@@ -169,10 +165,9 @@ To change the default port please update in `package.json` under the scripts sec
 
 ### Acknowledgements
 
-- I received inspiration for multilanguage from https://stackoverflow.com/questions/46008760/how-to-build-multiple-language-website-using-pure-html-js-jquery
 - I received inspiration for drag and drop from https://mdbootstrap.com/docs/standard/plugins/drag-and-drop/
-- https://www.allrecipes.com/
-- https://www.simplyrecipes.com/
-- https://www.freepik.com/premium-vector/weekly-planner-template-with-floral-watercolor_5643584.htm
+- I received inspiration from [allrecipes](https://www.allrecipes.com/) and [simply recipes](https://www.simplyrecipes.com/)
+- I received inspiration for the week planner from [freepik](https://www.freepik.com/premium-vector/weekly-planner-template-with-floral-watercolor_5643584.htm)
 - I received inspiration for loading images from [Creating a CSS Animated Loading Card](https://dev.to/chris__sev/creating-a-css-animated-loading-card-5187)
 - I received inspiration for [Styling a Search Bar from mikedane website](https://www.mikedane.com/web-development/css/styling-search-bar/)
+- I received inspiration for site render and code flow from [React](https://reactjs.org/)
