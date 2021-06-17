@@ -210,7 +210,7 @@ const footer = () => {
       <h2>Feed Us!</h2>
       <p>On this site you can manage the family's weekly meals.<br />
       Find the favourite meals and assign them to any weekday.</p>
-      <p>Use the <a href="/list.html">shopping list</a> to tick off the items already in place and add the favourite extra items.</p>
+      <p>Use the <a href="list.html">shopping list</a> to tick off the items already in place and add the favourite extra items.</p>
       <p>We love to hear from you</p>
       <p>Follow us: <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a> <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a> <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram-square"></i></a></p>
     </div>
