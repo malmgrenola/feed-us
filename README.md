@@ -228,6 +228,9 @@ Site CSS should return no errors or warnings.
 
 Site is deployed to [malmgrenola.github.com/feed-us](https://malmgrenola.github.com/feed-us) using Github Pages.
 
+The `static` subfolder is deployed by pushing `static` folder to it's own branch `gh-pages`, used by Github Pages to deploy the site.
+The command `git subtree push --prefix static origin gh-pages` is added to `package.json` as script deploy, making it possible to run `yarn deploy` from the project root folder.
+
 Deploy by:
 
 1. Fork the [feed-us repo](https://github.com/malmgrenola/feed-us)
@@ -237,7 +240,7 @@ Deploy by:
 5. commit your changes to your forked repo
 6. in a terminal run `yarn deploy` - to fire deploy script to Google Pages with custom root folder.
 
-If deployed to anything other than [malmgrenola.github.com/feed-us](https://malmgrenola.github.com/feed-us) you must create your own instances of Google Firebase with your own api keys provided in the [firebase-api.js](https://github.com/malmgrenola/feed-us/blob/main/static/assets/js/firebase-api.js#L2) config section. Full [guideline documentation](https://cloud.google.com/firestore/docs/client/get-firebase) is provided by Google
+If deployed to anything other than [malmgrenola.github.com/feed-us](https://malmgrenola.github.com/feed-us) you must create your own instances of Google Firebase with your own api keys provided in the [firebase-api.js](https://github.com/malmgrenola/feed-us/blob/main/static/assets/js/firebase-api.js#L2) config section. Full [guideline documentation](https://cloud.google.com/firestore/docs/client/get-firebase) is provided by Google.
 
 ## Development
 
