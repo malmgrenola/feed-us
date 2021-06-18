@@ -63,6 +63,8 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 - [Shopping list](wireframes/shoppinglist.png) - Allows users to establish a shopping list where additional items can be added.
 - [Favourite meals](wireframes/favourites.png) - Allows users to see all meals set as users favourites.
 - [Meals details page](wireframes/meal.png) - let the user see the recipe details for the meal.
+- Set Random meals - If user does not want to find a meal its possible to use the random function in the weekly widget or the week page.
+- Custom 404 - Navigating to a page that do not exist will tell the user about the error. this works in Development and in Production.
 
 ### Features Left to Implement
 
@@ -105,23 +107,106 @@ Whenever it is feasible, prefer to automate your tests, and if you've done so, p
 
 For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
 
+### Send email form
+
+The site has the feature to send emails with emailjs.
+Errors & Success in sending emails is displayed to the user in the UI. The form will not send the email if the email address has the wrong format.
+
+The send email feature correctly handles errors and send emails upon valid email addresses.
+
+#### Test email form
+
 1. Contact form:
-   1. Go to the "Contact Us" page
-   2. Try to submit the empty form and verify that an error message about the required fields appears
-   3. Try to submit the form with an invalid email address and verify that a relevant error message appears
-   4. Try to submit the form with all inputs valid and verify that a success message appears.
+   1. Go to "Index" page
+   2. Add a meal to any weekday by clicking on for example "Mo"
+   3. Go to "Shopping list" page
+   4. In the end of the list add your own item by clicking "Add Items", type for example "4 rolls of Toilet paper" and press enter.
+   5. Scroll to the top of the "Shopping list"
+   6. Try to submit the empty form and verify that "Send" button is disbled.
+   7. Try to submit the form with an invalid email address and verify that a relevant error message appears
+   8. Try to submit the form with email input valid and verify that a success message appears.
 
-In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
+Feature passed this test
 
-You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
+### Toggle meal to week
 
-If this section grows too long, you may want to split it off into a separate file and link to it from here.
+1. goto "Index"
+2. On a couple of meals click on a couple of Weekdays "Mo" - "Su"
+3. Confirm meals to show up on correct days.
+
+Feature passed this test
+
+### Toggle meal to favourites
+
+1. goto "Index"
+2. On a couple of meals click on the favourite heart.
+3. Confirm heart goes red.
+
+Feature passed this test
+
+### Add and remove additional shopping list items
+
+1. Got to "Shopping list"
+2. click "add items"
+3. type anything in the input box.
+4. Hit Enter on keyboard
+
+Feature passed this test
+
+### Test Random meal feature
+
+1. Got to "Week Schedule"
+2. hover the image on a meal and "Set a random dish"
+3. confirm new meal show up
+
+Feature passed this test
+
+### Find meals
+
+1. Got to "Find meal"
+2. Type in "fish" and hit enter
+3. Confirm you get a list of "fishy" items.
+
+Feature passed this test
+
+### Confirm Automated Shopping list
+
+1. Add one or more meals to week schedule
+2. Goto "Shopping list"
+3. Confirm ingredients for the selected meals show up in list
+
+Feature passed this test
+
+### Confirm Shopping list items checked
+
+1. Add one or more meals to week schedule
+2. Goto "Shopping list"
+3. click on a row on ingridient text or the checkbox
+4. confirm row is checked
+
+Feature passed this test
+
+### HTML & CSS Validator tests
+
+Each page must return no errors & warnings using [validator.w3.org](https://validator.w3.org/)
+
+#### Pages to test
+
+1. [index.html](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fmalmgrenola.github.io%2Ffeed-us%2Findex.html)
+2. [favourites.html](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fmalmgrenola.github.io%2Ffeed-us%2Ffavourites.html)
+3. [list.html](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fmalmgrenola.github.io%2Ffeed-us%2Flist.html)
+4. [meal.html](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fmalmgrenola.github.io%2Ffeed-us%2Fmeal.html)
+5. [week.html](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fmalmgrenola.github.io%2Ffeed-us%2Fweek.html)
+6. [404.html](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fmalmgrenola.github.io%2Ffeed-us%2F404.html)
+
+The pages does not have any errors or warnings.
 
 ### Known Bugs
 
 1. [themealdb](https://www.themealdb.com/api.php) is case sensitive in ingredients that means that "eggs" and "Eggs" will show up twice in the shopping list.
 2. emailjs has a limitation on 200 emails per month on the free plan.
 3. Since this site re renders all content in the sections using JQuery on each pages HTML validators yells a warning that h1-h6 is missing. Each page section has a `h1` and `h2` on order for the validators to accept the html without warnings. this has no impact on site functionallity.
+4. Site stores data based on browser fingerprint. changing browser will create a new dataset and the selected data will be lost. the future feature Add Social logins will ensure user can login on any device using the same dataset.
 
 ## Deployment
 
@@ -160,7 +245,8 @@ To change the default port please update in `package.json` under the scripts sec
 
 ### Media
 
-- The photos used in this site were obtained from ...
+The photos used in this site were obtained from:
+
 - https://www.vecteezy.com/vector-art/297563-bird-feeding-baby-bird
 
 ### Acknowledgements
