@@ -16,7 +16,6 @@ List user Stories:
 - As a user, I should be able to add items to the shopping list so I don't miss buying other items in the store.
 - As a user, I should be able to tick off items when I'm in the store so I know what I have left to find.
 - As a user, I would like to send my shopping list as an email to my fellow users, so I don't have to do all the shopping myself.
-- ...
 
 ### Navigation & Wireframes
 
@@ -63,8 +62,8 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 - [Shopping list](wireframes/shoppinglist.png) - Allows users to establish a shopping list where additional items can be added.
 - [Favourite meals](wireframes/favourites.png) - Allows users to see all meals set as users favourites.
 - [Meals details page](wireframes/meal.png) - let the user see the recipe details for the meal.
-- Set Random meals - If user does not want to find a meal its possible to use the random function in the weekly widget or the week page.
-- Custom 404 - Navigating to a page that do not exist will tell the user about the error. this works in Development and in Production.
+- Set Random meals - If the user does not want to find a meal it is possible to use the random function in the weekly widget or the week page.
+- Custom 404 - Navigating to a page that does not exist will tell the user about the error. This works in Development and in Production.
 
 ### Features Left to Implement
 
@@ -73,7 +72,7 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 
 ## Technologies Used
 
-In this section, all of the languages, frameworks, libraries, and any other tools that is used to construct this project are listed with its name, a link to its official site and a short sentence of why it was used.
+In this section, all of the languages, frameworks, libraries, and any other tools that are used to construct this project are listed with its name, a link to its official site and a short sentence of why it was used.
 
 - [HTML](#)
   - Used to render the DOM
@@ -101,18 +100,28 @@ In this section, all of the languages, frameworks, libraries, and any other tool
 
 ## Testing
 
-In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
+Site is tested on the following platforms and browsers
 
-Whenever it is feasible, prefer to automate your tests, and if you've done so, provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
-
-For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
+- Mac
+  - Google Chrome (91.0.4472.106)
+  - Safari (14.1.1)
+  - Firefox (89.0.1)
+- Windows 10
+  - Google Chrome
+  - Edge
+  - Firefox
+- Iphone 12
+  - Safari
+  - Google Chrome
+- Android
+  - Google Chrome
 
 ### Send email form
 
 The site has the feature to send emails with emailjs.
 Errors & Success in sending emails is displayed to the user in the UI. The form will not send the email if the email address has the wrong format.
 
-The send email feature correctly handles errors and send emails upon valid email addresses.
+The send email feature correctly handles errors and sends emails upon valid email addresses.
 
 #### Test email form
 
@@ -140,7 +149,7 @@ Feature passed this test
 
 1. goto "Index"
 2. On a couple of meals click on the favourite heart.
-3. Confirm heart goes red.
+3. Confirm the heart goes red.
 
 Feature passed this test
 
@@ -181,7 +190,7 @@ Feature passed this test
 
 1. Add one or more meals to week schedule
 2. Goto "Shopping list"
-3. click on a row on ingridient text or the checkbox
+3. click on a row on ingredient text or the checkbox
 4. confirm row is checked
 
 Feature passed this test
@@ -199,7 +208,7 @@ Each page should return no errors & warnings using [validator.w3.org](https://va
 5. [week.html](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fmalmgrenola.github.io%2Ffeed-us%2Fweek.html)
 6. [404.html](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fmalmgrenola.github.io%2Ffeed-us%2F404.html)
 
-The pages does not have any errors or warnings.
+All pages are validated without errors or warnings.
 
 ### CSS Validation
 
@@ -211,9 +220,9 @@ Site CSS should return no errors or warnings.
 
 1. [themealdb](https://www.themealdb.com/api.php) is case sensitive in ingredients that means that "eggs" and "Eggs" will show up twice in the shopping list.
 2. emailjs has a limitation on 200 emails per month on the free plan.
-3. Since this site re renders all content in the sections using JQuery on each pages HTML validators yells a warning that h1-h6 is missing. Each page section has a `h1` and `h2` on order for the validators to accept the html without warnings. this has no impact on site functionallity.
-4. Site stores data based on browser fingerprint. changing browser will create a new dataset and the selected data will be lost. the future feature Add Social logins will ensure user can login on any device using the same dataset.
-5. Github Pages will now have `Permissions-Policy: interest-cohort=()` header set. There is currently no [way to opt out of it](https://paramdeo.com/blog/opting-your-website-out-of-googles-floc-network#gitlab-pages). A warning will be seen in for example Chrome Developer tools.
+3. Since this site re-renders all content in the sections using JQuery on each page HTML validators yells a warning that h1-h6 is missing. Each page section has a `h1` and `h2` in order for the validators to accept the html without warnings. This has no impact on site functionality.
+4. Site stores data based on browser fingerprints. changing browser will create a new dataset and the selected data will be lost. The future feature Add Social logins will ensure users can login on any device using the same dataset.
+5. Github Pages will now have the `Permissions-Policy: interest-cohort=()` header set. There is currently no [way to opt out of it](https://paramdeo.com/blog/opting-your-website-out-of-googles-floc-network#gitlab-pages). A warning will be seen in for example Chrome Developer tools.
 
 ## Deployment
 
