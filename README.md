@@ -201,6 +201,10 @@ Each page must return no errors & warnings using [validator.w3.org](https://vali
 
 The pages does not have any errors or warnings.
 
+### CSS Validation
+
+[CSS Validator](https://jigsaw.w3.org/css-validator/validator?uri=malmgrenola.github.io%2Ffeed-us&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=sv)
+
 ### Known Bugs
 
 1. [themealdb](https://www.themealdb.com/api.php) is case sensitive in ingredients that means that "eggs" and "Eggs" will show up twice in the shopping list.
