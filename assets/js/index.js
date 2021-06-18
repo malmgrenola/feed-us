@@ -68,6 +68,11 @@ const Index = () => {
           })}
     </div>
   </div>
+  <div class="row d-md-none">
+    <div class="col text-center text-muted">
+          Goto <a href="#weekly-widget">Weekly Schedule</a>
+    </div>
+  </div>
   <div class="row">
         <div class="col-12 ${isMeals ? "col-md-9" : ""} m-0 p-2">${Hits({
     meals: gs.results
@@ -280,7 +285,7 @@ const Hits = ({ meals }) => {
                       </small>
                     </div>
                   </div>
-                  <div class="me-3">${Hamburger()}</div>
+                  <div class="me-4">${Hamburger()}</div>
                 </div>
             </div>
           </div>

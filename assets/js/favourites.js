@@ -32,6 +32,11 @@ const Page = () => {
         <h2>All your favourites</h2>
       </div>
     </div>
+    <div class="row d-md-none">
+      <div class="col text-center text-muted">
+            Goto <a href="#weekly-widget">Weekly Schedule</a>
+      </div>
+    </div>
   </header>
     <div class="row">
           <div class="col-12 ${isMeals ? "col-md-9" : ""} m-0 p-2">${Favourites(
