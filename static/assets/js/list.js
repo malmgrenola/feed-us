@@ -141,8 +141,6 @@ const listShoppinglists = () => {
           const messure = meal[`strMeasure${i}`];
 
           if (ingridient !== "" && ingridient) {
-            //console.log(ingridient);
-
             const selected =
               shoppingChecked.findIndex(item => item === ingridient) >= 0
                 ? true
@@ -151,10 +149,8 @@ const listShoppinglists = () => {
             const result = ingridients.find(({ name }) => name === ingridient);
 
             if (result) {
-              //console.log(1, result);
               result.messure.push(messure);
             } else {
-              //console.log(2, "add new ");
               ingridients.push({
                 name: ingridient,
                 messure: [messure],

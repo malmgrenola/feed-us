@@ -1,6 +1,5 @@
 (function() {
   emailjs.init("user_jkNTp7DNXkVvsWeNh9yY6");
-  console.log("emailjsinit");
 })();
 
 const emailjsSend = ({ templateParams }, cb) => {
