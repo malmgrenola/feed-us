@@ -31,7 +31,7 @@ Navigation bar is responsive and will fold down to a burger menu when it wont fi
 
 ### Data storage
 
-In order to track anonymous user we track users with a [fingerprint](https://github.com/fingerprintjs/fingerprintjs) and store the user data with [Google Firebase](https://firebase.google.com/docs/web/setup#from-the-cdn).
+Anonymous users are tracked with a [fingerprint](https://github.com/fingerprintjs/fingerprintjs) and the user data is stored with [Google Firebase](https://firebase.google.com/docs/web/setup#from-the-cdn).
 
 Here is an example user record stored on [Google Firebase](https://firebase.google.com/docs/web/setup#from-the-cdn).
 
@@ -39,15 +39,15 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 {
   "data": {
     "meals": {
-      "Mon": "52771",
-      "Tue": "123",
-      "Wed": "123"  ,
-      "Thu": "123",
+      "Mon": {mealobject},
+      "Tue": {mealobject},
+      "Wed": {mealobject},
+      "Thu": {mealobject},
       "Fri": null,
       "Sat": null,
-      "Sun": "123"
+      "Sun": {mealobject}
      },
-     "additionalItems": ["1 x Toiletpaper", "2 x lollipops"],
+     "additionalItems": ["1 x Toilet paper", "2 x lollipops"],
      "favlist": [mealobject,mealobject],
      "shoppingChecked": [itemObject,itemObject]
    },
@@ -188,7 +188,7 @@ Feature passed this test
 
 ### HTML & CSS Validator tests
 
-Each page must return no errors & warnings using [validator.w3.org](https://validator.w3.org/)
+Each page should return no errors & warnings using [validator.w3.org](https://validator.w3.org/)
 
 #### Pages to test
 
@@ -203,7 +203,9 @@ The pages does not have any errors or warnings.
 
 ### CSS Validation
 
-[CSS Validator](https://jigsaw.w3.org/css-validator/validator?uri=malmgrenola.github.io%2Ffeed-us&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=sv)
+Site CSS should return no errors or warnings.
+
+[CSS Validator testing style.css](https://jigsaw.w3.org/css-validator/validator?uri=malmgrenola.github.io%2Ffeed-us%2Fassets%2Fcss%2Fstyle.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
 ### Known Bugs
 
@@ -211,6 +213,7 @@ The pages does not have any errors or warnings.
 2. emailjs has a limitation on 200 emails per month on the free plan.
 3. Since this site re renders all content in the sections using JQuery on each pages HTML validators yells a warning that h1-h6 is missing. Each page section has a `h1` and `h2` on order for the validators to accept the html without warnings. this has no impact on site functionallity.
 4. Site stores data based on browser fingerprint. changing browser will create a new dataset and the selected data will be lost. the future feature Add Social logins will ensure user can login on any device using the same dataset.
+5. Github Pages will now have `Permissions-Policy: interest-cohort=()` header set. There is currently no [way to opt out of it](https://paramdeo.com/blog/opting-your-website-out-of-googles-floc-network#gitlab-pages). A warning will be seen in for example Chrome Developer tools.
 
 ## Deployment
 
