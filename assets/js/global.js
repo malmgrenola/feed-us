@@ -1,7 +1,6 @@
 let session = {};
 
 function initData() {
-  //console.log("initUserData - Loading");
   fbInit();
   const fpPromise = FingerprintJS.load();
 
