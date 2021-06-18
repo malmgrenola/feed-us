@@ -59,7 +59,7 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 ### Existing Features
 
 - [Find meals](wireframes/browse-meals.png) - allows users to find a recipe by searching for a dish by using the query field.
-- [Week Schedule](wireframes/planning.png) - allows users to get a weekly dinner overview.
+- [Week schedule](wireframes/planning.png) - allows users to get a weekly dinner overview.
 - [Shopping list](wireframes/shoppinglist.png) - Allows users to establish a shopping list where additional items can be added.
 - [Favourite meals](wireframes/favourites.png) - Allows users to see all meals set as users favourites.
 - [Meals details page](wireframes/meal.png) - let the user see the recipe details for the meal.
@@ -155,7 +155,7 @@ Feature passed this test
 
 ### Test Random meal feature
 
-1. Got to "Week Schedule"
+1. Got to "Week schedule"
 2. hover the image on a meal and "Set a random dish"
 3. confirm new meal show up
 
