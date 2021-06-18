@@ -196,6 +196,22 @@ GlobalSearch.prototype.setUrlParam = (key, value) => {
 
 let gs = new GlobalSearch(); // Global search on all pages
 
+const GlobalListItem = ({ meal, weekday }) => {
+  const active = globalInUserWeek({
+    weekday: weekday.abbr,
+    idMeal: meal.idMeal
+  });
+  return `<li><span class="dropdown-item" onclick="globalToggleMeal({weekday: '${
+    weekday.abbr
+  }', meal: '${encodeURIComponent(
+    JSON.stringify({ ...meal, strInstructions: "" })
+  )}'})">${
+    active
+      ? "<i class='far fa-trash-alt'></i> Remove this from"
+      : "<i class='fas fa-plus'></i> Have this on"
+  } ${weekday.name}</span></li>`;
+};
+
 // ---------------------------------------------- Footer
 $(document).ready(function() {
   footer();

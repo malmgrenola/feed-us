@@ -165,7 +165,7 @@ const Hits = ({ meals }) => {
           )}'})"><p>${weekday.abbr.slice(0, 2)}</p></span>`;
         };
 
-        const WeekListItem = ({ meal, weekday }) => {
+        const GlobalListItem = ({ meal, weekday }) => {
           const active = globalInUserWeek({
             weekday: weekday.abbr,
             idMeal: meal.idMeal
@@ -186,31 +186,31 @@ const Hits = ({ meals }) => {
                       <i class="fas fa-bars"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      ${WeekListItem({
+                      ${GlobalListItem({
                         meal: meal,
                         weekday: { abbr: "Mon", name: "Monday" }
                       })}
-                      ${WeekListItem({
+                      ${GlobalListItem({
                         meal: meal,
                         weekday: { abbr: "Tue", name: "Tuesday" }
                       })}
-                      ${WeekListItem({
+                      ${GlobalListItem({
                         meal: meal,
                         weekday: { abbr: "Wed", name: "Wednesday" }
                       })}
-                      ${WeekListItem({
+                      ${GlobalListItem({
                         meal: meal,
                         weekday: { abbr: "Thu", name: "Thursday" }
                       })}
-                      ${WeekListItem({
+                      ${GlobalListItem({
                         meal: meal,
                         weekday: { abbr: "Fri", name: "Friday" }
                       })}
-                      ${WeekListItem({
+                      ${GlobalListItem({
                         meal: meal,
                         weekday: { abbr: "Sat", name: "Saturday" }
                       })}
-                      ${WeekListItem({
+                      ${GlobalListItem({
                         meal: meal,
                         weekday: { abbr: "Sun", name: "Sunday" }
                       })}

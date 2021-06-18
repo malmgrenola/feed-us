@@ -191,27 +191,34 @@ const IndexFavCard = () => {
           <i class="fas fa-bars"></i>
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Mon', meal: '${encodeURIComponent(
-            JSON.stringify({ ...meal, strInstructions: "" })
-          )}'})">Have this on Monday</span></li>
-          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Tue', meal: '${encodeURIComponent(
-            JSON.stringify({ ...meal, strInstructions: "" })
-          )}'})">Have this on Tuesday</span></li>
-          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Wed', meal: '${encodeURIComponent(
-            JSON.stringify({ ...meal, strInstructions: "" })
-          )}'})">Have this on Wednesday</span></li>
-          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Thu', meal: '${encodeURIComponent(
-            JSON.stringify({ ...meal, strInstructions: "" })
-          )}'})">Have this on Thursday</span></li>
-          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Fri', meal: '${encodeURIComponent(
-            JSON.stringify({ ...meal, strInstructions: "" })
-          )}'})">Have this on Friday</span></li>
-          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Sat', meal: '${encodeURIComponent(
-            JSON.stringify({ ...meal, strInstructions: "" })
-          )}'})">Have this on Saturday</span></li>
-          <li><span class="dropdown-item" onclick="globalToggleMeal({weekday: 'Sun', meal: '${encodeURIComponent(
-            JSON.stringify({ ...meal, strInstructions: "" })
-          )}'})">Have this on Sunday</span></li>
+        ${GlobalListItem({
+          meal: meal,
+          weekday: { abbr: "Mon", name: "Monday" }
+        })}
+        ${GlobalListItem({
+          meal: meal,
+          weekday: { abbr: "Tue", name: "Tuesday" }
+        })}
+        ${GlobalListItem({
+          meal: meal,
+          weekday: { abbr: "Wed", name: "Wednesday" }
+        })}
+        ${GlobalListItem({
+          meal: meal,
+          weekday: { abbr: "Thu", name: "Thursday" }
+        })}
+        ${GlobalListItem({
+          meal: meal,
+          weekday: { abbr: "Fri", name: "Friday" }
+        })}
+        ${GlobalListItem({
+          meal: meal,
+          weekday: { abbr: "Sat", name: "Saturday" }
+        })}
+        ${GlobalListItem({
+          meal: meal,
+          weekday: { abbr: "Sun", name: "Sunday" }
+        })}
           <li><hr class="dropdown-divider"></li>
           <li><span class="dropdown-item" onclick="globalRemoveFav(${
             meal.idMeal
