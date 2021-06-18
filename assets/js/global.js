@@ -289,7 +289,7 @@ const GlobalWidget = () => {
   <aside>
     <div id="weekly-widget" class="container-fluid widget">
       <div class="row">
-        <div class="col"><h2>Week Schedule <a href="week.html" target="_self"><i class="fas fa-expand-alt a-icon"></i></a></h2></div>
+        <div class="col"><h2>Week schedule <a href="week.html" target="_self"><i class="fas fa-expand-alt a-icon"></i></a></h2></div>
       </div>
       <div class="row">${globalWeekdays
         .map(weekday => {

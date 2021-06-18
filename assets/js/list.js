@@ -53,7 +53,7 @@ function intiEmailjs() {
 }
 
 function render() {
-  $("#list").html(Page());
+  $("#list").html(`<div class="container-fluid">${Page()}</div>`);
   intiEmailjs();
 }
 
