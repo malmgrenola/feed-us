@@ -276,7 +276,7 @@ const GlobalWidget = () => {
             <div class="content text">
               <h5><a href="meal.html?m=${meal.idMeal}">${meal.strMeal}</a></h5>
             </div>
-            <div class="content icon">
+            <div class="content icon me-4">
               <i class="far fa-trash-alt a-icon" onclick="globalRemoveMealData({ weekday: '${
                 weekday.abbr
               }' });"></i>
@@ -288,7 +288,7 @@ const GlobalWidget = () => {
 
   return `
   <aside>
-    <div class="container widget">
+    <div id="weekly-widget" class="container-fluid widget">
       <div class="row">
         <div class="col"><h2>Week Schedule <a href="week.html" target="_self"><i class="fas fa-expand-alt a-icon"></i></a></h2></div>
       </div>
