@@ -198,9 +198,14 @@ const Page = () => {
       </div>
       <div class="row">
         <div class="col text-center pb-1">
-          <h3>Send my shopping list</h3>
+          <h5>Send my shopping list</h5>
           <form id="mylist-form" action="list.html">
-            <input type="email">
+            <input
+              type="email"
+              name="emailaddress"
+              placeholder="Email"
+              required
+            />
             <button class="btn btn-primary" type="submit" value="Go">Send</button>
           </form>
         </div>
