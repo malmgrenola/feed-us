@@ -107,14 +107,16 @@ Site is tested on the following platforms and browsers
   - Safari (14.1.1)
   - Firefox (89.0.1)
 - Windows 10
-  - Google Chrome
-  - Edge
-  - Firefox
+  - Google Chrome (91.0.4472.114)
+  - Edge (91.0.864.53)
+  - Firefox (89.0.1)
 - Iphone 12
   - Safari
   - Google Chrome
-- Android
+- Android Samsung S12
   - Google Chrome
+
+All tests pass on all platforms.
 
 ### Send email form
 
@@ -147,9 +149,10 @@ Feature passed this test
 
 ### Toggle meal to favourites
 
-1. goto "Index"
+1. goto "Find meal"
 2. On a couple of meals click on the favourite heart.
 3. Confirm the heart goes red.
+4. Goto "Favourite meals" and confirm Favourite meals show up in the list
 
 Feature passed this test
 
@@ -192,6 +195,21 @@ Feature passed this test
 2. Goto "Shopping list"
 3. click on a row on ingredient text or the checkbox
 4. confirm row is checked
+
+Feature passed this test
+
+### Confirm Meal Page
+
+1. Goto "Find meal"
+2. click on any dish name
+3. Confirm recipe reads fine
+
+Feature passed this test
+
+### Confirm Page not found
+
+1. Goto "https://malmgrenola.github.io/feed-us/wrong.html"
+2. Confirm you get a "Page not found" Page
 
 Feature passed this test
 
