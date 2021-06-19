@@ -68,7 +68,6 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 ### Features Left to Implement
 
 - Use social logins to use the custom data site on multiple devices.
-- ...
 
 ## Technologies Used
 
@@ -238,7 +237,7 @@ Site CSS should return no errors or warnings.
 
 1. [themealdb](https://www.themealdb.com/api.php) is case sensitive in ingredients that means that "eggs" and "Eggs" will show up twice in the shopping list.
 2. [themealdb](https://www.themealdb.com/api.php) some records in api has characters not valid when encoded with [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent). This would result in not be able to use the particular meal.
-3. emailjs has a limitation on 200 emails per month on the free plan.
+3. [emailjs](https://www.emailjs.com/) has a limitation on 200 emails per month on the free plan.
 4. Since this site re-renders all content in the sections using JQuery on each page HTML validators yells a warning that h1-h6 is missing. Each page section has a `h1` and `h2` in order for the validators to accept the html without warnings. This has no impact on site functionality.
 5. Site stores data based on browser fingerprints. changing browser will create a new dataset and the selected data will be lost. The future feature Add Social logins will ensure users can login on any device using the same dataset.
 6. Github Pages will now have the `Permissions-Policy: interest-cohort=()` header set. There is currently no [way to opt out of it](https://paramdeo.com/blog/opting-your-website-out-of-googles-floc-network#gitlab-pages). A warning will be seen in for example Chrome Developer tools.
@@ -273,13 +272,9 @@ This project uses `yarn` to start a development server.
 
 a http-server should start on port 3000 and the site is now available on `http://localhost:3000`.  
 Google API's used is locked to `localhost:3000` & deploy url `malmgrenola.github.com/feed-us`.  
-To change the default port please update in `package.json` under the scripts section. Please note that changing port will disable the usage of google api key provided in the project.
+To change the default port please update in `package.json` under the scripts section. Please note that changing port will disable the usage of the restricted google api key provided in the project.
 
 ## Credits
-
-### Content
-
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
 
 ### Media
 
