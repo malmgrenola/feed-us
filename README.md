@@ -2,13 +2,42 @@
 
 The site that helps you and your family plan the dinner for the week including shopping list management.
 
+Live site location:
+
+[Feed-Us Website](https://malmgrenola.github.io/feed-us)
+
+![last deployment](https://img.shields.io/github/last-commit/malmgrenola/feed-us/gh-pages?label=last%20live%20site%20deployment)
+
+![badge](https://img.shields.io/w3c-validation/html?style=plastic&targetUrl=https%3A%2F%2Fmalmgrenola.github.io%2Ffeed-us%2Findex.html)
+
+Live site screenshot:
 ![Feed us layout](wireframes/feedus-site.png)
+
+#### Table of Contents
+
+[UX](#ux)
+
+[Features](#features)
+
+- [Existing Features](#existing-features)
+  - [Site content](#site-content)
+  - [Style Information](#style-information)
+- [Features Left to Implement](#features-left-to-implement)
+
+[Technologies Used](#technologies-used)
+
+[Testing](#testing)
+
+- [Known issues](#known-issues)
+
+- [Deployment](#deployment)
+- [Development](#development)
+
+- [Credits](#credits)
 
 ## UX
 
 The typical website user is an adult ready to take the responsibility to plan the dinner for the whole week.
-
-List user Stories:
 
 - As a user, I would like to see my weekly dinner planning so I can get a dinner overview of what's up for dinner.
 - As a user, I would like to find a recipe and add it to the week's planning so that I can get an overview of what is for dinner.
@@ -17,18 +46,43 @@ List user Stories:
 - As a user, I should be able to tick off items when I'm in the store so I know what I have left to find.
 - As a user, I would like to send my shopping list as an email to my fellow users, so I don't have to do all the shopping myself.
 
-### Navigation & Wireframes
+Site screenshots is found in project folder [/wireframes](wireframes).
+
+Site wireframes:
+
+- [Find meal page](wireframes/find-meal.png) search meal page, showing search results. Also acts as site index page
+- [Weekly schedule Page](wireframes/week.png) showing the dishes selected for each day.
+- [Favourites Page](wireframes/favourites.png) showing the current favourite dishes.
+- [Shopping list Page](wireframes/list.png) showing the current shopping list with email possibility
+- [Meal page](wireframes/meal.png) showing selected meal ingredients and instructions.
+
+## Features
 
 The website contains a clear navigation on every page.
 The site is based on a navigational hierarchical tree structure.
 Navigation bar is responsive and will fold down to a burger menu when it wont fit the size.
 
-- [Entry page](wireframes/index.png) that suggests dish and is also the [search dish result page](wireframes/search-results.png)
-- [Weekly schedule Page](wireframes/week.png) showing the dishes selected for each day.
-- [Favourites Page](wireframes/favourites.png) showing the current favourite dishes.
-- [Shopping list Page](wireframes/list.png) showing the current shopping list with email possibility
+Navigation items:
+Find meal (the logo is also a link to Find meal)
+Week schedule
+Shopping list
+Favourite meals
 
-### Data storage
+Each page includes a footer element containing information about the site and links to site social accounts and link to favourites page.
+[Footer wireframe example](wireframes/footer.png)
+
+### Existing Features
+
+- Find meals - allows users to find a recipe by searching for a dish by using the query field.
+- Week schedule overview - allow users to get a weekly dinner overview including a weekly overview widget on pages that require it.
+- Shopping list - Allow users to establish a shopping list based on the weekly schedule where additional items can be added.
+- Favourite meals - Allow users to see all meals set as users favourites.
+- Meal cooking instructions - let the user see the recipe details for the meal.
+- Set Random meals - If the user does not want to find a meal it is possible to use the random function in the weekly widget or the week page.
+- Custom 404 - Navigating to a page that does not exist will tell the user about the error. This works in Development and in Production.
+- [Data Storage](#data-storage) - Allow user selections to be stored between sessions.
+
+#### Data storage
 
 Anonymous users are tracked with a [fingerprint](https://github.com/fingerprintjs/fingerprintjs) and the user data is stored with [Google Firebase](https://firebase.google.com/docs/web/setup#from-the-cdn).
 
@@ -53,17 +107,19 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
  }
 ```
 
-## Features
+#### Site content
 
-### Existing Features
+Most of the site content is provided from API.
 
-- [Find meals](wireframes/browse-meals.png) - allows users to find a recipe by searching for a dish by using the query field.
-- [Week schedule](wireframes/planning.png) - allows users to get a weekly dinner overview.
-- [Shopping list](wireframes/shoppinglist.png) - Allows users to establish a shopping list where additional items can be added.
-- [Favourite meals](wireframes/favourites.png) - Allows users to see all meals set as users favourites.
-- [Meals details page](wireframes/meal.png) - let the user see the recipe details for the meal.
-- Set Random meals - If the user does not want to find a meal it is possible to use the random function in the weekly widget or the week page.
-- Custom 404 - Navigating to a page that does not exist will tell the user about the error. This works in Development and in Production.
+#### Style Information
+
+##### Selected Typefaces
+
+Site use system sans-serif provided by bootstrap to stay clean on all supported platforms
+
+##### Color Scheme
+
+The site color scheme is light and high contrast, with user information text and navigation bar muted gray.
 
 ### Features Left to Implement
 
@@ -73,11 +129,11 @@ Here is an example user record stored on [Google Firebase](https://firebase.goog
 
 In this section, all of the languages, frameworks, libraries, and any other tools that are used to construct this project are listed with its name, a link to its official site and a short sentence of why it was used.
 
-- [HTML](#)
+- [HTML5](https://www.w3.org/TR/html52/)
   - Used to render the DOM
-- [CSS](#)
+- [CSS](https://www.w3.org/Style/CSS/Overview.en.html)
   - Used to layout the site.
-- [Javascript](#)
+- [Javascript](https://developer.mozilla.org/en/JavaScript)
   - Used to handle site code logic and API integrations
 - [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
   - used to make site responsive
@@ -89,7 +145,7 @@ In this section, all of the languages, frameworks, libraries, and any other tool
   - The project uses **JQuery** to simplify DOM manipulation.
 - [Google Firebase](https://firebase.google.com/docs/web/setup#from-the-cdn)
   - Used to store and recall user data
-  - https://console.firebase.google.com/project/neon-research-304412/overview
+  - https://console.firebase.google.com/project/neon-research-304412/overview (restricted access)
 - [Yarn](https://yarnpkg.com/)
   - Used to start dev environment
 - [fingerprintjs](https://github.com/fingerprintjs/fingerprintjs)
@@ -233,14 +289,14 @@ Site CSS should return no errors or warnings.
 
 [CSS Validator testing style.css](https://jigsaw.w3.org/css-validator/validator?uri=malmgrenola.github.io%2Ffeed-us%2Fassets%2Fcss%2Fstyle.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
-### Known Bugs
+### Known issues
 
 1. [themealdb](https://www.themealdb.com/api.php) is case sensitive in ingredients that means that "eggs" and "Eggs" will show up twice in the shopping list.
 2. [themealdb](https://www.themealdb.com/api.php) some records in api has characters not valid when encoded with [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent). This would result in not be able to use the particular meal.
 3. [emailjs](https://www.emailjs.com/) has a limitation on 200 emails per month on the free plan.
 4. Since this site re-renders all content in the sections using JQuery on each page HTML validators yells a warning that h1-h6 is missing. Each page section has a `h1` and `h2` in order for the validators to accept the html without warnings. This has no impact on site functionality.
 5. Site stores data based on browser fingerprints. changing browser will create a new dataset and the selected data will be lost. The future feature Add Social logins will ensure users can login on any device using the same dataset.
-6. Github Pages will now have the `Permissions-Policy: interest-cohort=()` header set. There is currently no [way to opt out of it](https://paramdeo.com/blog/opting-your-website-out-of-googles-floc-network#gitlab-pages). A warning will be seen in for example Chrome Developer tools.
+6. Github Pages will now have the `Permissions-Policy: interest-cohort=()` header set. There is currently no [way to opt out of it](https://paramdeo.com/blog/opting-your-website-out-of-googles-floc-network#github-pages). A warning will be seen in for example Chrome Developer tools.
 
 ## Deployment
 
@@ -251,7 +307,7 @@ The command `git subtree push --prefix static origin gh-pages` is added to `pack
 
 Deploy by:
 
-1. Fork the [feed-us repo](https://github.io/malmgrenola/feed-us)
+1. Fork the [feed-us repo](https://github.com/malmgrenola/feed-us)
 2. In the terminal run `git clone https://github.com/{your-own-gituser-here}/feed-us.git` - to fetch code
 3. In the terminal run `cd feed-us` - to place yourself in the root of the project.
 4. In the terminal run `yarn` - to download all dependencies
@@ -264,7 +320,7 @@ If deployed to anything other than [malmgrenola.github.io/feed-us](https://malmg
 
 This project uses `yarn` to start a development server.
 
-1. Fork the [feed-us repo](https://github.io/malmgrenola/feed-us)
+1. Fork the [feed-us repo](https://github.com/malmgrenola/feed-us)
 2. In the terminal run `git clone https://github.com/{your-own-gituser-here}/feed-us.git` - to fetch code
 3. In the terminal run `cd feed-us` - to place yourself in the root of the project.
 4. In the terminal run `yarn` - to download all dependencies
@@ -284,7 +340,6 @@ The photos used in this site were obtained from:
 
 ### Acknowledgements
 
-- I received inspiration for drag and drop from https://mdbootstrap.com/docs/standard/plugins/drag-and-drop/
 - I received inspiration from [allrecipes](https://www.allrecipes.com/) and [simply recipes](https://www.simplyrecipes.com/)
 - I received inspiration for the week planner from [freepik](https://www.freepik.com/premium-vector/weekly-planner-template-with-floral-watercolor_5643584.htm)
 - I received inspiration for loading images from [Creating a CSS Animated Loading Card](https://dev.to/chris__sev/creating-a-css-animated-loading-card-5187)
