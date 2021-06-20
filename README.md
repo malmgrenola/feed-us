@@ -244,34 +244,34 @@ Site CSS should return no errors or warnings.
 
 ## Deployment
 
-Site is deployed to [malmgrenola.github.com/feed-us](https://malmgrenola.github.com/feed-us) using Github Pages.
+Site is deployed to [malmgrenola.github.io/feed-us](https://malmgrenola.github.io/feed-us) using Github Pages.
 
 The `static` subfolder is deployed by pushing `static` folder to it's own branch `gh-pages`, used by Github Pages to deploy the site.
 The command `git subtree push --prefix static origin gh-pages` is added to `package.json` as script deploy, making it possible to run `yarn deploy` from the project root folder.
 
 Deploy by:
 
-1. Fork the [feed-us repo](https://github.com/malmgrenola/feed-us)
+1. Fork the [feed-us repo](https://github.io/malmgrenola/feed-us)
 2. In the terminal run `git clone https://github.com/{your-own-gituser-here}/feed-us.git` - to fetch code
 3. In the terminal run `cd feed-us` - to place yourself in the root of the project.
 4. In the terminal run `yarn` - to download all dependencies
 5. commit your changes to your forked repo
 6. in a terminal run `yarn deploy` - to fire deploy script to Google Pages with custom root folder.
 
-If deployed to anything other than [malmgrenola.github.com/feed-us](https://malmgrenola.github.com/feed-us) you must create your own instances of Google Firebase with your own api keys provided in the [firebase-api.js](https://github.com/malmgrenola/feed-us/blob/main/static/assets/js/firebase-api.js#L2) config section. Full [guideline documentation](https://cloud.google.com/firestore/docs/client/get-firebase) is provided by Google.
+If deployed to anything other than [malmgrenola.github.io/feed-us](https://malmgrenola.github.io/feed-us) you must create your own instances of Google Firebase with your own api keys provided in the [firebase-api.js](https://github.com/malmgrenola/feed-us/blob/main/static/assets/js/firebase-api.js#L2) config section. Full [guideline documentation](https://cloud.google.com/firestore/docs/client/get-firebase) is provided by Google.
 
 ## Development
 
 This project uses `yarn` to start a development server.
 
-1. Fork the [feed-us repo](https://github.com/malmgrenola/feed-us)
+1. Fork the [feed-us repo](https://github.io/malmgrenola/feed-us)
 2. In the terminal run `git clone https://github.com/{your-own-gituser-here}/feed-us.git` - to fetch code
 3. In the terminal run `cd feed-us` - to place yourself in the root of the project.
 4. In the terminal run `yarn` - to download all dependencies
 5. `yarn dev` - to start a dev environment.
 
 a http-server should start on port 3000 and the site is now available on `http://localhost:3000`.  
-Google API's used is locked to `localhost:3000` & deploy url `malmgrenola.github.com/feed-us`.  
+Google API's used is locked to `localhost:3000` & deploy url `malmgrenola.github.io/feed-us`.  
 To change the default port please update in `package.json` under the scripts section. Please note that changing port will disable the usage of the restricted google api key provided in the project.
 
 ## Credits
