@@ -46,7 +46,7 @@ The typical website user is an adult ready to take the responsibility to plan th
 - As a user, I should be able to tick off items when I'm in the store so I know what I have left to find.
 - As a user, I would like to send my shopping list as an email to my fellow users, so I don't have to do all the shopping myself.
 
-Site screenshots is found in project folder [/wireframes](wireframes).
+Site screenshots are found in the project folder [/wireframes](wireframes).
 
 Site wireframes:
 
@@ -292,7 +292,7 @@ Site CSS should return no errors or warnings.
 ### Known issues
 
 1. [themealdb](https://www.themealdb.com/api.php) is case sensitive in ingredients that means that "eggs" and "Eggs" will show up twice in the shopping list.
-2. [themealdb](https://www.themealdb.com/api.php) some records in api has characters not valid when encoded with [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent). This would result in not be able to use the particular meal.
+2. During site test and adding meal to a weekday, there was a meal from [themealdb](https://www.themealdb.com/api.php) that could not be encoded with [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent). This resulted that it was not possible to add the particular meal, the problem cannot currently be reproduced so it's not possible to write a catch error function.
 3. [emailjs](https://www.emailjs.com/) has a limitation on 200 emails per month on the free plan.
 4. Since this site re-renders all content in the sections using JQuery on each page HTML validators yells a warning that h1-h6 is missing. Each page section has a `h1` and `h2` in order for the validators to accept the html without warnings. This has no impact on site functionality.
 5. Site stores data based on browser fingerprints. changing browser will create a new dataset and the selected data will be lost. The future feature Add Social logins will ensure users can login on any device using the same dataset.
@@ -302,7 +302,7 @@ Site CSS should return no errors or warnings.
 
 Site is deployed to [malmgrenola.github.io/feed-us](https://malmgrenola.github.io/feed-us) using Github Pages.
 
-The `static` subfolder is deployed by pushing `static` folder to it's own branch `gh-pages`, used by Github Pages to deploy the site.
+The `static` subfolder is deployed by pushing the `static` folder to its own branch `gh-pages`, used by Github Pages to deploy the site.
 The command `git subtree push --prefix static origin gh-pages` is added to `package.json` as script deploy, making it possible to run `yarn deploy` from the project root folder.
 
 Deploy by:
